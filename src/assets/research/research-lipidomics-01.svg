@@ -1,40 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t">
   <title id="t">Lipid molecules with head groups and fatty-acid chains, separated and detected as peaks. Illustration only.</title>
-  <rect width="1600" height="900" fill="#E9F1EE"/>
+  <rect width="1600" height="900" fill="#E7EDF8"/>
   <!-- lipid 1 -->
   <g transform="translate(220 240)">
-    <circle cx="0" cy="0" r="46" fill="#1F6F5C"/>
-    <path d="M-18,40 q-20,60 0,120 q20,60 0,120" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M18,40 q20,60 0,120 q-20,60 0,120" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="46" fill="#1A4CC8"/>
+    <path d="M-18,40 q-20,60 0,120 q20,60 0,120" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round"/>
+    <path d="M18,40 q20,60 0,120 q-20,60 0,120" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round"/>
   </g>
   <!-- lipid 2 -->
   <g transform="translate(400 240)">
-    <circle cx="0" cy="0" r="46" fill="#1F6F5C"/>
-    <path d="M-18,40 q-20,60 0,120 q20,60 0,120" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M18,40 q20,60 0,120 l30,60 l-10,70" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="0" cy="0" r="46" fill="#1A4CC8"/>
+    <path d="M-18,40 q-20,60 0,120 q20,60 0,120" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round"/>
+    <path d="M18,40 q20,60 0,120 l30,60 l-10,70" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <!-- lipid 3 (shorter chains) -->
   <g transform="translate(580 240)">
-    <circle cx="0" cy="0" r="46" fill="#E2A33B" stroke="#0F1F2E" stroke-width="4"/>
-    <path d="M-18,40 q-20,50 0,100 q20,50 0,90" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round"/>
-    <path d="M18,40 q20,50 0,100 q-20,50 0,90" fill="none" stroke="#0F1F2E" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="46" fill="#FFC000" stroke="#0E2841" stroke-width="4"/>
+    <path d="M-18,40 q-20,50 0,100 q20,50 0,90" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round"/>
+    <path d="M18,40 q20,50 0,100 q-20,50 0,90" fill="none" stroke="#0E2841" stroke-width="10" stroke-linecap="round"/>
   </g>
   <!-- membrane hint -->
-  <g fill="#FFFFFF" stroke="#3F505C" stroke-width="3" opacity="0.8">
+  <g fill="#FFFFFF" stroke="#44536C" stroke-width="3" opacity="0.8">
     <circle cx="200" cy="700" r="20"/><circle cx="250" cy="700" r="20"/><circle cx="300" cy="700" r="20"/><circle cx="350" cy="700" r="20"/>
     <circle cx="400" cy="700" r="20"/><circle cx="450" cy="700" r="20"/><circle cx="500" cy="700" r="20"/><circle cx="550" cy="700" r="20"/><circle cx="600" cy="700" r="20"/>
   </g>
-  <g stroke="#3F505C" stroke-width="3" opacity="0.8">
+  <g stroke="#44536C" stroke-width="3" opacity="0.8">
     <line x1="200" y1="720" x2="200" y2="770"/><line x1="250" y1="720" x2="250" y2="770"/><line x1="300" y1="720" x2="300" y2="770"/><line x1="350" y1="720" x2="350" y2="770"/>
     <line x1="400" y1="720" x2="400" y2="770"/><line x1="450" y1="720" x2="450" y2="770"/><line x1="500" y1="720" x2="500" y2="770"/><line x1="550" y1="720" x2="550" y2="770"/><line x1="600" y1="720" x2="600" y2="770"/>
   </g>
   <!-- chromatogram / spectrum panel -->
   <g transform="translate(780 150)">
-    <rect x="0" y="0" width="680" height="600" rx="20" fill="#FFFFFF" stroke="#D3DEDB" stroke-width="3"/>
-    <line x1="70" y1="520" x2="630" y2="520" stroke="#0F1F2E" stroke-width="3"/>
-    <line x1="70" y1="520" x2="70" y2="70" stroke="#0F1F2E" stroke-width="3"/>
-    <path d="M70,515 C120,510 140,500 160,470 C180,430 190,300 210,300 C230,300 240,470 260,500 C280,515 300,512 320,500 C340,480 350,200 370,200 C390,200 400,480 420,505 C440,515 460,515 480,500 C500,470 510,380 530,380 C550,380 560,500 590,512 L630,515" fill="none" stroke="#1F6F5C" stroke-width="6" stroke-linejoin="round"/>
-    <circle cx="370" cy="200" r="12" fill="#E2A33B"/>
-    <text x="630" y="565" text-anchor="end" font-family="IBM Plex Mono, Menlo, monospace" font-size="24" fill="#4A5B66">retention time</text>
+    <rect x="0" y="0" width="680" height="600" rx="20" fill="#FFFFFF" stroke="#D3DAE6" stroke-width="3"/>
+    <line x1="70" y1="520" x2="630" y2="520" stroke="#0E2841" stroke-width="3"/>
+    <line x1="70" y1="520" x2="70" y2="70" stroke="#0E2841" stroke-width="3"/>
+    <path d="M70,515 C120,510 140,500 160,470 C180,430 190,300 210,300 C230,300 240,470 260,500 C280,515 300,512 320,500 C340,480 350,200 370,200 C390,200 400,480 420,505 C440,515 460,515 480,500 C500,470 510,380 530,380 C550,380 560,500 590,512 L630,515" fill="none" stroke="#1A4CC8" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="370" cy="200" r="12" fill="#FFC000"/>
+    <text x="630" y="565" text-anchor="end" font-family="IBM Plex Mono, Menlo, monospace" font-size="24" fill="#55657E">retention time</text>
   </g>
 </svg>

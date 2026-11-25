@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t">
   <title id="t">A network of nodes and edges linking proteins, lipids, and pathways. Illustration only.</title>
-  <rect width="1600" height="900" fill="#E9F1EE"/>
-  <g stroke="#3F505C" stroke-width="4" opacity="0.8">
+  <rect width="1600" height="900" fill="#E7EDF8"/>
+  <g stroke="#44536C" stroke-width="4" opacity="0.8">
     <line x1="300" y1="300" x2="520" y2="200"/><line x1="300" y1="300" x2="480" y2="450"/><line x1="300" y1="300" x2="260" y2="560"/>
     <line x1="520" y1="200" x2="760" y2="260"/><line x1="520" y1="200" x2="480" y2="450"/>
     <line x1="480" y1="450" x2="760" y2="260"/><line x1="480" y1="450" x2="700" y2="560"/><line x1="480" y1="450" x2="260" y2="560"/>
@@ -12,16 +12,16 @@
     <line x1="1200" y1="580" x2="1420" y2="440"/><line x1="1200" y1="580" x2="1000" y2="720"/><line x1="720" y1="760" x2="1000" y2="720"/>
     <line x1="260" y1="560" x2="460" y2="700"/>
   </g>
-  <g fill="#1F6F5C" stroke="#0F1F2E" stroke-width="4">
+  <g fill="#1A4CC8" stroke="#0E2841" stroke-width="4">
     <circle cx="300" cy="300" r="26"/><circle cx="520" cy="200" r="22"/><circle cx="260" cy="560" r="22"/>
     <circle cx="760" cy="260" r="30"/><circle cx="700" cy="560" r="28"/><circle cx="1000" cy="180" r="22"/>
     <circle cx="1240" cy="320" r="26"/><circle cx="1420" cy="440" r="22"/><circle cx="1200" cy="580" r="26"/>
     <circle cx="1000" cy="720" r="22"/><circle cx="720" cy="760" r="22"/><circle cx="460" cy="700" r="20"/>
   </g>
-  <g fill="#E2A33B" stroke="#0F1F2E" stroke-width="4">
+  <g fill="#FFC000" stroke="#0E2841" stroke-width="4">
     <circle cx="480" cy="450" r="40"/><circle cx="980" cy="420" r="44"/>
   </g>
-  <g fill="#FFFFFF" stroke="#0F1F2E" stroke-width="4">
+  <g fill="#FFFFFF" stroke="#0E2841" stroke-width="4">
     <circle cx="1100" cy="520" r="14"/><circle cx="860" cy="330" r="14"/><circle cx="600" cy="650" r="14"/>
   </g>
 </svg>
