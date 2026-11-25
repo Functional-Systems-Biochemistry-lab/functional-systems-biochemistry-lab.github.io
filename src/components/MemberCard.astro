@@ -1,5 +1,5 @@
 ---
-// 구성원 카드: 정사각 사진(없으면 이니셜), 이름, 과정, 연구 주제, 이메일(동의 시)
+// 구성원 카드: 정사각 사진(없으면 사진 칸을 생략하고 글만 표시), 이름, 과정, 연구 주제, 이메일(동의 시)
 import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import { memberName, memberTopic, type MemberEntry } from '../lib/content';
@@ -20,25 +20,17 @@ const photo = resolveAsset(d.photo);
 const name = memberName(member, locale);
 const altName = locale === 'ko' ? d.name_en : d.name_ko;
 const topic = memberTopic(member, locale);
-const initials = d.name_en
-  .split(/\s+/)
-  .map((p) => p[0] ?? '')
-  .join('')
-  .slice(0, 2)
-  .toUpperCase();
 const isAlumni = d.role === 'alumni';
 ---
 
-<article class:list={['card', 'member-card', { 'member-card--compact': compact }]}>
-  <div class="member-card__photo" aria-hidden={photo ? undefined : 'true'}>
-    {
-      photo ? (
+<article class:list={['card', 'member-card', { 'member-card--compact': compact, 'member-card--nophoto': !photo }]}>
+  {
+    photo && (
+      <div class="member-card__photo">
         <Image src={photo} alt={name} width={320} height={320} {...responsive(photo, [160, 320, 480], '160px')} />
-      ) : (
-        <span class="member-card__initials">{initials}</span>
-      )
-    }
-  </div>
+      </div>
+    )
+  }
   <div class="card__body">
     <h3 class="member-card__name">
       {link ? <a href={link}>{name}</a> : name}
@@ -82,13 +74,6 @@ const isAlumni = d.role === 'alumni';
     object-fit: cover;
     display: block;
   }
-  .member-card__initials {
-    font-family: var(--font-mono);
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-  }
   .member-card__name {
     font-size: var(--fs-h3);
     margin: 0 0 4px;
@@ -117,9 +102,15 @@ const isAlumni = d.role === 'alumni';
     grid-template-columns: 120px 1fr;
     align-items: center;
   }
+  /* 가로 카드: 사진은 120px 정사각 한 칸에 고정(카드 높이를 따라 커지지 않음), 글 영역이 나머지를 모두 차지 */
   .member-card--compact .member-card__photo {
+    width: 100%;
     aspect-ratio: 1 / 1;
-    height: 100%;
+    align-self: start;
+  }
+  /* 사진이 없으면 사진 칸 없이 글이 카드 전체를 씀 */
+  .member-card--compact.member-card--nophoto {
+    grid-template-columns: 1fr;
   }
   @media (max-width: 400px) {
     .member-card--compact {

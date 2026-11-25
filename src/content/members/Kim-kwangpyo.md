@@ -1,6 +1,6 @@
 ---
 id: Kim-kwangpyo
-name_en: Kwangpyo Kim
+name_en: Kwang Pyo Kim
 name_ko: 김광표
 role: pi
 since: null
