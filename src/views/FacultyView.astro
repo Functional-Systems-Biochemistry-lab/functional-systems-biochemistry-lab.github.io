@@ -29,11 +29,12 @@ const { publications } = loadPublications(slugs);
 const selected = publications.filter((p) => p.selected);
 const aliasKeys = aliasKeySet(members.map((m) => m.data.aliases));
 
+// 주소가 있는 링크만 표시합니다. 비어 있는 링크(예: PubMed)는 [TODO] 칩 대신 줄 자체를 숨깁니다.
 const links = [
   { key: 'scholar', label: 'Google Scholar', url: d.links?.scholar },
   { key: 'orcid', label: 'ORCID', url: d.links?.orcid },
   { key: 'pubmed', label: 'PubMed', url: d.links?.pubmed },
-];
+].filter((l) => isReal(l.url));
 const email = d.email;
 ---
 
@@ -65,22 +66,20 @@ const email = d.email;
           <dd>
             {isReal(email) ? <a href={`mailto:${email}`}>{email}</a> : <TodoText text={email} />}
           </dd>
-          <dt>{t('faculty.links')}</dt>
-          <dd class="profile__links">
-            {
-              links.map((l) =>
-                isReal(l.url) ? (
-                  <a href={l.url} rel="noopener">
-                    {l.label}
-                  </a>
-                ) : (
-                  <span class="muted">
-                    {l.label} <TodoText text="[TODO]" />
-                  </span>
-                ),
-              )
-            }
-          </dd>
+          {
+            links.length > 0 && (
+              <>
+                <dt>{t('faculty.links')}</dt>
+                <dd class="profile__links">
+                  {links.map((l) => (
+                    <a href={l.url} rel="noopener">
+                      {l.label}
+                    </a>
+                  ))}
+                </dd>
+              </>
+            )
+          }
         </dl>
         <div class="prose profile__bio" set:html={page.rendered?.html ?? ''} />
       </div>

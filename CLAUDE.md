@@ -459,7 +459,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q8 | 2024~2026 논문 목록 | Publications | 비어 있음 | 열림 |
 | Q9 | GitHub 계정/조직명(주소) | 배포 | – | 닫힘(2026-11-25): Organization `Functional-Systems-Biochemistry-lab`, 저장소 `functional-systems-biochemistry-lab.github.io` |
 | Q10 | 학교·학과 도메인 사용 가능 여부 | 주소 | `github.io` | 열림 |
-| Q11 | Contact 이메일·전화·우편번호 | Contact | `[TODO]` | 열림 |
+| Q11 | Contact 이메일·전화·우편번호 | Contact | – | 대부분 닫힘(2026-11-25): 사용자가 `site.yml`에 이메일·전화·우편번호·주소(실험연구동 A동 101, 102호) 입력. 남은 것: 영문 건물명은 번역("Experimental Research Building A")이라 학교 공식 영문명 확인 필요 |
 | Q12 | Gallery 사진과 초상 동의 | Gallery | Phase 2 | 열림 |
 | Q13 | 이메일 표기 난독화 여부 | Contact, Members | 사용 안 함 | 열림 |
 | Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 질량 스펙트럼 SVG + "Illustration only" | 열림 |
@@ -498,3 +498,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.4: GitHub 공개 준비. 배포 주소 확정(D16 확정, Q9 닫힘): `https://functional-systems-biochemistry-lab.github.io`, base `/`. `.gitignore`에 `inbox/`·`.env.*`(`.env.example` 제외) 추가. Draft 띠가 켜진 동안 robots.txt `Disallow: /`와 전 페이지 `noindex` 메타(D25, `src/lib/draft.ts`). R5·R12 보강(Public 저장소 공개 범위, 멤버 동의 후 파일 생성, `inbox/` git 제외, 비밀키·미발표 데이터·임상 정보·대용량 원본 커밋 금지, 커밋 전 `git status`). 공개 체크리스트에 noindex 제거 확인 추가.
 - 2026-11-25 rev.5: 배경 그림·부드러운 스크롤 추가(D26). `src/data/background.yml`(설정), `src/lib/background.ts`(검증·기본값), `src/components/Backdrops.astro`(그림 층 + Lenis 스크롤 + 패럴랙스), `src/assets/backdrops/`(샘플 SVG 7개, `license: own`), `scripts/check.mjs`(설정 점검), 의존성 `lenis`. `docs/MAINTAINING.md` 3.6 추가. 참고: Wix 사이트(leejoosang.wixsite.com/ngml)의 고정 배경·구역에 걸친 그림·부드러운 스크롤 느낌.
 - 2026-11-25 rev.6: Contact 지도 추가(D27, `inbox/fsb-contact-map-image.patch`). `site.yml` `contact`에 `map_embed_url`(구글 퍼가기 iframe)·`map_image`·`map_credit`·`map_links` 지원(`src/lib/site.ts`, `src/views/ContactView.astro`), UI 문구 `contact.map_alt`·`contact.map_embed_note`. §5.8과 §8 금지 목록을 "구글 지도 퍼가기 iframe만 허용, 그 외 외부 iframe 금지"로 수정. 브랜치 `feat/contact-map-image`.
+- 2026-11-25 rev.7: Faculty 페이지의 `[TODO]` 칩 제거(사용자 요청). 주소가 없는 외부 링크(PubMed)는 `[TODO]` 칩 대신 줄을 숨김(`src/views/FacultyView.astro`). 푸터 영문 주소를 국문 주소 번역으로 채움(`site.yml`, 공식 영문 건물명은 Q11에 남김). 해결된 학과 URL의 `[TODO]` 주석 삭제. `[TODO]` 75→73건.
