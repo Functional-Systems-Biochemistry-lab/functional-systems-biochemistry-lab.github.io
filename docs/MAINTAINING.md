@@ -102,7 +102,7 @@ status: draft
 
 - 본문이나 설정에 `[TODO: …]` 가 있으면 "아직 확인되지 않은 정보"라는 뜻입니다. 사이트에는 노란 표식으로 보입니다. 공개 전에 모두 없어야 합니다.
 - 각 파일의 `status` 는 `draft`(초안) → `review`(검토 중) → `final`(확정) 순서입니다. 교수님 확인 후 `final`.
-- 사이트 상단의 "Draft — content under review" 띠는 공개할 때 끕니다: `.github/workflows/deploy.yml` 에서 `PUBLIC_DRAFT_BANNER: "false"`.
+- 사이트 상단의 "Draft — content under review" 띠는 공개할 때 끕니다: `.github/workflows/deploy.yml` 에서 `PUBLIC_DRAFT_BANNER: "false"`. 띠가 켜진 동안은 검색엔진 차단(robots.txt `Disallow: /`, `noindex` 메타)도 같이 걸려 있고, 띠를 끄면 함께 풀립니다. 끈 뒤 배포된 페이지 소스에 `noindex` 가 없는지 확인합니다.
 
 ## 5. 로컬에서 미리 보기 (선택)
 

@@ -11,6 +11,7 @@ import { defaultLocale, locales } from '../i18n/config';
 import { stripLocale, useTranslations } from '../lib/i18n';
 import { isReal, site, siteName } from '../lib/site';
 import { absoluteHref, withBase } from '../lib/url';
+import { isDraft } from '../lib/draft';
 import DraftBanner from '../components/DraftBanner.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -41,6 +42,8 @@ const alternates = locales.map((l) => ({ lang: l, href: absoluteHref(l, pathNoLo
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    {/* Draft 모드 동안 검색엔진 색인 차단. 띠를 끄면(PUBLIC_DRAFT_BANNER=false) 함께 사라짐 (CLAUDE.md D25) */}
+    {isDraft && <meta name="robots" content="noindex" />}
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />

@@ -6,9 +6,9 @@ import { defaultLocale, locales } from './src/i18n/config.ts';
 import { remarkTodo } from './src/lib/remark-todo.mjs';
 import { remarkLocalizeLinks } from './src/lib/remark-localize-links.mjs';
 
-// 배포 주소 — GitHub Pages 주소가 정해지면 환경변수(SITE_URL, BASE_PATH) 또는 아래 기본값을 바꿉니다.
-// [TODO: Q9 — 실제 배포 주소. 예: https://<계정>.github.io 와 base '/']
-const site = process.env.SITE_URL || 'https://fsb-lab.invalid';
+// 배포 주소 (CLAUDE.md §7.5, D16). GitHub Pages: https://functional-systems-biochemistry-lab.github.io
+// 다른 주소로 시험 배포할 때만 환경변수 SITE_URL / BASE_PATH 로 덮어씁니다.
+const site = process.env.SITE_URL || 'https://functional-systems-biochemistry-lab.github.io';
 const base = process.env.BASE_PATH || '/';
 
 // https://astro.build/config

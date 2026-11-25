@@ -32,14 +32,14 @@
 - **R2 사실 날조 금지**: 멤버, 논문, 수상, 연구비, 장비, 모집 조건, 날짜, 연락처를 지어내지 않음. 모르면 `[TODO: 필요한 정보]`로 표시하고 §12에 기록.
 - **R3 출처·상태 표기**: 사실을 담은 콘텐츠 파일의 frontmatter에 `source`와 `status`(draft/review/final) 기록. 사용자·교수님 확인 전은 `draft`.
 - **R4 문구 수준**: 분야·기술의 일반적 정의 수준은 초안으로 작성 가능. 연구실 고유 성과, 수치, 우수성 주장은 근거 자료 없이 작성 금지.
-- **R5 개인정보**: 멤버는 `consent: true`일 때만 렌더링. 개인 전화번호, 학번, 집 주소 게시 금지. 사진·이메일·진로는 본인 동의 범위 안에서만 공개.
+- **R5 개인정보**: 저장소는 Public이므로 커밋하는 모든 것이 변경 기록과 함께 공개됨. 멤버 정보(이름·사진·이메일·진로)는 본인 동의를 확인한 뒤에만 `src/content/members/`에 파일을 만들고 `consent: true`로 기록. 동의 전 자료는 `inbox/`에만 두고, `inbox/`는 git에서 제외(`.gitignore`). 멤버는 `consent: true`일 때만 렌더링. 개인 전화번호, 학번, 집 주소 게시 금지. 사진·이메일·진로는 본인 동의 범위 안에서만 공개.
 - **R6 저작권**: 제조사 설명문, 타 사이트 이미지, 논문 그림을 복사하지 않음. 장비 설명은 자체 문장으로 작성. 그림은 `license`(own/cc-by/permission/oa)와 `credit`이 없으면 사용 금지. 논문 PDF는 오픈액세스만 호스팅하고 그 외는 DOI 링크.
 - **R7 자동 수집 금지**: 기존 사이트(fsb.khu.ac.kr)는 프레임 구조이며 자동 열람이 막혀 있음. 크롤링하지 말고 사용자가 `inbox/`에 넣은 자료만 사용.
 - **R8 한/영**: 영어가 원본, 국문은 같은 구조로 유지. 국문 누락 시 영어로 대체하고 `[TODO ko]` 표시. Publications는 영문 전용.
 - **R9 공개 승인**: Pages 활성화, 모집 문구, 교수님 약력은 교수님 확인 후에만 `final`. 작업은 브랜치에서 하고 main 병합은 사용자 확인 후.
 - **R10 검증**: 변경 후 `npm run build`와 `npm run check` 통과를 확인한 뒤 완료 보고. 실패하면 원인을 고치고 재실행. 통과하지 못한 채 완료를 선언하지 않음.
 - **R11 콘텐츠/코드 분리**: 문구는 `src/content`, `src/i18n`, `src/data`에만 두고 컴포넌트에 하드코딩 금지.
-- **R12 안전**: force push, 대량 삭제, 히스토리 재작성 금지. 비밀키·토큰 커밋 금지.
+- **R12 안전**: force push, 대량 삭제, 히스토리 재작성 금지. 저장소는 Public이라 한 번 커밋한 내용은 지워도 기록에 남음. 비밀키·토큰, 미발표 데이터, 임상 정보, 대용량 원본 파일 커밋 금지. 커밋 전 `git status`로 올라갈 파일을 확인.
 - **R13 범위**: 명세 밖 기능(로그인, 댓글, 분석·추적 도구 등) 임의 추가 금지. §2~§8 명세는 사용자 승인 없이 변경 금지. 변경 시 §3에 사유 기록.
 - **R14 소통**: 사용자에게 한국어로 보고. 변경 요약은 짧게, 확인이 필요한 질문은 모아서 한 번에.
 
@@ -79,7 +79,7 @@
 | D13 | 기술: Astro 정적 사이트 + Markdown/YAML 콘텐츠 + GitHub Pages | 제안 | Claude Code 수정 용이, 무료, 디자인 자유도. 대안 §7.7 |
 | D14 | 기본 언어 영어(`/`), 한국어 `/ko/` | 제안 | §12 Q2 |
 | D15 | 디자인은 §8 토큰(대화 중 만든 '연구실 홈페이지 데모' 시안 기반) | 제안 | |
-| D16 | 무료 운영: `<계정>.github.io` | 제안 | 학교 도메인은 학과 확인 후 |
+| D16 | 무료 운영: Organization `Functional-Systems-Biochemistry-lab`의 저장소 `functional-systems-biochemistry-lab.github.io`(Public) → `https://functional-systems-biochemistry-lab.github.io`, base `/` | 확정 | 사용자 결정(2026-11-25). 학교 도메인은 학과 확인 후(Q10) |
 | D17 | Alumni는 동의한 사람만 공개 | 제안 | |
 | D18 | Astro 7.4 + `@astrojs/markdown-remark`(unified) 사용 | 제안 | Astro 7 기본 Markdown 처리기(Sätteri)는 remark 플러그인을 못 씀. `[TODO]` 표식·내부 링크 언어 접두어 플러그인 때문에 unified 파이프라인 선택 (2026-11-25) |
 | D19 | 페이지는 `src/pages/index.astro` + `src/pages/[...path].astro` 2개 파일과 `src/lib/routes.ts` 라우트 표로 생성 | 제안 | 기본 언어 변경은 `src/i18n/config.ts` 한 곳(Q2 대응). 뷰는 `src/views/` |
@@ -88,6 +88,7 @@
 | D22 | Research 그림은 frontmatter `workflow`(접근 방법 1장) + `figures`(대표 결과)로 분리. 본문은 `## 배경 / 접근 방법 / 대표 결과` 순서의 h2로 나눠 렌더 | 제안 | §5.3 템플릿 구현 방식 |
 | D23 | 플레이스홀더 그림(자체 제작 SVG, `license: own`)은 "Illustration only" 캡션과 함께 표시. 실제 그림이 오면 교체 | 제안 | Q7, Q14 |
 | D24 | 색상 기조를 랩미팅 PPT(`1_랩미팅_양식.pptx`) 색으로 변경: 로열블루·금색·네이비. D15의 시안 색(청록·앰버)을 대체 | 확정 | 사용자 요청(2026-11-25). 값은 §8 |
+| D25 | Draft 띠(`PUBLIC_DRAFT_BANNER`)가 켜진 동안 robots.txt는 `Disallow: /`, 모든 페이지에 `<meta name="robots" content="noindex">`. 띠를 끄면 같은 변수로 함께 해제 | 확정 | 사용자 요청(2026-11-25). 공개 전 검색 노출 방지. 구현 `src/lib/draft.ts` |
 
 ---
 
@@ -336,8 +337,8 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 ### 7.5 배포
 - GitHub Pages + GitHub Actions. Astro 공식 배포 가이드를 따름.
-- 저장소 `<계정>.github.io`(Public). 연구실 공용이면 Organization 사용을 권장(인수인계). `astro.config`의 `site`/`base`를 환경에 맞게 설정.
-- 초안 단계에서는 상단에 얇은 띠 `Draft — content under review`를 표시. 환경변수 `PUBLIC_DRAFT_BANNER`로 켜고 끔.
+- 저장소: Organization `Functional-Systems-Biochemistry-lab` / `functional-systems-biochemistry-lab.github.io`(Public, D16). 기본 주소는 `astro.config.mjs`에 고정(`site` `https://functional-systems-biochemistry-lab.github.io`, `base` `/`). 다른 주소로 시험 배포할 때만 환경변수 `SITE_URL`/`BASE_PATH`로 덮어씀.
+- 초안 단계에서는 상단에 얇은 띠 `Draft — content under review`를 표시. 환경변수 `PUBLIC_DRAFT_BANNER`로 켜고 끔. 켜진 동안 robots.txt `Disallow: /`와 `noindex` 메타가 함께 적용됨(D25).
 - 커스텀 도메인은 학과·학교 확인 후(Phase 3).
 
 ### 7.6 프라이버시·보안
@@ -416,7 +417,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 멤버·Alumni 공개 동의
 - 그림·사진 라이선스와 초상 동의
 - 연락처·주소 최신 여부
-- 링크 점검, Draft 띠 끄기
+- 링크 점검, Draft 띠 끄기(`PUBLIC_DRAFT_BANNER: "false"`). 배너를 끌 때 noindex 메타와 robots.txt `Disallow: /`도 함께 제거되었는지 배포된 페이지 소스와 `/robots.txt`에서 확인(같은 변수에 연동, D25)
 - 학과·학교 홈페이지에 걸린 기존 링크를 새 주소로 교체 요청
 
 ---
@@ -451,7 +452,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q6 | Alumni 공개 동의 | Members | 공개하지 않음 | 열림 |
 | Q7 | Research 6개의 대표 그림, 논문 그림, 소개문 | Research | 일러스트 placeholder | 열림 |
 | Q8 | 2024~2026 논문 목록 | Publications | 비어 있음 | 열림 |
-| Q9 | GitHub 계정/조직명(주소) | 배포 | 미정 | 열림 |
+| Q9 | GitHub 계정/조직명(주소) | 배포 | – | 닫힘(2026-11-25): Organization `Functional-Systems-Biochemistry-lab`, 저장소 `functional-systems-biochemistry-lab.github.io` |
 | Q10 | 학교·학과 도메인 사용 가능 여부 | 주소 | `github.io` | 열림 |
 | Q11 | Contact 이메일·전화·우편번호 | Contact | `[TODO]` | 열림 |
 | Q12 | Gallery 사진과 초상 동의 | Gallery | Phase 2 | 열림 |
@@ -468,7 +469,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | 항목 | Phase | en | ko | 상태 | 막힌 사유 |
 |---|---|---|---|---|---|
 | 프로젝트 뼈대·i18n·토큰 CSS | 0 | – | – | 완료 | |
-| 배포 워크플로 | 0 | – | – | 골격 | Q9 (주소 미정, 저장소·Pages 설정 전) |
+| 배포 워크플로 | 0 | – | – | 초안 | 주소 확정(Q9 닫힘). Pages 활성화는 교수님 확인 후(R9) |
 | `docs/MAINTAINING.md` | 0 | – | – | 초안 | |
 | Home | 1 | 초안 | 초안 | 초안 | Q1, Q14 |
 | Faculty | 1 | 골격 | 골격 | 골격 | Q4 (약력 전부 `[TODO]`) |
@@ -489,3 +490,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.1: 최초 작성. 사용자–Claude 대화(2026-11-24~25)와 기존 사이트 조사(2026-11-24)를 반영.
 - 2026-11-25 rev.2: Phase 0~1 초안 구현. Astro 7.4(minimal 템플릿) 기반, en/ko 33페이지 빌드·`npm run check`·`pubs:check` 통과, 390/768/1280px 레이아웃 확인. §3 D18~D23, §12 Q14~Q15, §13 갱신. `[TODO]` 96건(모두 사용자·교수님 확인 대기). 브랜치 `draft/phase-0-1`.
 - 2026-11-25 rev.3: 색상 토큰을 랩미팅 PPT 기조(로열블루 `#113386`, 금색 `#FFD579`, 네이비 `#0E2841`)로 교체(D24, §8). 플레이스홀더 SVG 색도 함께 교체.
+- 2026-11-25 rev.4: GitHub 공개 준비. 배포 주소 확정(D16 확정, Q9 닫힘): `https://functional-systems-biochemistry-lab.github.io`, base `/`. `.gitignore`에 `inbox/`·`.env.*`(`.env.example` 제외) 추가. Draft 띠가 켜진 동안 robots.txt `Disallow: /`와 전 페이지 `noindex` 메타(D25, `src/lib/draft.ts`). R5·R12 보강(Public 저장소 공개 범위, 멤버 동의 후 파일 생성, `inbox/` git 제외, 비밀키·미발표 데이터·임상 정보·대용량 원본 커밋 금지, 커밋 전 `git status`). 공개 체크리스트에 noindex 제거 확인 추가.

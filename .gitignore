@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# 원자료(동의 확인 전 자료 포함) — 저장소가 Public 이므로 git 에 올리지 않음 (CLAUDE.md R5)
+# 이미 추적 중인 inbox/README.md 와 .gitkeep 은 그대로 유지됩니다.
+inbox/
+
+# 로컬 환경변수 파일 (.env.example 만 추적)
+.env.*
+!.env.example

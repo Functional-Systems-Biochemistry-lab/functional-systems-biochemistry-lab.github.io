@@ -1,7 +1,8 @@
 ---
-// 초안 띠. 환경변수 PUBLIC_DRAFT_BANNER=false 로 끕니다 (CLAUDE.md §7.5).
+// 초안 띠. 환경변수 PUBLIC_DRAFT_BANNER=false 로 끕니다 (CLAUDE.md §7.5). noindex·robots 차단도 같은 변수에 연동 (src/lib/draft.ts).
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
+import { isDraft } from '../lib/draft';
 
 interface Props {
   locale: Locale;
@@ -9,8 +10,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const flag = String(import.meta.env.PUBLIC_DRAFT_BANNER ?? 'true').toLowerCase();
-const show = !['false', '0', 'off', 'no'].includes(flag);
+const show = isDraft;
 ---
 
 {
