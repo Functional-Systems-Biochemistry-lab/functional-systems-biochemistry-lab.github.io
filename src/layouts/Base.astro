@@ -12,6 +12,8 @@ import { stripLocale, useTranslations } from '../lib/i18n';
 import { isReal, site, siteName } from '../lib/site';
 import { absoluteHref, withBase } from '../lib/url';
 import { isDraft } from '../lib/draft';
+import { getBackground, pageKeyOf } from '../lib/background';
+import Backdrops from '../components/Backdrops.astro';
 import DraftBanner from '../components/DraftBanner.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -34,10 +36,15 @@ const base = import.meta.env.BASE_URL || '/';
 const pathNoLocale = stripLocale(Astro.url.pathname, base);
 const canonical = absoluteHref(locale, pathNoLocale);
 const alternates = locales.map((l) => ({ lang: l, href: absoluteHref(l, pathNoLocale) }));
+
+// 배경 그림 (src/data/background.yml). 그림이 있는 페이지는 html 에 bd-on 을 붙여 교차 섹션을 살짝 투명하게 만듭니다.
+const pageKey = pageKeyOf(pathNoLocale);
+const bg = getBackground(pageKey);
+const hasBackdrops = bg.fixed.length + bg.floats.length > 0;
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} class={hasBackdrops ? 'bd-on' : undefined}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -61,6 +68,7 @@ const alternates = locales.map((l) => ({ lang: l, href: absoluteHref(l, pathNoLo
     <meta property="og:locale" content={locale === 'ko' ? 'ko_KR' : 'en_US'} />
   </head>
   <body>
+    <Backdrops pageKey={pageKey} />
     <a class="skip-link" href="#main">{t('common.skip_to_content')}</a>
     <DraftBanner locale={locale} />
     <Header locale={locale} switchPath={switchPath} />

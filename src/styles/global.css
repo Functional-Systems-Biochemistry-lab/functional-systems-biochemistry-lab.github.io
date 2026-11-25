@@ -1,4 +1,5 @@
 @import './tokens.css';
+@import 'lenis/dist/lenis.css';
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -7,6 +8,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
+/* 부드러운 스크롤(Lenis)이 켜지면 브라우저 자체 smooth 는 끕니다 — 이중으로 적용되면 끊겨 보입니다 */
+html.lenis { scroll-behavior: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -18,6 +21,7 @@ html {
 }
 
 body {
+  position: relative; /* 배경 그림 층(.bd-root)이 문서 전체 높이를 기준으로 깔리도록 */
   margin: 0;
   background: var(--bg);
   color: var(--ink);
@@ -90,6 +94,8 @@ th { font-weight: 700; }
 .section + .section { padding-top: 0; }
 .section--alt { background: var(--surface); border-block: 1px solid var(--line); }
 .section--alt + .section { padding-top: var(--section); }
+/* 배경 그림이 있는 페이지(html.bd-on): 교차 섹션을 살짝 투명하게 해서 그림이 은은하게 비치게 */
+html.bd-on .section--alt { background: color-mix(in srgb, var(--surface) 72%, transparent); }
 
 .grid {
   display: grid;

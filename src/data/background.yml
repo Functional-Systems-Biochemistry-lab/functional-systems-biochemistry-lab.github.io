@@ -1,0 +1,126 @@
+# 배경 그림 · 부드러운 스크롤 설정 (CLAUDE.md D26)
+# ─────────────────────────────────────────────────────────────────────────
+# 이 파일만 고치면 됩니다. 저장하면 `npm run dev` 화면에 바로 반영됩니다.
+#
+# 그림 넣는 법
+#   1) 그림 파일을 src/assets/backdrops/ 폴더에 넣습니다 (svg · png · jpg · webp).
+#      투명 배경 PNG/SVG 가 가장 자연스럽고, 사진은 아래 fade·blend 를 쓰면 부드럽게 섞입니다.
+#      가로 2500px 이하, 1.5MB 이하를 권장합니다.
+#   2) 아래 pictures 목록에 항목을 한 덩어리(- 로 시작) 추가합니다.
+#      credit(출처)과 license(own | cc-by | permission | oa)는 반드시 적어야 합니다 (CLAUDE.md R6).
+#      저장소가 Public 이므로, 저작권이 확인된 그림만 쓰세요.
+#   3) 화면에서 확인한 뒤 `npm run check` 로 오타를 점검합니다.
+#
+# 그림은 두 종류입니다.
+#   float(기본) : 페이지 위에 "떠" 있는 그림. 스크롤하면 나타나고 살짝 천천히 따라옵니다.
+#   fixed       : 화면 전체에 깔리는 배경. 스크롤 위치에 따라 서서히 바뀝니다.
+# ─────────────────────────────────────────────────────────────────────────
+
+enabled: true            # false 로 바꾸면 배경 그림이 모두 사라집니다
+
+smooth_scroll:
+  enabled: true          # 마우스 휠 스크롤을 부드럽게. false 면 브라우저 기본 스크롤
+  strength: 0.1          # 0.05(아주 느긋하게) ~ 0.2(빠릿하게). 모르면 0.1 그대로
+
+auto_gap: 80             # 자동 배치 그림 사이 간격 (화면 높이의 %)
+auto_repeat: true        # 긴 페이지에서는 자동 배치 그림을 반복해서 채움
+
+# ─────────────────────────────────────────────────────────────────────────
+# 항목에 쓸 수 있는 설정 (모두 선택. file · credit · license 만 필수)
+#
+#   file      src/assets/backdrops/ 안의 파일 이름
+#   credit    출처 (예: "FSB Lab 제작", "홍길동 촬영")
+#   license   own | cc-by | permission | oa
+#   pages     all (기본) 또는 [home, research, ...] — 보일 페이지.
+#             쓸 수 있는 이름: home faculty research facility publications members contact join news gallery
+#   opacity   진하기. float 은 0 ~ 0.8(기본 0.5): 진할수록 글자가 읽기 어려워집니다. 선 그림 0.5~0.7, 사진 0.15~0.3 권장.
+#             fixed 는 0 ~ 1(기본 1)
+#
+#   [float] mode: float (생략 가능)
+#   near      그림을 붙일 구역 이름. home 에서는 about | research | news | people.
+#             생략하면 위에서부터 자동으로 번갈아 배치합니다.
+#   at        near 구역의 어디에 걸칠지: top(위 경계) | middle(가운데, 기본) | bottom(아래 경계)
+#   dy        위·아래로 더 옮기기 (화면 높이의 %, 예: -10 은 위로 10%)
+#   side      left | right | center  (생략하면 자동으로 번갈아)
+#   offset    옆 가장자리에서 떨어진 거리 (화면 너비의 %). 음수면 화면 밖으로 살짝 빠져나감(자연스러움)
+#   size      그림 너비 (화면 너비의 %, 기본 40)
+#   rotate    기울이기 (도, 기본 0)
+#   flip      true 면 좌우 반전
+#   parallax  스크롤을 따라오는 느린 정도. 0 = 페이지와 같이 움직임, 0.2 = 20% 느리게(기본 0.15), 음수 = 더 빠르게
+#   fade      그림 가장자리를 둥글고 부드럽게 (0~45, 기본 0). 사진이면 25~35 권장
+#   blend     normal(기본) | multiply  — multiply 는 사진의 흰 배경을 바탕색에 녹입니다
+#
+#   [fixed] mode: fixed
+#   show      [시작, 끝] — 페이지를 몇 % 내려왔을 때 보일지 (예: [0, 50]). 겹치면 서로 스며듭니다
+#   fit       cover(화면 가득, 기본) | contain(그림 전체가 보이게)
+#   position  center(기본) | top | bottom | left | right | "top left" 처럼 두 단어
+# ─────────────────────────────────────────────────────────────────────────
+
+pictures:
+  # ── 전체 배경(fixed): 위쪽은 파란 빛, 아래쪽은 금빛으로 서서히 바뀝니다 ──
+  - file: wash-blue.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    mode: fixed
+    show: [0, 55]
+
+  - file: wash-gold.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    mode: fixed
+    show: [45, 100]
+
+  # ── 홈(home) 전용: 구역마다 걸쳐 놓은 그림 ──
+  - file: ribbon-flow.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    pages: [home]
+    near: about
+    at: top
+    side: right
+    offset: -16
+    size: 70
+    parallax: 0.18
+    opacity: 0.75
+
+  - file: network-field.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    pages: [home]
+    near: research
+    at: middle
+    side: left
+    offset: -14
+    size: 36
+    rotate: -8
+    parallax: 0.12
+    opacity: 0.55
+
+  - file: spectrum-ladder.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    pages: [home]
+    near: people
+    at: top
+    side: right
+    offset: -6
+    size: 50
+    parallax: 0.1
+    opacity: 0.6
+
+  # ── 다른 페이지 전용: near 를 쓰지 않으면 위에서부터 자동으로 번갈아 배치됩니다 ──
+  - file: ribbon-arc.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    pages: [faculty, research, facility, publications, members, join, contact, news, gallery]
+    size: 52
+    offset: -12
+    opacity: 0.6
+
+  - file: dots-wave.svg
+    credit: FSB Lab 제작 (생성 그림)
+    license: own
+    pages: [faculty, research, facility, publications, members, join, contact, news, gallery]
+    size: 46
+    offset: -8
+    opacity: 0.4

@@ -89,6 +89,7 @@
 | D23 | 플레이스홀더 그림(자체 제작 SVG, `license: own`)은 "Illustration only" 캡션과 함께 표시. 실제 그림이 오면 교체 | 제안 | Q7, Q14 |
 | D24 | 색상 기조를 랩미팅 PPT(`1_랩미팅_양식.pptx`) 색으로 변경: 로열블루·금색·네이비. D15의 시안 색(청록·앰버)을 대체 | 확정 | 사용자 요청(2026-11-25). 값은 §8 |
 | D25 | Draft 띠(`PUBLIC_DRAFT_BANNER`)가 켜진 동안 robots.txt는 `Disallow: /`, 모든 페이지에 `<meta name="robots" content="noindex">`. 띠를 끄면 같은 변수로 함께 해제 | 확정 | 사용자 요청(2026-11-25). 공개 전 검색 노출 방지. 구현 `src/lib/draft.ts` |
+| D26 | 배경 그림 + 부드러운 스크롤: 설정은 `src/data/background.yml` 한 파일, 그림은 `src/assets/backdrops/`. 그림은 `float`(떠 있는 그림: `near` 구역 또는 자동 배치, 패럴랙스, 나타나기)과 `fixed`(전체 배경, 스크롤 %에 따라 스며듦) 두 종류. 마우스 휠은 Lenis(`lenis`, MIT, 번들 자체 호스팅)로 부드럽게, 터치·키보드는 기본 동작. `prefers-reduced-motion` 이면 패럴랙스·나타나기·부드러운 스크롤 모두 끔 | 확정 | 사용자 요청(2026-11-25, 참고: leejoosang.wixsite.com/ngml). §8 '장식 최소'의 예외 — 글자 가독성·R6(credit·license)·`npm run check` 검증 필수. 구현 `src/lib/background.ts`, `src/components/Backdrops.astro` |
 
 ---
 
@@ -235,7 +236,7 @@
 ├─ public/                   # favicon, robots.txt 등 정적 파일
 ├─ scripts/                  # check, todo, pubs-check, (선택) doi2bib
 ├─ src/
-│  ├─ assets/                # research/, members/, facility/, gallery/
+│  ├─ assets/                # research/, members/, facility/, gallery/, backdrops/(배경 그림)
 │  ├─ components/            # Header, Footer, Hero, ResearchCard, MemberCard, PubList, ...
 │  ├─ content/
 │  │  ├─ research/{en,ko}/<slug>.md
@@ -244,6 +245,7 @@
 │  │  ├─ pages/{en,ko}/{home,faculty,join,contact}.md
 │  │  └─ news/{en,ko}/YYYY-MM-DD-<slug>.md
 │  ├─ data/site.yml          # 연구실명, 주소, 외부 링크, 내비게이션
+│  ├─ data/background.yml    # 배경 그림 목록·위치, 부드러운 스크롤 (D26)
 │  ├─ i18n/{en,ko}.json      # UI 문구
 │  └─ layouts/  pages/  styles/
 └─ .github/workflows/deploy.yml
@@ -387,6 +389,8 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 **금지**: 이모지 아이콘, 보라–파랑 그라디언트, 자동 재생 미디어, 외부 지도 iframe.
 
+**배경 그림·스크롤(D26)**: 사용자 요청으로 `src/data/background.yml` 의 그림을 글자 뒤(`z-index:-1`)에 깔고 마우스 휠 스크롤을 부드럽게 함. §8 '장식 최소'의 예외이므로 ① 글자 대비 4.5:1 을 해치지 않게 그림은 옅게(float `opacity` ≤ 0.8, 선 그림 0.5~0.7, 사진 0.15~0.3) ② 그림마다 `credit`·`license` 필수(R6) ③ 보라–파랑 그라디언트 금지는 그대로 ④ `prefers-reduced-motion` 에서는 모든 움직임 끔 ⑤ 그림은 장식이므로 `alt=""`·`aria-hidden`. 홈페이지 기본 샘플은 자체 제작 SVG(`license: own`)이며 실제 그림이 오면 교체.
+
 ---
 
 ## 9. 반복 작업 절차
@@ -491,3 +495,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.2: Phase 0~1 초안 구현. Astro 7.4(minimal 템플릿) 기반, en/ko 33페이지 빌드·`npm run check`·`pubs:check` 통과, 390/768/1280px 레이아웃 확인. §3 D18~D23, §12 Q14~Q15, §13 갱신. `[TODO]` 96건(모두 사용자·교수님 확인 대기). 브랜치 `draft/phase-0-1`.
 - 2026-11-25 rev.3: 색상 토큰을 랩미팅 PPT 기조(로열블루 `#113386`, 금색 `#FFD579`, 네이비 `#0E2841`)로 교체(D24, §8). 플레이스홀더 SVG 색도 함께 교체.
 - 2026-11-25 rev.4: GitHub 공개 준비. 배포 주소 확정(D16 확정, Q9 닫힘): `https://functional-systems-biochemistry-lab.github.io`, base `/`. `.gitignore`에 `inbox/`·`.env.*`(`.env.example` 제외) 추가. Draft 띠가 켜진 동안 robots.txt `Disallow: /`와 전 페이지 `noindex` 메타(D25, `src/lib/draft.ts`). R5·R12 보강(Public 저장소 공개 범위, 멤버 동의 후 파일 생성, `inbox/` git 제외, 비밀키·미발표 데이터·임상 정보·대용량 원본 커밋 금지, 커밋 전 `git status`). 공개 체크리스트에 noindex 제거 확인 추가.
+- 2026-11-25 rev.5: 배경 그림·부드러운 스크롤 추가(D26). `src/data/background.yml`(설정), `src/lib/background.ts`(검증·기본값), `src/components/Backdrops.astro`(그림 층 + Lenis 스크롤 + 패럴랙스), `src/assets/backdrops/`(샘플 SVG 7개, `license: own`), `scripts/check.mjs`(설정 점검), 의존성 `lenis`. `docs/MAINTAINING.md` 3.6 추가. 참고: Wix 사이트(leejoosang.wixsite.com/ngml)의 고정 배경·구역에 걸친 그림·부드러운 스크롤 느낌.
