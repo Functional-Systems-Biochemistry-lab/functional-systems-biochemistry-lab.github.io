@@ -462,7 +462,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q11 | Contact 이메일·전화·우편번호 | Contact | – | 대부분 닫힘(2026-11-25): 사용자가 `site.yml`에 이메일·전화·우편번호·주소(실험연구동 A동 101, 102호) 입력. 남은 것: 영문 건물명은 번역("Experimental Research Building A")이라 학교 공식 영문명 확인 필요 |
 | Q12 | Gallery 사진과 초상 동의 | Gallery | Phase 2 | 열림 |
 | Q13 | 이메일 표기 난독화 여부 | Contact, Members | 사용 안 함 | 열림 |
-| Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 질량 스펙트럼 SVG + "Illustration only" | 열림 |
+| Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 사용자 제공 질량 스펙트럼 그림 사용(`src/assets/home/hero-ms-spectrum.png`) | 닫힘(2026-11-25): 연구실 자체 데이터이며 공개 가능(사용자 확인). 실제 사진으로 바꾸려면 `home.md`의 `hero_image` 교체 |
 | Q15 | 현재 구성원 명단(이름 국/영, 과정, 입학 연월, 연구 주제, 공개 동의) | Members | PI 카드만 표시 | 열림 |
 
 ---
@@ -500,3 +500,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.6: Contact 지도 추가(D27, `inbox/fsb-contact-map-image.patch`). `site.yml` `contact`에 `map_embed_url`(구글 퍼가기 iframe)·`map_image`·`map_credit`·`map_links` 지원(`src/lib/site.ts`, `src/views/ContactView.astro`), UI 문구 `contact.map_alt`·`contact.map_embed_note`. §5.8과 §8 금지 목록을 "구글 지도 퍼가기 iframe만 허용, 그 외 외부 iframe 금지"로 수정. 브랜치 `feat/contact-map-image`.
 - 2026-11-25 rev.7: Faculty 페이지의 `[TODO]` 칩 제거(사용자 요청). 주소가 없는 외부 링크(PubMed)는 `[TODO]` 칩 대신 줄을 숨김(`src/views/FacultyView.astro`). 푸터 영문 주소를 국문 주소 번역으로 채움(`site.yml`, 공식 영문 건물명은 Q11에 남김). 해결된 학과 URL의 `[TODO]` 주석 삭제. `[TODO]` 75→73건.
 - 2026-11-25 rev.8: 구성원 카드(`src/components/MemberCard.astro`) 손질(사용자 요청). 사진이 없으면 이니셜 칸을 그리지 않고 글이 카드 전체를 씀. 가로 카드의 사진은 120px 정사각에 고정(카드 높이를 따라 커지지 않음). 교수 영문 이름을 Faculty 페이지와 같은 "Kwang Pyo Kim"으로 통일(`members/Kim-kwangpyo.md`).
+- 2026-11-25 rev.9: 소속 라벨(히어로·푸터·Contact)의 끝 괄호 묶음 "(Global Campus)"이 좁은 화면에서 "(Global" / "Campus)"로 쪼개지지 않도록 `src/lib/site.ts` `department()`에서 괄호 안 공백을 줄바꿈 안 되는 공백으로 바꿈(사용자 요청). Home 히어로 그림을 사용자 제공 질량 스펙트럼으로 교체(Q14): `src/assets/home/hero-ms-spectrum.png`, 원본 2044×429 중 m/z 1100대까지(왼쪽 1142px)만 잘라 씀, 원본은 `inbox/_done/home/MS_spectrum.png`. 연구실 자체 데이터·공개 가능(사용자 확인 2026-11-25, `license: own`).

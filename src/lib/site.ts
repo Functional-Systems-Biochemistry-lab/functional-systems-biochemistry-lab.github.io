@@ -39,8 +39,17 @@ export function shortName(locale: Locale): string {
   return site.short_name[locale] || site.short_name.en;
 }
 
+/** 줄바꿈 안 되는 공백(U+00A0). 파일에 보이지 않는 글자를 넣지 않으려고 코드로 만듭니다. */
+const NBSP = String.fromCharCode(0xa0);
+
+/** 끝에 붙은 괄호 묶음(예: "(Global Campus)") 안의 공백을 줄바꿈 안 되는 공백으로 바꿔,
+ *  좁은 화면에서 "(Global" / "Campus)"로 쪼개지지 않고 한 덩어리로 다음 줄로 내려가게 합니다. */
+function keepTrailingParenTogether(text: string): string {
+  return text.replace(/\(([^()]*)\)\s*$/, (m) => m.replace(/ /g, NBSP));
+}
+
 export function department(locale: Locale): string {
-  return site.department[locale] || site.department.en;
+  return keepTrailingParenTogether(site.department[locale] || site.department.en);
 }
 
 export function address(locale: Locale): string {
