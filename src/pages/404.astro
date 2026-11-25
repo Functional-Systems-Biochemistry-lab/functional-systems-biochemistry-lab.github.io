@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { defaultLocale, locales } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { href } from '../lib/url';
+
+const t = useTranslations(defaultLocale);
+---
+
+<Base locale={defaultLocale} title={t('notfound.title')} switchPath="/">
+  <section class="section">
+    <div class="container">
+      <span class="label mono">404</span>
+      <h1>{t('notfound.title')}</h1>
+      <p class="muted">{t('notfound.text')}</p>
+      <div class="actions">
+        {
+          locales.map((l) => (
+            <a class="btn btn--secondary" href={href(l, '/')} lang={l} hreflang={l}>
+              {useTranslations(l)('notfound.home')}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+</style>

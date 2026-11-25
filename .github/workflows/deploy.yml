@@ -1,0 +1,47 @@
+# GitHub Pages 배포 (Astro 공식 가이드 기준)
+# - main 브랜치에 push 되면 빌드 후 배포합니다.
+# - 저장소 Settings → Pages → Source 를 "GitHub Actions" 로 설정해야 동작합니다.
+# - SITE_URL / BASE_PATH 는 astro.config.mjs 에서 읽습니다 (CLAUDE.md §12 Q9).
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install, build, and upload the site
+        uses: withastro/action@v6
+        with:
+          node-version: 24
+        env:
+          # 공개 전까지 상단 Draft 띠 유지. 공개 시 false 로 바꿉니다 (공개 체크리스트).
+          PUBLIC_DRAFT_BANNER: "true"
+          # [TODO: Q9 — GitHub Pages 주소 확정 후 입력. 예: https://<계정>.github.io 와 /]
+          SITE_URL: ${{ vars.SITE_URL }}
+          BASE_PATH: ${{ vars.BASE_PATH }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

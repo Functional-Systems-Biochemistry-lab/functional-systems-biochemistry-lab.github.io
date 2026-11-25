@@ -1,0 +1,174 @@
+{
+  "common": {
+    "skip_to_content": "Skip to content",
+    "menu": "Menu",
+    "close": "Close",
+    "lang_switch": "한국어",
+    "lang_switch_label": "한국어로 보기",
+    "draft_banner": "Draft — content under review",
+    "todo_notice": "Text marked [TODO] is a placeholder awaiting confirmation.",
+    "illustration_only": "Illustration only",
+    "view_all": "View all",
+    "previous": "Previous",
+    "next": "Next",
+    "home": "Home",
+    "status_draft": "Draft"
+  },
+  "nav": {
+    "home": "Home",
+    "faculty": "Faculty",
+    "research": "Research",
+    "facility": "Facility",
+    "publications": "Publications",
+    "members": "Members",
+    "join": "Join Us",
+    "contact": "Contact",
+    "news": "News",
+    "gallery": "Gallery",
+    "resources": "Resources"
+  },
+  "home": {
+    "about_label": "About",
+    "research_label": "Research",
+    "research_title": "Research areas",
+    "research_all": "All research areas",
+    "news_label": "News",
+    "news_title": "Recent news",
+    "news_all": "All news",
+    "people_label": "People",
+    "people_title": "Who we are",
+    "people_text": "Meet the people who do the work.",
+    "people_link": "Members",
+    "join_title": "Interested in joining the lab?",
+    "join_text": "See what we look for, how to apply, and how to reach us.",
+    "join_cta": "Join Us",
+    "cta_join": "Join Us",
+    "cta_pubs": "Publications"
+  },
+  "faculty": {
+    "label": "Faculty",
+    "title": "Principal Investigator",
+    "position": "Position",
+    "education": "Education",
+    "career": "Career",
+    "interests": "Research interests",
+    "awards": "Awards and activities",
+    "selected_pubs": "Selected publications",
+    "all_pubs": "All publications",
+    "links": "Links",
+    "contact": "Contact"
+  },
+  "research": {
+    "label": "Research",
+    "title": "Research areas",
+    "intro": "Six areas, all built on mass spectrometry. Each page gives the background, our approach, and related publications.",
+    "area_of": "Area {n} of {total}",
+    "background": "Background",
+    "approach": "Approach",
+    "results": "Representative results",
+    "related_pubs": "Related publications",
+    "all_pubs": "All publications",
+    "no_pubs": "Publications for this area will be listed here once the publication list is added.",
+    "prev_area": "Previous area",
+    "next_area": "Next area",
+    "back": "All research areas",
+    "short": {
+      "biomarker-discovery": "Biomarkers",
+      "imaging-ms": "Imaging MS",
+      "lipidomics": "Lipidomics",
+      "ptm": "PTMs",
+      "nitroproteomics": "Nitroproteomics",
+      "systems-biology": "Systems biology"
+    }
+  },
+  "figure": {
+    "license": {
+      "own": "",
+      "cc-by": "CC BY",
+      "permission": "Used with permission",
+      "oa": "Open access"
+    }
+  },
+  "notfound": {
+    "title": "Page not found",
+    "text": "The page you requested does not exist or has moved.",
+    "home": "Go to the home page"
+  },
+  "facility": {
+    "label": "Facility",
+    "title": "Instruments",
+    "intro": "Major instruments used in the lab.",
+    "vendor": "Manufacturer",
+    "model": "Model",
+    "photo_pending": "Photo pending"
+  },
+  "publications": {
+    "label": "Publications",
+    "title": "Publications",
+    "intro": "Peer-reviewed papers from the lab, newest first. Lab members are shown in bold.",
+    "filter_label": "Filter by research area",
+    "filter_all": "All",
+    "empty": "The publication list has not been added yet.",
+    "count": "{n} publications",
+    "count_one": "1 publication",
+    "doi": "DOI",
+    "pubmed": "PubMed",
+    "pdf": "PDF"
+  },
+  "members": {
+    "label": "Members",
+    "title": "People",
+    "pi": "Principal Investigator",
+    "current": "Current members",
+    "postdoc": "Postdoctoral researchers",
+    "graduate": "Graduate students",
+    "undergraduate": "Undergraduate interns",
+    "alumni": "Alumni",
+    "empty_current": "Member profiles will be added here.",
+    "empty_alumni": "Alumni are listed only with their consent.",
+    "since": "Since",
+    "now": "Now",
+    "profile": "Profile",
+    "role": {
+      "pi": "Professor",
+      "postdoc": "Postdoc",
+      "phd": "Ph.D. student",
+      "ms": "M.S. student",
+      "undergrad": "Undergraduate intern",
+      "alumni": "Alumni"
+    }
+  },
+  "join": {
+    "label": "Join Us",
+    "faq": "FAQ",
+    "contact_title": "Contact",
+    "contact_text": "Questions? Write to us.",
+    "cta": "Contact us"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Contact",
+    "affiliation": "Affiliation",
+    "address": "Address",
+    "email": "Email",
+    "phone": "Phone",
+    "map": "Open in maps",
+    "directions": "Directions"
+  },
+  "news": {
+    "label": "News",
+    "title": "News",
+    "empty": "No news yet."
+  },
+  "gallery": {
+    "label": "Gallery",
+    "title": "Gallery",
+    "empty": "No photos yet.",
+    "photos": "{n} photos"
+  },
+  "footer": {
+    "links": "Links",
+    "more": "More",
+    "copyright": "© {year} {name}"
+  }
+}

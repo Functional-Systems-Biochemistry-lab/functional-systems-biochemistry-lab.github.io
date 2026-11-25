@@ -1,0 +1,77 @@
+---
+// 뉴스 행: 날짜(mono) + 제목 (+ 본문)
+import type { Locale } from '../i18n/config';
+import type { NewsEntry } from '../lib/content';
+import { formatDate } from '../lib/i18n';
+import { href } from '../lib/url';
+
+interface Props {
+  items: NewsEntry[];
+  locale: Locale;
+  full?: boolean; // true: 본문까지 표시 (News 페이지), false: 날짜+제목 (Home)
+}
+const { items, locale, full = false } = Astro.props;
+const anchorId = (e: NewsEntry) => e.id.split('/').pop() ?? e.id;
+---
+
+<ul class="news-list">
+  {
+    items.map((e) => (
+      <li class="news-row" id={full ? anchorId(e) : undefined}>
+        <time class="news-row__date mono" datetime={e.data.date.toISOString().slice(0, 10)}>
+          {formatDate(e.data.date, locale)}
+        </time>
+        <div class="news-row__body">
+          <h3 class="news-row__title">
+            {full ? e.data.title : <a href={`${href(locale, '/news')}#${anchorId(e)}`}>{e.data.title}</a>}
+          </h3>
+          {full && <div class="prose" set:html={e.rendered?.html ?? ''} />}
+          {!full && e.data.summary && <p class="small muted">{e.data.summary}</p>}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .news-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .news-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 8px 24px;
+    padding-block: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .news-row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .news-row__date {
+    color: var(--muted-2);
+    padding-top: 3px;
+  }
+  .news-row__title {
+    font-size: var(--fs-h3);
+    margin: 0 0 6px;
+  }
+  .news-row__title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .news-row__title a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .news-row__body > :last-child {
+    margin-bottom: 0;
+  }
+  @media (max-width: 560px) {
+    .news-row {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

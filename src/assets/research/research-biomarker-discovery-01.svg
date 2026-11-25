@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t">
+  <title id="t">Two sample groups compared by quantitative mass spectrometry; a few proteins stand out. Illustration only.</title>
+  <rect width="1600" height="900" fill="#E9F1EE"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3F505C"/>
+    </marker>
+  </defs>
+  <!-- control group -->
+  <g fill="#FFFFFF" stroke="#3F505C" stroke-width="5">
+    <circle cx="220" cy="300" r="40"/><circle cx="330" cy="300" r="40"/><circle cx="440" cy="300" r="40"/>
+    <circle cx="275" cy="400" r="40"/><circle cx="385" cy="400" r="40"/>
+  </g>
+  <!-- disease group -->
+  <g fill="#1F6F5C" stroke="#1F6F5C" stroke-width="5">
+    <circle cx="220" cy="560" r="40"/><circle cx="330" cy="560" r="40"/><circle cx="440" cy="560" r="40"/>
+    <circle cx="275" cy="660" r="40"/><circle cx="385" cy="660" r="40"/>
+  </g>
+  <line x1="150" y1="480" x2="510" y2="480" stroke="#D3DEDB" stroke-width="3" stroke-dasharray="12 10"/>
+  <line x1="560" y1="480" x2="700" y2="480" stroke="#3F505C" stroke-width="5" marker-end="url(#arrow)"/>
+  <!-- volcano-like scatter -->
+  <g transform="translate(760 150)">
+    <rect x="0" y="0" width="700" height="600" rx="20" fill="#FFFFFF" stroke="#D3DEDB" stroke-width="3"/>
+    <line x1="80" y1="520" x2="640" y2="520" stroke="#0F1F2E" stroke-width="3"/>
+    <line x1="80" y1="520" x2="80" y2="60" stroke="#0F1F2E" stroke-width="3"/>
+    <line x1="360" y1="520" x2="360" y2="60" stroke="#D3DEDB" stroke-width="3" stroke-dasharray="10 8"/>
+    <line x1="80" y1="300" x2="640" y2="300" stroke="#D3DEDB" stroke-width="3" stroke-dasharray="10 8"/>
+    <g fill="#3F505C" opacity="0.7">
+      <circle cx="300" cy="480" r="7"/><circle cx="330" cy="440" r="7"/><circle cx="350" cy="500" r="7"/>
+      <circle cx="380" cy="470" r="7"/><circle cx="400" cy="420" r="7"/><circle cx="420" cy="490" r="7"/>
+      <circle cx="270" cy="400" r="7"/><circle cx="310" cy="380" r="7"/><circle cx="370" cy="360" r="7"/>
+      <circle cx="430" cy="380" r="7"/><circle cx="460" cy="440" r="7"/><circle cx="250" cy="450" r="7"/>
+      <circle cx="340" cy="330" r="7"/><circle cx="395" cy="340" r="7"/><circle cx="230" cy="350" r="7"/>
+      <circle cx="480" cy="350" r="7"/><circle cx="200" cy="420" r="7"/><circle cx="520" cy="420" r="7"/>
+      <circle cx="290" cy="320" r="7"/><circle cx="450" cy="310" r="7"/><circle cx="360" cy="430" r="7"/>
+      <circle cx="320" cy="470" r="7"/><circle cx="410" cy="455" r="7"/><circle cx="170" cy="330" r="7"/>
+      <circle cx="560" cy="340" r="7"/><circle cx="140" cy="280" r="7"/><circle cx="590" cy="290" r="7"/>
+    </g>
+    <g fill="#E2A33B" stroke="#0F1F2E" stroke-width="3">
+      <circle cx="560" cy="150" r="14"/><circle cx="600" cy="110" r="14"/><circle cx="520" cy="200" r="14"/>
+    </g>
+    <g fill="#1F6F5C" stroke="#0F1F2E" stroke-width="3">
+      <circle cx="150" cy="170" r="14"/><circle cx="190" cy="230" r="14"/>
+    </g>
+  </g>
+</svg>

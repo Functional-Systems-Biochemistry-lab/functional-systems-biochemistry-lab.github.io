@@ -1,0 +1,111 @@
+---
+// Contact (§5.8): 주소, 이메일, 전화, 외부 지도 링크(iframe 금지), 교통편(선택)
+import Base from '../layouts/Base.astro';
+import TodoText from '../components/TodoText.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getPage } from '../lib/content';
+import { address, department, isReal, linkLabel, site } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const page = await getPage(locale, 'contact');
+const addr = address(locale);
+const postal = site.address.postal_code;
+---
+
+<Base locale={locale} title={page.data.title} description={page.data.lead}>
+  <div class="container page-head">
+    <span class="label">{t('contact.label')}</span>
+    <h1>{page.data.title}</h1>
+    {page.data.lead && <p class="lead">{page.data.lead}</p>}
+  </div>
+
+  <section class="section">
+    <div class="container contact">
+      <div class="card contact__card">
+        <div class="card__body">
+          <dl class="dl contact__dl">
+            <dt>{t('contact.affiliation')}</dt>
+            <dd>
+              {department(locale)}
+              {
+                isReal(site.links.university?.url) && (
+                  <>
+                    {' · '}
+                    <a href={site.links.university.url} rel="noopener">
+                      {linkLabel('university', locale)}
+                    </a>
+                  </>
+                )
+              }
+            </dd>
+            <dt>{t('contact.address')}</dt>
+            <dd>
+              <TodoText text={addr} />
+              {postal && (
+                <>
+                  <br />
+                  <TodoText text={postal} />
+                </>
+              )}
+            </dd>
+            <dt>{t('contact.email')}</dt>
+            <dd>
+              {
+                isReal(site.contact.email) ? (
+                  <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+                ) : (
+                  <TodoText text={site.contact.email} />
+                )
+              }
+            </dd>
+            <dt>{t('contact.phone')}</dt>
+            <dd>
+              {
+                isReal(site.contact.phone) ? (
+                  <a href={`tel:${site.contact.phone.replace(/[^\d+]/g, '')}`}>{site.contact.phone}</a>
+                ) : (
+                  <TodoText text={site.contact.phone} />
+                )
+              }
+            </dd>
+          </dl>
+          {
+            isReal(site.contact.map_url) && (
+              <p class="contact__map">
+                <a class="btn btn--secondary" href={site.contact.map_url} rel="noopener">
+                  {t('contact.map')}
+                </a>
+              </p>
+            )
+          }
+        </div>
+      </div>
+      <div class="prose contact__body" set:html={page.rendered?.html ?? ''} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .contact__dl {
+    gap: 0.8em 1.4em;
+  }
+  .contact__map {
+    margin: 20px 0 0;
+  }
+  @media (max-width: 860px) {
+    .contact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+// News (§5.9): 날짜·제목·짧은 본문. 0건이면 메뉴에서 숨겨지지만 페이지는 빈 상태로 존재합니다.
+import Base from '../layouts/Base.astro';
+import NewsList from '../components/NewsList.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getNews } from '../lib/content';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const items = await getNews(locale);
+---
+
+<Base locale={locale} title={t('news.title')}>
+  <div class="container page-head">
+    <span class="label">{t('news.label')}</span>
+    <h1>{t('news.title')}</h1>
+  </div>
+  <section class="section">
+    <div class="container news-body">
+      {items.length > 0 ? <NewsList items={items} locale={locale} full /> : <p class="empty">{t('news.empty')}</p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .news-body {
+    max-width: 820px;
+  }
+</style>

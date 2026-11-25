@@ -1,0 +1,30 @@
+---
+// Facility (§5.4): 장비 카드 목록
+import Base from '../layouts/Base.astro';
+import FacilityCard from '../components/FacilityCard.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getFacility } from '../lib/content';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const items = await getFacility(locale);
+---
+
+<Base locale={locale} title={t('facility.title')} description={t('facility.intro')}>
+  <div class="container page-head">
+    <span class="label">{t('facility.label')}</span>
+    <h1>{t('facility.title')}</h1>
+    <p class="lead">{t('facility.intro')}</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--3">
+        {items.map((entry) => <FacilityCard entry={entry} locale={locale} />)}
+      </div>
+    </div>
+  </section>
+</Base>

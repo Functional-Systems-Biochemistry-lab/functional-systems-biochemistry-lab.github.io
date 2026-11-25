@@ -1,0 +1,79 @@
+---
+// 그림 + 캡션(credit·license 필수, R6)
+import { Image } from 'astro:assets';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { resolveAsset, responsive } from '../lib/assets';
+
+interface FigureData {
+  src: string;
+  alt: string;
+  caption?: string;
+  credit: string;
+  license: 'own' | 'cc-by' | 'permission' | 'oa';
+}
+
+interface Props {
+  figure: FigureData;
+  locale: Locale;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+}
+const { figure, locale, loading = 'lazy', sizes = '(max-width: 760px) 100vw, 720px' } = Astro.props;
+const t = useTranslations(locale);
+const img = resolveAsset(figure.src);
+const licenseLabel = t(`figure.license.${figure.license}`);
+---
+
+<figure class="figure">
+  {
+    img ? (
+      <Image src={img} alt={figure.alt} {...responsive(img, [480, 800, 1200, 1600], sizes)} loading={loading} />
+    ) : (
+      <div class="figure__missing mono">Missing image: {figure.src}</div>
+    )
+  }
+  <figcaption>
+    {figure.caption && <span class="figure__caption">{figure.caption}</span>}
+    <span class="figure__credit">
+      {figure.credit}
+      {licenseLabel && ` · ${licenseLabel}`}
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .figure__missing {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--muted);
+    background: var(--bg);
+  }
+  figcaption {
+    padding: 10px 14px;
+    font-size: var(--fs-small);
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+  .figure__credit {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    color: var(--muted-2);
+    letter-spacing: 0.02em;
+  }
+</style>

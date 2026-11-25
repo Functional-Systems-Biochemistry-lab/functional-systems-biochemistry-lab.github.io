@@ -1,0 +1,35 @@
+---
+// 라우트 종류에 따라 뷰를 선택합니다. 페이지 파일(src/pages)은 이 컴포넌트만 호출합니다.
+import type { Locale } from '../i18n/config';
+import type { RouteKind } from '../lib/routes';
+import HomeView from './HomeView.astro';
+import FacultyView from './FacultyView.astro';
+import ResearchIndexView from './ResearchIndexView.astro';
+import ResearchDetailView from './ResearchDetailView.astro';
+import FacilityView from './FacilityView.astro';
+import PublicationsView from './PublicationsView.astro';
+import MembersView from './MembersView.astro';
+import JoinView from './JoinView.astro';
+import ContactView from './ContactView.astro';
+import NewsView from './NewsView.astro';
+import GalleryView from './GalleryView.astro';
+
+interface Props {
+  locale: Locale;
+  kind: RouteKind;
+  slug?: string;
+}
+const { locale, kind, slug } = Astro.props;
+---
+
+{kind === 'home' && <HomeView locale={locale} />}
+{kind === 'faculty' && <FacultyView locale={locale} />}
+{kind === 'research' && <ResearchIndexView locale={locale} />}
+{kind === 'research-detail' && slug && <ResearchDetailView locale={locale} slug={slug} />}
+{kind === 'facility' && <FacilityView locale={locale} />}
+{kind === 'publications' && <PublicationsView locale={locale} />}
+{kind === 'members' && <MembersView locale={locale} />}
+{kind === 'join' && <JoinView locale={locale} />}
+{kind === 'contact' && <ContactView locale={locale} />}
+{kind === 'news' && <NewsView locale={locale} />}
+{kind === 'gallery' && <GalleryView locale={locale} />}

@@ -1,0 +1,220 @@
+---
+// Faculty (§5.2): 사진·이름·소속·연락처, 학력·경력, 연구 관심사, 수상·활동, 대표 논문(selected), 외부 링크
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import TodoText from '../components/TodoText.astro';
+import PubList from '../components/PubList.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getMembers, getPage, getResearch } from '../lib/content';
+import { resolveAsset, responsive } from '../lib/assets';
+import { isReal, site } from '../lib/site';
+import { aliasKeySet, loadPublications } from '../lib/publications';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const page = await getPage(locale, 'faculty');
+const d = page.data;
+const members = await getMembers();
+const pi = members.find((m) => m.id === site.pi_id);
+const photo = resolveAsset(d.photo ?? pi?.data.photo);
+const slugs = (await getResearch(locale)).map((r) => r.data.slug);
+const { publications } = loadPublications(slugs);
+const selected = publications.filter((p) => p.selected);
+const aliasKeys = aliasKeySet(members.map((m) => m.data.aliases));
+
+const links = [
+  { key: 'scholar', label: 'Google Scholar', url: d.links?.scholar },
+  { key: 'orcid', label: 'ORCID', url: d.links?.orcid },
+  { key: 'pubmed', label: 'PubMed', url: d.links?.pubmed },
+];
+const email = d.email;
+---
+
+<Base locale={locale} title={d.title}>
+  <div class="container page-head">
+    <span class="label">{t('faculty.label')}</span>
+    <h1>{t('faculty.title')}</h1>
+  </div>
+
+  <section class="section">
+    <div class="container profile">
+      <div class="profile__photo" aria-hidden={photo ? undefined : 'true'}>
+        {
+          photo ? (
+            <Image src={photo} alt={d.name ?? ''} width={480} height={480} {...responsive(photo, [240, 480, 720], '(max-width: 720px) 60vw, 280px')} />
+          ) : (
+            <span class="label">{t('facility.photo_pending')}</span>
+          )
+        }
+      </div>
+      <div class="profile__text">
+        <h2 class="profile__name">
+          {d.name}
+          {d.name_alt && <span class="profile__alt muted"> {d.name_alt}</span>}
+        </h2>
+        <p class="profile__position"><TodoText text={d.position} /></p>
+        <dl class="dl">
+          <dt>{t('faculty.contact')}</dt>
+          <dd>
+            {isReal(email) ? <a href={`mailto:${email}`}>{email}</a> : <TodoText text={email} />}
+          </dd>
+          <dt>{t('faculty.links')}</dt>
+          <dd class="profile__links">
+            {
+              links.map((l) =>
+                isReal(l.url) ? (
+                  <a href={l.url} rel="noopener">
+                    {l.label}
+                  </a>
+                ) : (
+                  <span class="muted">
+                    {l.label} <TodoText text="[TODO]" />
+                  </span>
+                ),
+              )
+            }
+          </dd>
+        </dl>
+        <div class="prose profile__bio" set:html={page.rendered?.html ?? ''} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <SectionHeading title={t('faculty.education')} level={2} />
+        <ol class="timeline">
+          {d.education.map((item) => <li><TodoText text={item} /></li>)}
+        </ol>
+      </div>
+      <div>
+        <SectionHeading title={t('faculty.career')} level={2} />
+        <ol class="timeline">
+          {d.career.map((item) => <li><TodoText text={item} /></li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <SectionHeading title={t('faculty.interests')} level={2} />
+        <ul class="plain-list">
+          {d.interests.map((item) => <li><TodoText text={item} /></li>)}
+        </ul>
+      </div>
+      <div>
+        <SectionHeading title={t('faculty.awards')} level={2} />
+        <ul class="plain-list">
+          {d.awards.map((item) => <li><TodoText text={item} /></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {
+    selected.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <SectionHeading
+            title={t('faculty.selected_pubs')}
+            link={{ href: href(locale, '/publications'), text: t('faculty.all_pubs') }}
+          />
+          <PubList publications={selected} locale={locale} aliasKeys={aliasKeys} slugs={slugs} id="selected-pubs" />
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .profile {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .profile__photo {
+    aspect-ratio: 1 / 1;
+    background: #e9f1ee;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .profile__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .profile__name {
+    margin-bottom: 0.2em;
+  }
+  .profile__alt {
+    font-weight: 400;
+    font-size: 0.7em;
+  }
+  .profile__position {
+    color: var(--muted);
+    font-size: 1.05em;
+    margin-bottom: 1.2em;
+  }
+  .profile__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .profile__bio {
+    margin-top: 1.5em;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .timeline,
+  .plain-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline li {
+    position: relative;
+    padding: 0 0 14px 22px;
+    border-left: 2px solid var(--line);
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .plain-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 760px) {
+    .profile,
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .profile__photo {
+      max-width: 280px;
+    }
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+// 구성원 카드: 정사각 사진(없으면 이니셜), 이름, 과정, 연구 주제, 이메일(동의 시)
+import { Image } from 'astro:assets';
+import type { Locale } from '../i18n/config';
+import { memberName, memberTopic, type MemberEntry } from '../lib/content';
+import { resolveAsset, responsive } from '../lib/assets';
+import { formatYearMonth, useTranslations } from '../lib/i18n';
+import TodoText from './TodoText.astro';
+
+interface Props {
+  member: MemberEntry;
+  locale: Locale;
+  link?: string;
+  compact?: boolean;
+}
+const { member, locale, link, compact = false } = Astro.props;
+const t = useTranslations(locale);
+const d = member.data;
+const photo = resolveAsset(d.photo);
+const name = memberName(member, locale);
+const altName = locale === 'ko' ? d.name_en : d.name_ko;
+const topic = memberTopic(member, locale);
+const initials = d.name_en
+  .split(/\s+/)
+  .map((p) => p[0] ?? '')
+  .join('')
+  .slice(0, 2)
+  .toUpperCase();
+const isAlumni = d.role === 'alumni';
+---
+
+<article class:list={['card', 'member-card', { 'member-card--compact': compact }]}>
+  <div class="member-card__photo" aria-hidden={photo ? undefined : 'true'}>
+    {
+      photo ? (
+        <Image src={photo} alt={name} width={320} height={320} {...responsive(photo, [160, 320, 480], '160px')} />
+      ) : (
+        <span class="member-card__initials">{initials}</span>
+      )
+    }
+  </div>
+  <div class="card__body">
+    <h3 class="member-card__name">
+      {link ? <a href={link}>{name}</a> : name}
+      {altName && altName !== name && <span class="member-card__alt muted"> {altName}</span>}
+    </h3>
+    <p class="label">{t(`members.role.${d.role}`)}</p>
+    {!isAlumni && topic && <p class="member-card__topic"><TodoText text={topic} /></p>}
+    {
+      isAlumni && (
+        <p class="member-card__topic small">
+          {d.degree && <span>{d.degree}</span>}
+          {d.left && <span class="mono"> {formatYearMonth(d.left, locale)}</span>}
+          {d.current_position && (
+            <>
+              <br />
+              {t('members.now')}: {d.current_position}
+            </>
+          )}
+        </p>
+      )
+    }
+    {!isAlumni && d.since && <p class="small muted mono">{t('members.since')} {formatYearMonth(d.since, locale)}</p>}
+    {d.email && <p class="small"><a href={`mailto:${d.email}`}>{d.email}</a></p>}
+  </div>
+</article>
+
+<style>
+  .member-card {
+    height: 100%;
+  }
+  .member-card__photo {
+    aspect-ratio: 1 / 1;
+    background: #e9f1ee;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .member-card__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .member-card__initials {
+    font-family: var(--font-mono);
+    font-size: 40px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+  .member-card__name {
+    font-size: var(--fs-h3);
+    margin: 0 0 4px;
+  }
+  .member-card__name a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .member-card__name a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .member-card__alt {
+    font-weight: 400;
+    font-size: var(--fs-small);
+  }
+  .member-card__topic {
+    margin: 8px 0 4px;
+    font-size: var(--fs-small);
+  }
+  .member-card p:last-child {
+    margin-bottom: 0;
+  }
+  .member-card--compact {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+  }
+  .member-card--compact .member-card__photo {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+  }
+  @media (max-width: 400px) {
+    .member-card--compact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

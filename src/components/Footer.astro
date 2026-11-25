@@ -1,0 +1,123 @@
+---
+// 푸터: 연구실명·소속·주소, 외부 링크(학교·학과), 비어 있지 않은 News/Gallery 링크, 저작권
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { address, department, isReal, linkLabel, site, siteName } from '../lib/site';
+import { getCounts } from '../lib/content';
+import { href } from '../lib/url';
+import TodoText from './TodoText.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const counts = await getCounts(locale);
+const footerNav = site.nav.footer.filter((item) => !item.hide_when_empty || counts[item.hide_when_empty] > 0);
+const externalLinks = Object.entries(site.links).filter(([, l]) => isReal(l.url));
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__about">
+      <p class="site-footer__name">{isReal(siteName(locale)) ? siteName(locale) : site.name.en}</p>
+      <p class="muted">{department(locale)}</p>
+      <p class="muted small"><TodoText text={address(locale)} /></p>
+      <p class="small">
+        {
+          isReal(site.contact.email) ? (
+            <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+          ) : (
+            <TodoText text={site.contact.email} />
+          )
+        }
+      </p>
+    </div>
+
+    <div>
+      <p class="label">{t('footer.links')}</p>
+      <ul class="site-footer__list">
+        {
+          externalLinks.map(([key, l]) => (
+            <li>
+              <a href={l.url} rel="noopener">
+                {linkLabel(key, locale)}
+              </a>
+            </li>
+          ))
+        }
+        {
+          Object.entries(site.links)
+            .filter(([, l]) => !isReal(l.url))
+            .map(([key]) => (
+              <li class="muted small">
+                {linkLabel(key, locale)} <TodoText text="[TODO: URL]" />
+              </li>
+            ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <p class="label">{t('footer.more')}</p>
+      <ul class="site-footer__list">
+        <li><a href={href(locale, site.nav.join.path)}>{t('nav.join')}</a></li>
+        <li><a href={href(locale, '/publications')}>{t('nav.publications')}</a></li>
+        {footerNav.map((item) => <li><a href={href(locale, item.path)}>{t(`nav.${item.key}`)}</a></li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <span class="mono">{t('footer.copyright', { year, name: site.name.en })}</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--section);
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-small);
+  }
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--gap);
+    padding-block: 40px 24px;
+  }
+  .site-footer__name {
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 0.25em;
+  }
+  .site-footer__about p {
+    margin-bottom: 0.4em;
+  }
+  .site-footer__list {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+  }
+  .site-footer__list li {
+    margin-bottom: 4px;
+  }
+  .site-footer__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    color: var(--ink);
+  }
+  .site-footer__bottom {
+    border-top: 1px solid var(--line);
+    padding-block: 16px;
+    color: var(--muted-2);
+  }
+  @media (max-width: 720px) {
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+// 다크 밴드 CTA (Join Us). 버튼 1개.
+interface Props {
+  title: string;
+  text?: string;
+  cta: { href: string; text: string };
+}
+const { title, text, cta } = Astro.props;
+---
+
+<section class="join-band">
+  <div class="container join-band__inner">
+    <div>
+      <h2 class="join-band__title">{title}</h2>
+      {text && <p class="join-band__text">{text}</p>}
+    </div>
+    <a class="btn btn--highlight" href={cta.href}>{cta.text}</a>
+  </div>
+</section>
+
+<style>
+  .join-band {
+    background: var(--ink);
+    color: #fff;
+    padding-block: 56px;
+  }
+  .join-band__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .join-band__title {
+    margin: 0 0 0.3em;
+    color: #fff;
+  }
+  .join-band__text {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 56ch;
+  }
+  @media (max-width: 720px) {
+    .join-band__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

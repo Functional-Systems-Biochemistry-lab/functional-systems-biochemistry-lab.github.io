@@ -1,0 +1,61 @@
+---
+// Join Us (§5.7): 환영 → 모집 구분 → 하는 일 → 자격 → 절차 → 환경 (본문) → FAQ → 연락처 CTA
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import JoinBand from '../components/JoinBand.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getPage } from '../lib/content';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const page = await getPage(locale, 'join');
+---
+
+<Base locale={locale} title={page.data.title} description={page.data.lead}>
+  <div class="container page-head">
+    <span class="label">{t('join.label')}</span>
+    <h1>{page.data.title}</h1>
+    {page.data.lead && <p class="lead">{page.data.lead}</p>}
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose join-body" set:html={page.rendered?.html ?? ''} />
+    </div>
+  </section>
+
+  {
+    page.data.faq.length > 0 && (
+      <section class="section">
+        <div class="container join-faq">
+          <h2 id="faq">{t('join.faq')}</h2>
+          <Faq items={page.data.faq} />
+        </div>
+      </section>
+    )
+  }
+
+  <JoinBand
+    title={t('join.contact_title')}
+    text={t('join.contact_text')}
+    cta={{ href: href(locale, '/contact'), text: t('join.cta') }}
+  />
+</Base>
+
+<style>
+  .join-body {
+    max-width: 72ch;
+  }
+  .join-faq {
+    max-width: 72ch;
+  }
+  .join-faq h2 {
+    font-size: var(--fs-h2-prose);
+    margin-bottom: 16px;
+  }
+</style>

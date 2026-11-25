@@ -1,0 +1,76 @@
+---
+// 장비 카드: 사진(없으면 "사진 준비 중"), 장비명, 제조사·모델, 용도 1~2문장(자체 문장)
+import { Image } from 'astro:assets';
+import type { Locale } from '../i18n/config';
+import type { FacilityEntry } from '../lib/content';
+import { resolveAsset, responsive } from '../lib/assets';
+import { useTranslations } from '../lib/i18n';
+
+interface Props {
+  entry: FacilityEntry;
+  locale: Locale;
+}
+const { entry, locale } = Astro.props;
+const t = useTranslations(locale);
+const photo = resolveAsset(entry.data.photo);
+const html = entry.rendered?.html ?? '';
+---
+
+<article class="card facility-card">
+  <div class="facility-card__media">
+    {
+      photo ? (
+        <Image src={photo} alt={entry.data.photo_alt ?? entry.data.name} {...responsive(photo, [400, 800, 1200], '(max-width: 720px) 100vw, 420px')} />
+      ) : (
+        <span class="label">{t('facility.photo_pending')}</span>
+      )
+    }
+  </div>
+  <div class="card__body">
+    <h3 class="facility-card__name">{entry.data.name}</h3>
+    <dl class="dl facility-card__specs">
+      <dt>{t('facility.vendor')}</dt>
+      <dd>{entry.data.vendor}</dd>
+      {
+        entry.data.model && (
+          <>
+            <dt>{t('facility.model')}</dt>
+            <dd>{entry.data.model}</dd>
+          </>
+        )
+      }
+    </dl>
+    <div class="facility-card__body prose small" set:html={html} />
+  </div>
+</article>
+
+<style>
+  .facility-card {
+    height: 100%;
+  }
+  .facility-card__media {
+    aspect-ratio: 16 / 9;
+    background: #e9f1ee;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .facility-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .facility-card__name {
+    font-size: var(--fs-h3);
+    margin-bottom: 12px;
+  }
+  .facility-card__specs {
+    margin-bottom: 12px;
+    font-size: var(--fs-small);
+  }
+  .facility-card__body :global(p) {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,174 @@
+{
+  "common": {
+    "skip_to_content": "본문으로 건너뛰기",
+    "menu": "메뉴",
+    "close": "닫기",
+    "lang_switch": "EN",
+    "lang_switch_label": "View in English",
+    "draft_banner": "초안 — 내용 검토 중",
+    "todo_notice": "[TODO]로 표시된 부분은 확인 전 임시 문구입니다.",
+    "illustration_only": "설명용 그림",
+    "view_all": "전체 보기",
+    "previous": "이전",
+    "next": "다음",
+    "home": "홈",
+    "status_draft": "초안"
+  },
+  "nav": {
+    "home": "홈",
+    "faculty": "교수",
+    "research": "연구",
+    "facility": "연구 장비",
+    "publications": "논문",
+    "members": "구성원",
+    "join": "지원 안내",
+    "contact": "연락처",
+    "news": "소식",
+    "gallery": "사진",
+    "resources": "자료"
+  },
+  "home": {
+    "about_label": "소개",
+    "research_label": "연구",
+    "research_title": "연구 분야",
+    "research_all": "연구 분야 전체 보기",
+    "news_label": "소식",
+    "news_title": "최근 소식",
+    "news_all": "소식 전체 보기",
+    "people_label": "구성원",
+    "people_title": "함께하는 사람들",
+    "people_text": "연구실 구성원을 소개합니다.",
+    "people_link": "구성원 보기",
+    "join_title": "연구실에 관심이 있으신가요?",
+    "join_text": "찾는 사람, 지원 방법, 연락처를 안내합니다.",
+    "join_cta": "지원 안내",
+    "cta_join": "지원 안내",
+    "cta_pubs": "논문"
+  },
+  "faculty": {
+    "label": "교수",
+    "title": "지도교수",
+    "position": "직위",
+    "education": "학력",
+    "career": "경력",
+    "interests": "연구 관심사",
+    "awards": "수상·활동",
+    "selected_pubs": "대표 논문",
+    "all_pubs": "논문 전체 보기",
+    "links": "외부 링크",
+    "contact": "연락처"
+  },
+  "research": {
+    "label": "연구",
+    "title": "연구 분야",
+    "intro": "질량분석을 바탕으로 한 여섯 분야입니다. 분야별로 배경, 접근 방법, 관련 논문을 소개합니다.",
+    "area_of": "{total}개 분야 중 {n}번째",
+    "background": "배경",
+    "approach": "접근 방법",
+    "results": "대표 결과",
+    "related_pubs": "관련 논문",
+    "all_pubs": "논문 전체 보기",
+    "no_pubs": "논문 목록이 추가되면 이 분야의 관련 논문이 여기에 표시됩니다.",
+    "prev_area": "이전 분야",
+    "next_area": "다음 분야",
+    "back": "연구 분야 전체",
+    "short": {
+      "biomarker-discovery": "바이오마커",
+      "imaging-ms": "이미징 MS",
+      "lipidomics": "지질체학",
+      "ptm": "번역 후 변형",
+      "nitroproteomics": "질산화 단백질",
+      "systems-biology": "시스템 생물학"
+    }
+  },
+  "figure": {
+    "license": {
+      "own": "",
+      "cc-by": "CC BY",
+      "permission": "허가 받아 사용",
+      "oa": "오픈액세스"
+    }
+  },
+  "notfound": {
+    "title": "페이지를 찾을 수 없습니다",
+    "text": "요청한 페이지가 없거나 주소가 바뀌었습니다.",
+    "home": "홈으로 가기"
+  },
+  "facility": {
+    "label": "연구 장비",
+    "title": "주요 장비",
+    "intro": "연구실에서 사용하는 주요 장비입니다.",
+    "vendor": "제조사",
+    "model": "모델",
+    "photo_pending": "사진 준비 중"
+  },
+  "publications": {
+    "label": "논문",
+    "title": "논문",
+    "intro": "연구실 논문 목록입니다(최신순). 연구실 구성원은 굵게 표시됩니다.",
+    "filter_label": "연구 분야별 보기",
+    "filter_all": "전체",
+    "empty": "논문 목록이 아직 추가되지 않았습니다.",
+    "count": "{n}편",
+    "count_one": "1편",
+    "doi": "DOI",
+    "pubmed": "PubMed",
+    "pdf": "PDF"
+  },
+  "members": {
+    "label": "구성원",
+    "title": "구성원",
+    "pi": "지도교수",
+    "current": "현재 구성원",
+    "postdoc": "박사후연구원",
+    "graduate": "대학원생",
+    "undergraduate": "학부 인턴",
+    "alumni": "졸업생",
+    "empty_current": "구성원 소개가 추가될 예정입니다.",
+    "empty_alumni": "졸업생은 본인 동의를 받은 경우에만 게시합니다.",
+    "since": "입학",
+    "now": "현재",
+    "profile": "소개",
+    "role": {
+      "pi": "교수",
+      "postdoc": "박사후연구원",
+      "phd": "박사과정",
+      "ms": "석사과정",
+      "undergrad": "학부 인턴",
+      "alumni": "졸업생"
+    }
+  },
+  "join": {
+    "label": "지원 안내",
+    "faq": "자주 묻는 질문",
+    "contact_title": "연락처",
+    "contact_text": "궁금한 점은 이메일로 문의해 주세요.",
+    "cta": "문의하기"
+  },
+  "contact": {
+    "label": "연락처",
+    "title": "연락처",
+    "affiliation": "소속",
+    "address": "주소",
+    "email": "이메일",
+    "phone": "전화",
+    "map": "지도에서 보기",
+    "directions": "오시는 길"
+  },
+  "news": {
+    "label": "소식",
+    "title": "소식",
+    "empty": "아직 소식이 없습니다."
+  },
+  "gallery": {
+    "label": "사진",
+    "title": "사진",
+    "empty": "아직 사진이 없습니다.",
+    "photos": "사진 {n}장"
+  },
+  "footer": {
+    "links": "링크",
+    "more": "더 보기",
+    "copyright": "© {year} {name}"
+  }
+}

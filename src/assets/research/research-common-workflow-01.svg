@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t">
+  <title id="t">Workflow: sample, preparation, LC-MS/MS, data analysis. Illustration only.</title>
+  <rect width="1600" height="900" fill="#E9F1EE"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3F505C"/>
+    </marker>
+  </defs>
+  <g fill="#FFFFFF" stroke="#D3DEDB" stroke-width="3">
+    <rect x="100" y="300" width="280" height="260" rx="20"/>
+    <rect x="480" y="300" width="280" height="260" rx="20"/>
+    <rect x="860" y="300" width="280" height="260" rx="20"/>
+    <rect x="1240" y="300" width="280" height="260" rx="20"/>
+  </g>
+  <g stroke="#3F505C" stroke-width="5" marker-end="url(#arrow)" fill="none">
+    <line x1="385" y1="430" x2="470" y2="430"/>
+    <line x1="765" y1="430" x2="850" y2="430"/>
+    <line x1="1145" y1="430" x2="1230" y2="430"/>
+  </g>
+  <!-- 1. Sample: tube -->
+  <g transform="translate(240 430)">
+    <path d="M-30,-90 h60 v120 a30,30 0 0 1 -60,0 z" fill="#FFFFFF" stroke="#0F1F2E" stroke-width="5"/>
+    <path d="M-30,-10 h60 v40 a30,30 0 0 1 -60,0 z" fill="#1F6F5C"/>
+    <rect x="-38" y="-100" width="76" height="14" rx="4" fill="#0F1F2E"/>
+  </g>
+  <!-- 2. Preparation: beaker + pipette -->
+  <g transform="translate(620 430)">
+    <path d="M-60,-70 h80 v70 l20,50 h-120 l20,-50 z" fill="#FFFFFF" stroke="#0F1F2E" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M-40,20 h40 l12,30 h-64 z" fill="#1F6F5C"/>
+    <line x1="60" y1="-100" x2="20" y2="-20" stroke="#0F1F2E" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="14" cy="-8" r="6" fill="#E2A33B"/>
+  </g>
+  <!-- 3. LC-MS/MS: instrument box + spectrum -->
+  <g transform="translate(1000 430)">
+    <rect x="-100" y="-60" width="200" height="120" rx="12" fill="#FFFFFF" stroke="#0F1F2E" stroke-width="5"/>
+    <g stroke="#1F6F5C" stroke-width="6" stroke-linecap="round">
+      <line x1="-70" y1="40" x2="-70" y2="10"/>
+      <line x1="-45" y1="40" x2="-45" y2="-20"/>
+      <line x1="-20" y1="40" x2="-20" y2="25"/>
+      <line x1="5" y1="40" x2="5" y2="-40"/>
+      <line x1="30" y1="40" x2="30" y2="0"/>
+      <line x1="55" y1="40" x2="55" y2="20"/>
+      <line x1="75" y1="40" x2="75" y2="-10"/>
+    </g>
+    <line x1="-85" y1="40" x2="85" y2="40" stroke="#0F1F2E" stroke-width="3"/>
+  </g>
+  <!-- 4. Data analysis: scatter + trend -->
+  <g transform="translate(1380 430)">
+    <line x1="-90" y1="60" x2="90" y2="60" stroke="#0F1F2E" stroke-width="3"/>
+    <line x1="-90" y1="60" x2="-90" y2="-70" stroke="#0F1F2E" stroke-width="3"/>
+    <g fill="#3F505C">
+      <circle cx="-60" cy="30" r="8"/><circle cx="-40" cy="10" r="8"/><circle cx="-20" cy="20" r="8"/>
+      <circle cx="0" cy="-10" r="8"/><circle cx="20" cy="-20" r="8"/><circle cx="40" cy="-5" r="8"/>
+      <circle cx="60" cy="-45" r="8"/>
+    </g>
+    <circle cx="60" cy="-45" r="12" fill="#E2A33B"/>
+    <path d="M-70,35 L70,-45" stroke="#1F6F5C" stroke-width="4" stroke-dasharray="10 8" fill="none"/>
+  </g>
+  <g font-family="IBM Plex Mono, Menlo, monospace" font-size="30" fill="#0F1F2E" text-anchor="middle">
+    <text x="240" y="630">Sample</text>
+    <text x="620" y="630">Preparation</text>
+    <text x="1000" y="630">LC-MS/MS</text>
+    <text x="1380" y="630">Data analysis</text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+---
+// frontmatter·데이터 문자열 안의 "[TODO …]" 를 눈에 띄게 표시합니다.
+interface Props {
+  text: string | null | undefined;
+}
+const { text } = Astro.props;
+
+const parts: { todo: boolean; text: string }[] = [];
+if (text) {
+  const re = /\[TODO[^\]]*\]/g;
+  let last = 0;
+  for (const m of text.matchAll(re)) {
+    const idx = m.index ?? 0;
+    if (idx > last) parts.push({ todo: false, text: text.slice(last, idx) });
+    parts.push({ todo: true, text: m[0] });
+    last = idx + m[0].length;
+  }
+  if (last < text.length) parts.push({ todo: false, text: text.slice(last) });
+}
+---
+
+{parts.map((p) => (p.todo ? <mark class="todo">{p.text}</mark> : <Fragment>{p.text}</Fragment>))}

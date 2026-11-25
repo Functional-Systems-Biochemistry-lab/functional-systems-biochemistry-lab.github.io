@@ -81,6 +81,12 @@
 | D15 | 디자인은 §8 토큰(대화 중 만든 '연구실 홈페이지 데모' 시안 기반) | 제안 | |
 | D16 | 무료 운영: `<계정>.github.io` | 제안 | 학교 도메인은 학과 확인 후 |
 | D17 | Alumni는 동의한 사람만 공개 | 제안 | |
+| D18 | Astro 7.4 + `@astrojs/markdown-remark`(unified) 사용 | 제안 | Astro 7 기본 Markdown 처리기(Sätteri)는 remark 플러그인을 못 씀. `[TODO]` 표식·내부 링크 언어 접두어 플러그인 때문에 unified 파이프라인 선택 (2026-11-25) |
+| D19 | 페이지는 `src/pages/index.astro` + `src/pages/[...path].astro` 2개 파일과 `src/lib/routes.ts` 라우트 표로 생성 | 제안 | 기본 언어 변경은 `src/i18n/config.ts` 한 곳(Q2 대응). 뷰는 `src/views/` |
+| D20 | BibTeX 파서 `@retorquere/bibtex-parser`(WASM, 2026-11 갱신, ISC) | 제안 | LaTeX 악센트 → 유니코드 변환 포함. 문제 시 §7.3 대안(JSON 변환) |
+| D21 | 폰트는 npm 패키지로 자체 호스팅(`@fontsource-variable/manrope`, `@fontsource/ibm-plex-mono`, `pretendard`) | 제안 | 빌드 시 네트워크 불필요 |
+| D22 | Research 그림은 frontmatter `workflow`(접근 방법 1장) + `figures`(대표 결과)로 분리. 본문은 `## 배경 / 접근 방법 / 대표 결과` 순서의 h2로 나눠 렌더 | 제안 | §5.3 템플릿 구현 방식 |
+| D23 | 플레이스홀더 그림(자체 제작 SVG, `license: own`)은 "Illustration only" 캡션과 함께 표시. 실제 그림이 오면 교체 | 제안 | Q7, Q14 |
 
 ---
 
@@ -445,6 +451,8 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q11 | Contact 이메일·전화·우편번호 | Contact | `[TODO]` | 열림 |
 | Q12 | Gallery 사진과 초상 동의 | Gallery | Phase 2 | 열림 |
 | Q13 | 이메일 표기 난독화 여부 | Contact, Members | 사용 안 함 | 열림 |
+| Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 질량 스펙트럼 SVG + "Illustration only" | 열림 |
+| Q15 | 현재 구성원 명단(이름 국/영, 과정, 입학 연월, 연구 주제, 공개 동의) | Members | PI 카드만 표시 | 열림 |
 
 ---
 
@@ -454,19 +462,19 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 | 항목 | Phase | en | ko | 상태 | 막힌 사유 |
 |---|---|---|---|---|---|
-| 프로젝트 뼈대·i18n·토큰 CSS | 0 | – | – | 미착수 | |
-| 배포 워크플로 | 0 | – | – | 미착수 | Q9 |
-| `docs/MAINTAINING.md` | 0 | – | – | 미착수 | |
-| Home | 1 | 미착수 | 미착수 | 미착수 | |
-| Faculty | 1 | 미착수 | 미착수 | 미착수 | Q4 |
-| Research 목록 + 상세 ×6 | 1 | 미착수 | 미착수 | 미착수 | Q7 |
-| Facility | 1 | 미착수 | 미착수 | 미착수 | Q3 |
-| Publications | 1 | 미착수 | – | 미착수 | Q8 |
-| Members | 1 | 미착수 | 미착수 | 미착수 | Q6 |
-| Join Us | 1 | 미착수 | 미착수 | 미착수 | Q5 |
-| Contact | 1 | 미착수 | 미착수 | 미착수 | Q11 |
-| News | 2 | 미착수 | 미착수 | 미착수 | |
-| Gallery | 2 | 미착수 | 미착수 | 미착수 | Q12 |
+| 프로젝트 뼈대·i18n·토큰 CSS | 0 | – | – | 완료 | |
+| 배포 워크플로 | 0 | – | – | 골격 | Q9 (주소 미정, 저장소·Pages 설정 전) |
+| `docs/MAINTAINING.md` | 0 | – | – | 초안 | |
+| Home | 1 | 초안 | 초안 | 초안 | Q1, Q14 |
+| Faculty | 1 | 골격 | 골격 | 골격 | Q4 (약력 전부 `[TODO]`) |
+| Research 목록 + 상세 ×6 | 1 | 초안 | 초안 | 초안 | Q7 (대표 결과·그림) |
+| Facility | 1 | 초안 | 초안 | 초안 | Q3 (3종만, 현행 확인) |
+| Publications | 1 | 골격 | – | 골격 | Q8 (목록 0건) |
+| Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
+| Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
+| Contact | 1 | 초안 | 초안 | 초안 | Q11 |
+| News | 2 | 골격 | 골격 | 골격 | 0건(메뉴 숨김) |
+| Gallery | 2 | 골격 | 골격 | 골격 | Q12, 0건(메뉴 숨김) |
 | Resources | 3 | 미착수 | – | 미착수 | |
 
 ---
@@ -474,3 +482,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 ## 14. 변경 이력 (최신 항목을 아래에 추가)
 
 - 2026-11-25 rev.1: 최초 작성. 사용자–Claude 대화(2026-11-24~25)와 기존 사이트 조사(2026-11-24)를 반영.
+- 2026-11-25 rev.2: Phase 0~1 초안 구현. Astro 7.4(minimal 템플릿) 기반, en/ko 33페이지 빌드·`npm run check`·`pubs:check` 통과, 390/768/1280px 레이아웃 확인. §3 D18~D23, §12 Q14~Q15, §13 갱신. `[TODO]` 96건(모두 사용자·교수님 확인 대기). 브랜치 `draft/phase-0-1`.

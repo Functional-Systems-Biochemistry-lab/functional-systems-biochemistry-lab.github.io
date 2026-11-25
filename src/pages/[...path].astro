@@ -1,0 +1,32 @@
+---
+// 모든 페이지(언어 × 라우트)를 정적으로 생성합니다.
+// 예: /faculty, /research/lipidomics, /ko, /ko/faculty, /ko/research/lipidomics
+import type { GetStaticPaths } from 'astro';
+import { defaultLocale, locales, type Locale } from '../i18n/config';
+import { getRoutes, type RouteKind } from '../lib/routes';
+import RouteView from '../views/RouteView.astro';
+
+export const getStaticPaths = (async () => {
+  const paths: { params: { path: string }; props: { locale: Locale; kind: RouteKind; slug?: string } }[] = [];
+  for (const locale of locales) {
+    const routes = await getRoutes(locale);
+    for (const r of routes) {
+      const segments: string[] = [];
+      if (locale !== defaultLocale) segments.push(locale);
+      if (r.path) segments.push(r.path);
+      if (segments.length === 0) continue; // 기본 언어 홈은 index.astro
+      paths.push({ params: { path: segments.join('/') }, props: { locale, kind: r.kind, slug: r.slug } });
+    }
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+interface Props {
+  locale: Locale;
+  kind: RouteKind;
+  slug?: string;
+}
+const { locale, kind, slug } = Astro.props;
+---
+
+<RouteView locale={locale} kind={kind} slug={slug} />

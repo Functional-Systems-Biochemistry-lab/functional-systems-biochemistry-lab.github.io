@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t">
+  <title id="t">A tissue section measured as a grid of pixels, each with its own mass spectrum. Illustration only.</title>
+  <rect width="1600" height="900" fill="#E9F1EE"/>
+  <!-- tissue outline -->
+  <path d="M220,420 C200,280 330,180 470,200 C590,215 640,150 760,190 C880,230 900,360 850,470 C800,580 690,640 560,620 C430,600 240,560 220,420 Z" fill="#FFFFFF" stroke="#3F505C" stroke-width="5"/>
+  <!-- pixel grid clipped to tissue -->
+  <defs>
+    <clipPath id="tissue">
+      <path d="M220,420 C200,280 330,180 470,200 C590,215 640,150 760,190 C880,230 900,360 850,470 C800,580 690,640 560,620 C430,600 240,560 220,420 Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#tissue)" fill="#1F6F5C">
+    <rect x="240" y="200" width="60" height="60" opacity="0.15"/><rect x="300" y="200" width="60" height="60" opacity="0.25"/><rect x="360" y="200" width="60" height="60" opacity="0.35"/><rect x="420" y="200" width="60" height="60" opacity="0.2"/><rect x="480" y="200" width="60" height="60" opacity="0.1"/><rect x="540" y="200" width="60" height="60" opacity="0.3"/><rect x="600" y="200" width="60" height="60" opacity="0.5"/><rect x="660" y="200" width="60" height="60" opacity="0.4"/><rect x="720" y="200" width="60" height="60" opacity="0.2"/><rect x="780" y="200" width="60" height="60" opacity="0.1"/>
+    <rect x="240" y="260" width="60" height="60" opacity="0.3"/><rect x="300" y="260" width="60" height="60" opacity="0.45"/><rect x="360" y="260" width="60" height="60" opacity="0.6"/><rect x="420" y="260" width="60" height="60" opacity="0.35"/><rect x="480" y="260" width="60" height="60" opacity="0.2"/><rect x="540" y="260" width="60" height="60" opacity="0.5"/><rect x="600" y="260" width="60" height="60" opacity="0.8"/><rect x="660" y="260" width="60" height="60" opacity="0.7"/><rect x="720" y="260" width="60" height="60" opacity="0.4"/><rect x="780" y="260" width="60" height="60" opacity="0.2"/>
+    <rect x="240" y="320" width="60" height="60" opacity="0.4"/><rect x="300" y="320" width="60" height="60" opacity="0.7"/><rect x="360" y="320" width="60" height="60" opacity="0.9"/><rect x="420" y="320" width="60" height="60" opacity="0.6"/><rect x="480" y="320" width="60" height="60" opacity="0.3"/><rect x="540" y="320" width="60" height="60" opacity="0.4"/><rect x="600" y="320" width="60" height="60" opacity="0.9"/><rect x="660" y="320" width="60" height="60" opacity="0.95"/><rect x="720" y="320" width="60" height="60" opacity="0.6"/><rect x="780" y="320" width="60" height="60" opacity="0.3"/>
+    <rect x="240" y="380" width="60" height="60" opacity="0.35"/><rect x="300" y="380" width="60" height="60" opacity="0.6"/><rect x="360" y="380" width="60" height="60" opacity="0.75"/><rect x="420" y="380" width="60" height="60" opacity="0.5"/><rect x="480" y="380" width="60" height="60" opacity="0.25"/><rect x="540" y="380" width="60" height="60" opacity="0.3"/><rect x="600" y="380" width="60" height="60" opacity="0.7"/><rect x="660" y="380" width="60" height="60" opacity="0.8"/><rect x="720" y="380" width="60" height="60" opacity="0.5"/><rect x="780" y="380" width="60" height="60" opacity="0.25"/>
+    <rect x="240" y="440" width="60" height="60" opacity="0.2"/><rect x="300" y="440" width="60" height="60" opacity="0.4"/><rect x="360" y="440" width="60" height="60" opacity="0.5"/><rect x="420" y="440" width="60" height="60" opacity="0.3"/><rect x="480" y="440" width="60" height="60" opacity="0.15"/><rect x="540" y="440" width="60" height="60" opacity="0.2"/><rect x="600" y="440" width="60" height="60" opacity="0.45"/><rect x="660" y="440" width="60" height="60" opacity="0.5"/><rect x="720" y="440" width="60" height="60" opacity="0.3"/><rect x="780" y="440" width="60" height="60" opacity="0.15"/>
+    <rect x="240" y="500" width="60" height="60" opacity="0.1"/><rect x="300" y="500" width="60" height="60" opacity="0.2"/><rect x="360" y="500" width="60" height="60" opacity="0.3"/><rect x="420" y="500" width="60" height="60" opacity="0.2"/><rect x="480" y="500" width="60" height="60" opacity="0.1"/><rect x="540" y="500" width="60" height="60" opacity="0.15"/><rect x="600" y="500" width="60" height="60" opacity="0.25"/><rect x="660" y="500" width="60" height="60" opacity="0.3"/><rect x="720" y="500" width="60" height="60" opacity="0.2"/><rect x="780" y="500" width="60" height="60" opacity="0.1"/>
+    <rect x="240" y="560" width="60" height="60" opacity="0.05"/><rect x="300" y="560" width="60" height="60" opacity="0.1"/><rect x="360" y="560" width="60" height="60" opacity="0.15"/><rect x="420" y="560" width="60" height="60" opacity="0.1"/><rect x="480" y="560" width="60" height="60" opacity="0.05"/><rect x="540" y="560" width="60" height="60" opacity="0.08"/><rect x="600" y="560" width="60" height="60" opacity="0.12"/><rect x="660" y="560" width="60" height="60" opacity="0.15"/><rect x="720" y="560" width="60" height="60" opacity="0.1"/><rect x="780" y="560" width="60" height="60" opacity="0.05"/>
+  </g>
+  <!-- highlighted pixel -->
+  <rect x="660" y="320" width="60" height="60" fill="none" stroke="#E2A33B" stroke-width="6"/>
+  <line x1="720" y1="350" x2="960" y2="350" stroke="#E2A33B" stroke-width="4" stroke-dasharray="10 8"/>
+  <!-- spectrum of one pixel -->
+  <g transform="translate(960 180)">
+    <rect x="0" y="0" width="480" height="420" rx="20" fill="#FFFFFF" stroke="#D3DEDB" stroke-width="3"/>
+    <line x1="50" y1="350" x2="440" y2="350" stroke="#0F1F2E" stroke-width="3"/>
+    <line x1="50" y1="350" x2="50" y2="60" stroke="#0F1F2E" stroke-width="3"/>
+    <g stroke="#1F6F5C" stroke-width="6" stroke-linecap="round">
+      <line x1="90" y1="350" x2="90" y2="290"/><line x1="130" y1="350" x2="130" y2="200"/><line x1="160" y1="350" x2="160" y2="320"/>
+      <line x1="210" y1="350" x2="210" y2="250"/><line x1="250" y1="350" x2="250" y2="330"/><line x1="300" y1="350" x2="300" y2="110"/>
+      <line x1="330" y1="350" x2="330" y2="280"/><line x1="380" y1="350" x2="380" y2="310"/><line x1="420" y1="350" x2="420" y2="335"/>
+    </g>
+    <line x1="300" y1="350" x2="300" y2="110" stroke="#E2A33B" stroke-width="6" stroke-linecap="round"/>
+    <text x="440" y="395" text-anchor="end" font-family="IBM Plex Mono, Menlo, monospace" font-size="24" fill="#4A5B66">m/z</text>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+---
+// Publications (§5.5, 영문 목록): 연도별, 분야 필터, 멤버 굵게
+import Base from '../layouts/Base.astro';
+import PubList from '../components/PubList.astro';
+import TodoText from '../components/TodoText.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getMembers, getResearch } from '../lib/content';
+import { aliasKeySet, loadPublications } from '../lib/publications';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const slugs = (await getResearch(locale)).map((r) => r.data.slug);
+const { publications, errors } = loadPublications(slugs);
+const aliasKeys = aliasKeySet((await getMembers()).map((m) => m.data.aliases));
+if (errors.length > 0) {
+  console.warn(`[publications] BibTeX 파싱 경고 ${errors.length}건:`, errors.map((e) => e.error).join(' | '));
+}
+---
+
+<Base locale={locale} title={t('publications.title')} description={t('publications.intro')}>
+  <div class="container page-head">
+    <span class="label">{t('publications.label')}</span>
+    <h1>{t('publications.title')}</h1>
+    <p class="lead">{t('publications.intro')}</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      {
+        publications.length > 0 ? (
+          <PubList publications={publications} locale={locale} aliasKeys={aliasKeys} slugs={slugs} filters />
+        ) : (
+          <p class="empty">
+            {t('publications.empty')} <TodoText text="[TODO: Q8 — data/publications.bib]" />
+          </p>
+        )
+      }
+    </div>
+  </section>
+</Base>

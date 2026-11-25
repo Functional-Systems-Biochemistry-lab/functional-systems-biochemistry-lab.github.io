@@ -1,0 +1,82 @@
+---
+// Gallery (§5.9, Phase 2 골격): 행사별 앨범. 동의(consent)된 사진만 표시. 0건이면 빈 상태.
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import type { Locale } from '../i18n/config';
+import { formatDate, useTranslations } from '../lib/i18n';
+import { getGallery } from '../lib/content';
+import { resolveAsset, responsive } from '../lib/assets';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const albums = await getGallery();
+---
+
+<Base locale={locale} title={t('gallery.title')}>
+  <div class="container page-head">
+    <span class="label">{t('gallery.label')}</span>
+    <h1>{t('gallery.title')}</h1>
+  </div>
+  <section class="section">
+    <div class="container">
+      {albums.length === 0 && <p class="empty">{t('gallery.empty')}</p>}
+      {
+        albums.map((album) => {
+          const photos = album.data.photos.filter((p) => p.consent);
+          return (
+            <section class="album">
+              <div class="album__head">
+                <h2>{locale === 'ko' ? album.data.title_ko : album.data.title_en}</h2>
+                <span class="mono muted">
+                  {formatDate(album.data.date, locale)} · {t('gallery.photos', { n: photos.length })}
+                </span>
+              </div>
+              <div class="grid grid--3">
+                {photos.map((p) => {
+                  const img = resolveAsset(p.src);
+                  const alt = locale === 'ko' ? p.alt_ko : p.alt_en;
+                  const caption = locale === 'ko' ? p.caption_ko : p.caption_en;
+                  return (
+                    <figure class="card album__photo">
+                      {img && <Image src={img} alt={alt} {...responsive(img, [400, 800, 1200], '(max-width: 720px) 100vw, 360px')} />}
+                      {caption && <figcaption class="small muted">{caption}</figcaption>}
+                    </figure>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .album + .album {
+    margin-top: 56px;
+  }
+  .album__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .album__head h2 {
+    margin: 0;
+    font-size: var(--fs-h2-prose);
+  }
+  .album__photo img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .album__photo figcaption {
+    padding: 8px 12px;
+  }
+</style>

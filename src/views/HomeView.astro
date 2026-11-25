@@ -1,0 +1,134 @@
+---
+// Home (§5.1): Hero → About → Research 하이라이트 6개 → News 최근 3건(없으면 숨김) → Members 요약 + Join Us 띠
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+import NewsList from '../components/NewsList.astro';
+import MemberCard from '../components/MemberCard.astro';
+import JoinBand from '../components/JoinBand.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getMembers, getNews, getPage, getResearch, sortMembers } from '../lib/content';
+import { resolveAsset } from '../lib/assets';
+import { department, isReal, site, siteName } from '../lib/site';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const home = await getPage(locale, 'home');
+const research = await getResearch(locale);
+const news = (await getNews(locale)).slice(0, 3);
+const members = sortMembers(await getMembers());
+const pi = members.find((m) => m.data.role === 'pi');
+const currentCount = members.filter((m) => m.data.role !== 'alumni' && m.data.role !== 'pi').length;
+
+const title = isReal(home.data.title) ? home.data.title : siteName(locale);
+const tagline = home.data.tagline ?? '';
+const heroImage = resolveAsset(home.data.hero_image);
+---
+
+<Base locale={locale} title={isReal(title) ? title : site.name.en} description={home.data.description ?? tagline}>
+  <Hero
+    locale={locale}
+    eyebrow={department(locale)}
+    title={title}
+    tagline={tagline}
+    image={heroImage}
+    imageAlt={home.data.hero_image_alt}
+    primary={{ href: href(locale, site.nav.join.path), text: t('home.cta_join') }}
+    secondary={{ href: href(locale, '/publications'), text: t('home.cta_pubs') }}
+  />
+
+  <section class="section section--alt" id="about">
+    <div class="container about">
+      <span class="label">{t('home.about_label')}</span>
+      <div class="about__body prose" set:html={home.rendered?.html ?? ''} />
+    </div>
+  </section>
+
+  <section class="section" id="research">
+    <div class="container">
+      <SectionHeading
+        label={t('home.research_label')}
+        title={t('home.research_title')}
+        link={{ href: href(locale, '/research'), text: t('home.research_all') }}
+      />
+      <div class="grid grid--3">
+        {research.map((entry) => <ResearchCard entry={entry} locale={locale} />)}
+      </div>
+    </div>
+  </section>
+
+  {
+    news.length > 0 && (
+      <section class="section" id="news">
+        <div class="container">
+          <SectionHeading
+            label={t('home.news_label')}
+            title={t('home.news_title')}
+            link={{ href: href(locale, '/news'), text: t('home.news_all') }}
+          />
+          <NewsList items={news} locale={locale} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section" id="people">
+    <div class="container people">
+      <div class="people__text">
+        <span class="label">{t('home.people_label')}</span>
+        <h2>{t('home.people_title')}</h2>
+        <p class="muted">{t('home.people_text')}</p>
+        <a class="btn btn--secondary" href={href(locale, '/members')}>{t('home.people_link')}</a>
+      </div>
+      <div class="people__cards">
+        {pi && <MemberCard member={pi} locale={locale} link={href(locale, '/faculty')} compact />}
+        {currentCount === 0 && <p class="empty small">{t('members.empty_current')}</p>}
+      </div>
+    </div>
+  </section>
+
+  <JoinBand
+    title={t('home.join_title')}
+    text={t('home.join_text')}
+    cta={{ href: href(locale, site.nav.join.path), text: t('home.join_cta') }}
+  />
+</Base>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+  }
+  .about__body {
+    font-size: 1.1em;
+    max-width: 64ch;
+  }
+  .people {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .people__text .btn {
+    margin-top: 8px;
+  }
+  .people__cards {
+    display: grid;
+    gap: 16px;
+  }
+  @media (max-width: 860px) {
+    .about,
+    .people {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+</style>

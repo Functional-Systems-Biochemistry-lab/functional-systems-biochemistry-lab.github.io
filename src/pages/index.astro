@@ -1,0 +1,7 @@
+---
+// 기본 언어 홈 ("/"). 다른 모든 경로는 [...path].astro 에서 생성됩니다.
+import { defaultLocale } from '../i18n/config';
+import RouteView from '../views/RouteView.astro';
+---
+
+<RouteView locale={defaultLocale} kind="home" />

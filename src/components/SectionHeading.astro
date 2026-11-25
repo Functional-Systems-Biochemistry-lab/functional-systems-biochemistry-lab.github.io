@@ -1,0 +1,57 @@
+---
+// 섹션 헤딩: mono 라벨 + 제목 (+ 오른쪽 링크)
+interface Props {
+  label?: string;
+  title: string;
+  id?: string;
+  level?: 1 | 2 | 3;
+  link?: { href: string; text: string };
+}
+const { label, title, id, level = 2, link } = Astro.props;
+const Tag = `h${level}` as 'h1' | 'h2' | 'h3';
+---
+
+<div class="section-heading">
+  <div>
+    {label && <span class="label">{label}</span>}
+    <Tag id={id}>{title}</Tag>
+  </div>
+  {link && <a class="section-heading__link" href={link.href}>{link.text} →</a>}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .section-heading .label {
+    display: block;
+    margin-bottom: 6px;
+  }
+  .section-heading h1,
+  .section-heading h2,
+  .section-heading h3 {
+    margin: 0;
+  }
+  .section-heading__link {
+    white-space: nowrap;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .section-heading__link:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 560px) {
+    .section-heading {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+</style>

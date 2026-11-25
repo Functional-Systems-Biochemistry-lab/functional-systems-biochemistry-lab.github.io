@@ -1,0 +1,97 @@
+---
+// Home 상단 Hero: 연구실명, 한 줄 소개, 버튼 2개, 대표 이미지(없으면 질량 스펙트럼 SVG + "Illustration only")
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import heroSpectrum from '../assets/hero-spectrum.svg';
+import { responsive } from '../lib/assets';
+import TodoText from './TodoText.astro';
+
+interface Props {
+  locale: Locale;
+  eyebrow: string;
+  title: string;
+  tagline: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  primary: { href: string; text: string };
+  secondary: { href: string; text: string };
+}
+const { locale, eyebrow, title, tagline, image, imageAlt, primary, secondary } = Astro.props;
+const t = useTranslations(locale);
+const illustration = !image;
+const img = image ?? heroSpectrum;
+const alt = image ? imageAlt ?? '' : t('common.illustration_only');
+---
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <span class="label">{eyebrow}</span>
+      <h1><TodoText text={title} /></h1>
+      <p class="hero__tagline">{tagline}</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href={primary.href}>{primary.text}</a>
+        <a class="btn btn--secondary" href={secondary.href}>{secondary.text}</a>
+      </div>
+    </div>
+    <figure class="hero__media">
+      <Image src={img} alt={alt} {...responsive(img, [640, 960, 1280, 1600], '(max-width: 860px) 100vw, 520px')} loading="eager" />
+      {illustration && <figcaption>{t('common.illustration_only')}</figcaption>}
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--section);
+  }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 {
+    margin: 0.35em 0 0.5em;
+  }
+  .hero__tagline {
+    font-size: 1.2em;
+    color: var(--muted);
+    max-width: 38ch;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .hero__media {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .hero__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .hero__media figcaption {
+    padding: 8px 12px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

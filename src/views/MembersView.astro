@@ -1,0 +1,106 @@
+---
+// Members (§5.6): PI 카드(→ Faculty), Current(박사후/대학원/학부 인턴), Alumni(동의한 사람만)
+import Base from '../layouts/Base.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import MemberCard from '../components/MemberCard.astro';
+import TodoText from '../components/TodoText.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getMembers, sortMembers } from '../lib/content';
+import { href } from '../lib/url';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const members = sortMembers(await getMembers());
+const pi = members.filter((m) => m.data.role === 'pi');
+const postdocs = members.filter((m) => m.data.role === 'postdoc');
+const graduate = members.filter((m) => m.data.role === 'phd' || m.data.role === 'ms');
+const undergrad = members.filter((m) => m.data.role === 'undergrad');
+const alumni = members
+  .filter((m) => m.data.role === 'alumni')
+  .sort((a, b) => (b.data.left ?? '').localeCompare(a.data.left ?? ''));
+const currentCount = postdocs.length + graduate.length + undergrad.length;
+
+const groups: { title: string; items: typeof members }[] = [
+  { title: t('members.postdoc'), items: postdocs },
+  { title: t('members.graduate'), items: graduate },
+  { title: t('members.undergraduate'), items: undergrad },
+];
+---
+
+<Base locale={locale} title={t('members.title')}>
+  <div class="container page-head">
+    <span class="label">{t('members.label')}</span>
+    <h1>{t('members.title')}</h1>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading title={t('members.pi')} level={2} />
+      <div class="grid grid--2">
+        {pi.map((m) => <MemberCard member={m} locale={locale} link={href(locale, '/faculty')} compact />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading title={t('members.current')} level={2} />
+      {
+        currentCount === 0 && (
+          <p class="empty">
+            {t('members.empty_current')} <TodoText text="[TODO: 구성원 명단·동의 확인 (inbox/members)]" />
+          </p>
+        )
+      }
+      {
+        groups
+          .filter((g) => g.items.length > 0)
+          .map((g) => (
+            <div class="member-group">
+              <h3 class="member-group__title">{g.title}</h3>
+              <div class="grid grid--4">
+                {g.items.map((m) => (
+                  <MemberCard member={m} locale={locale} />
+                ))}
+              </div>
+            </div>
+          ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SectionHeading title={t('members.alumni')} level={2} />
+      {
+        alumni.length === 0 ? (
+          <p class="empty">
+            {t('members.empty_alumni')} <TodoText text="[TODO: Alumni 공개 동의 (Q6)]" />
+          </p>
+        ) : (
+          <div class="grid grid--4">
+            {alumni.map((m) => (
+              <MemberCard member={m} locale={locale} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .member-group + .member-group {
+    margin-top: 40px;
+  }
+  .member-group__title {
+    margin-bottom: 16px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+</style>

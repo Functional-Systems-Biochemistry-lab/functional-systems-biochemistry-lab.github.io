@@ -1,0 +1,286 @@
+---
+// 논문 목록: 연도별 그룹, "Authors. Title. Journal Year;Vol:Pages. DOI" + 분야 칩. 멤버 굵게.
+// filters=true 이면 분야별 필터 버튼(클라이언트 JS, 없어도 전체 목록이 보임)
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import {
+  doiUrl,
+  groupByYear,
+  isMemberAuthor,
+  pubmedUrl,
+  type Publication,
+} from '../lib/publications';
+import { href, withBase } from '../lib/url';
+
+interface Props {
+  publications: Publication[];
+  locale: Locale;
+  aliasKeys: Set<string>;
+  slugs: string[];
+  filters?: boolean;
+  showYears?: boolean;
+  id?: string;
+}
+const { publications, locale, aliasKeys, slugs, filters = false, showYears = true, id = 'publist' } = Astro.props;
+const t = useTranslations(locale);
+const groups = groupByYear(publications);
+const usedSlugs = slugs.filter((s) => publications.some((p) => p.tags.includes(s)));
+
+function sanitizeTitle(html: string): string {
+  return html.replace(/<(?!\/?(i|b|em|strong|sup|sub|span)\b)[^>]*>/gi, '');
+}
+function pdfHref(pdf: string): string {
+  return /^https?:\/\//i.test(pdf) ? pdf : withBase(pdf);
+}
+---
+
+<div class="publist" data-publist id={id}>
+  {
+    filters && usedSlugs.length > 0 && (
+      <div class="publist__filters" role="group" aria-label={t('publications.filter_label')}>
+        <span class="label">{t('publications.filter_label')}</span>
+        <div class="publist__chips">
+          <button type="button" class="chip" data-filter="all" aria-pressed="true">
+            {t('publications.filter_all')}
+          </button>
+          {usedSlugs.map((s) => (
+            <button type="button" class="chip" data-filter={s} aria-pressed="false">
+              {t(`research.short.${s}`)}
+            </button>
+          ))}
+        </div>
+        <span
+          class="publist__count mono"
+          data-count
+          data-template={t('publications.count')}
+          data-template-one={t('publications.count_one')}
+        >
+          {publications.length === 1 ? t('publications.count_one') : t('publications.count', { n: publications.length })}
+        </span>
+      </div>
+    )
+  }
+
+  {
+    groups.map((g) => (
+      <section class="publist__year" data-year-group>
+        {showYears && <h3 class="publist__year-heading mono">{g.year || '—'}</h3>}
+        <ol class="publist__items">
+          {g.items.map((p) => (
+            <li class="pub" data-tags={p.tags.join(' ')} id={`pub-${p.key}`}>
+              <span class="pub__authors">
+                {p.authors.map((a, i) => (
+                  <>
+                    {i > 0 && ', '}
+                    {isMemberAuthor(a, aliasKeys) ? <strong>{a.display}</strong> : a.display}
+                  </>
+                ))}
+                {p.authors.length > 0 && '. '}
+              </span>
+              <span class="pub__title" set:html={sanitizeTitle(p.title)} />
+              {'. '}
+              <span class="pub__journal">{p.journal}</span>
+              {p.journal && ' '}
+              <span class="pub__ref">
+                {p.year || ''}
+                {p.volume && `;${p.volume}`}
+                {p.issue && `(${p.issue})`}
+                {p.pages && `:${p.pages}`}.
+              </span>
+              <span class="pub__links">
+                {p.doi && (
+                  <a href={doiUrl(p.doi)} rel="noopener">
+                    {t('publications.doi')}
+                  </a>
+                )}
+                {p.pmid && (
+                  <a href={pubmedUrl(p.pmid)} rel="noopener">
+                    {t('publications.pubmed')}
+                  </a>
+                )}
+                {p.pdf && (
+                  <a href={pdfHref(p.pdf)} rel="noopener">
+                    {t('publications.pdf')}
+                  </a>
+                )}
+                {!p.doi && !p.pmid && p.url && (
+                  <a href={p.url} rel="noopener">
+                    Link
+                  </a>
+                )}
+              </span>
+              {p.tags.length > 0 && (
+                <span class="pub__tags">
+                  {p.tags.map((s) => (
+                    <a class="tag" href={href(locale, `/research/${s}`)}>
+                      {t(`research.short.${s}`)}
+                    </a>
+                  ))}
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  }
+</div>
+
+{
+  filters && (
+    <script>
+      document.querySelectorAll<HTMLElement>('[data-publist]').forEach((root) => {
+        const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+        if (buttons.length === 0) return;
+        const items = Array.from(root.querySelectorAll<HTMLElement>('[data-tags]'));
+        const groups = Array.from(root.querySelectorAll<HTMLElement>('[data-year-group]'));
+        const countEl = root.querySelector<HTMLElement>('[data-count]');
+
+        const apply = (tag: string) => {
+          let n = 0;
+          for (const li of items) {
+            const tags = (li.dataset.tags || '').split(' ').filter(Boolean);
+            const show = tag === 'all' || tags.includes(tag);
+            li.hidden = !show;
+            if (show) n++;
+          }
+          for (const g of groups) g.hidden = !g.querySelector('[data-tags]:not([hidden])');
+          for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.filter === tag));
+          if (countEl) {
+            const tpl = n === 1 ? countEl.dataset.templateOne : countEl.dataset.template;
+            countEl.textContent = (tpl || '{n}').replace('{n}', String(n));
+          }
+        };
+
+        for (const b of buttons) {
+          b.addEventListener('click', () => {
+            const tag = b.dataset.filter || 'all';
+            apply(tag);
+            const url = new URL(location.href);
+            if (tag === 'all') url.searchParams.delete('area');
+            else url.searchParams.set('area', tag);
+            history.replaceState(null, '', url);
+          });
+        }
+
+        const initial = new URLSearchParams(location.search).get('area');
+        if (initial && buttons.some((b) => b.dataset.filter === initial)) apply(initial);
+      });
+    </script>
+  )
+}
+
+<style>
+  .publist__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    margin-bottom: 28px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .publist__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    min-height: 36px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--fs-small);
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: var(--accent);
+  }
+  .chip[aria-pressed='true'] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 700;
+  }
+  .publist__count {
+    margin-left: auto;
+    color: var(--muted-2);
+  }
+  .publist__year {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px 24px;
+    padding-block: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .publist__year-heading {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    color: var(--muted-2);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .publist__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pub {
+    padding-block: 8px;
+    line-height: 1.6;
+  }
+  .pub + .pub {
+    border-top: 1px dashed var(--line);
+  }
+  .pub__title {
+    font-weight: 600;
+  }
+  .pub__journal {
+    font-style: italic;
+  }
+  .pub__links {
+    display: inline-flex;
+    gap: 10px;
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.04em;
+  }
+  .pub__tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 12.5px;
+    text-decoration: none;
+  }
+  .tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  @media (max-width: 640px) {
+    .publist__year {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .publist__count {
+      margin-left: 0;
+    }
+  }
+</style>

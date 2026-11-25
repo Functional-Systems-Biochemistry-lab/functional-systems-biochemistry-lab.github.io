@@ -1,0 +1,30 @@
+---
+// Research 목록 (§5.3): 6개 카드, 사용자 지정 순서
+import Base from '../layouts/Base.astro';
+import ResearchCard from '../components/ResearchCard.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getResearch } from '../lib/content';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const research = await getResearch(locale);
+---
+
+<Base locale={locale} title={t('research.title')} description={t('research.intro')}>
+  <div class="container page-head">
+    <span class="label">{t('research.label')}</span>
+    <h1>{t('research.title')}</h1>
+    <p class="lead">{t('research.intro')}</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--3">
+        {research.map((entry) => <ResearchCard entry={entry} locale={locale} headingLevel={2} />)}
+      </div>
+    </div>
+  </section>
+</Base>

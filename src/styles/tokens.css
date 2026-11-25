@@ -1,0 +1,43 @@
+/* 디자인 토큰 — CLAUDE.md §8. 라이트 모드만 (다크 모드는 Phase 3) */
+:root {
+  --bg: #F4F7F6;
+  --surface: #FFFFFF;
+  --ink: #0F1F2E;
+  --muted: #3F505C;
+  --muted-2: #4A5B66;
+  --line: #D3DEDB;
+  --accent: #1F6F5C;
+  --accent-ink: #FFFFFF;
+  --highlight: #E2A33B;
+  --todo-bg: #FFF4DC;
+
+  --font-sans: 'Manrope Variable', 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-body: 17px;
+  --fs-small: 15px;
+  --fs-label: 12.5px;
+  --fs-h1: 46px;
+  --fs-h2: 32px;
+  --fs-h3: 20px;
+  --fs-h2-prose: 26px;
+
+  --max: 1120px;
+  --gutter: 24px;
+  --section: 72px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --gap: 24px;
+  --touch: 44px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 16px;
+    --section: 48px;
+    --fs-h1: 32px;
+    --fs-h2: 26px;
+    --fs-h2-prose: 22px;
+    --fs-body: 16px;
+  }
+}

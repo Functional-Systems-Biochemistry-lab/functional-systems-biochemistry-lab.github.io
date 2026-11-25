@@ -1,0 +1,56 @@
+---
+// 초안 띠. 환경변수 PUBLIC_DRAFT_BANNER=false 로 끕니다 (CLAUDE.md §7.5).
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const flag = String(import.meta.env.PUBLIC_DRAFT_BANNER ?? 'true').toLowerCase();
+const show = !['false', '0', 'off', 'no'].includes(flag);
+---
+
+{
+  show && (
+    <div class="draft-banner" role="status">
+      <div class="container">
+        <span class="draft-banner__tag">{t('common.status_draft')}</span>
+        <span>{t('common.draft_banner')}</span>
+        <span class="draft-banner__note">{t('common.todo_notice')}</span>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .draft-banner {
+    background: var(--ink);
+    color: #fff;
+    font-size: var(--fs-small);
+    line-height: 1.4;
+  }
+  .draft-banner .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    padding-block: 8px;
+  }
+  .draft-banner__tag {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--highlight);
+    color: var(--ink);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .draft-banner__note {
+    color: rgba(255, 255, 255, 0.72);
+  }
+</style>
