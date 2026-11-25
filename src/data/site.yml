@@ -3,7 +3,7 @@
 
 name:
   en: Functional Systems Biochemistry Lab
-  ko: "[TODO: 국문 연구실명 (Q1)]"
+  ko: "기능시스템생화학 연구실"
 short_name:
   en: FSB Lab
   ko: FSB Lab
@@ -12,18 +12,21 @@ department:
   en: Department of Applied Chemistry, Kyung Hee University (Global Campus)
   ko: 경희대학교 응용화학과(국제캠퍼스)
 
-pi_id: kim-kwang-pyo   # src/content/members/<id>.md
+pi_id: kim-kwangpyo   # src/content/members/<id>.md
 
 address:
   # 기존 사이트 기준 주소. 현행 여부와 우편번호는 확인 필요 (Q11)
-  ko: "경기도 용인시 기흥구 덕영대로 1732, 경희대학교 국제캠퍼스 응용화학과 가설연구동 101호"
+  ko: "경기도 용인시 기흥구 덕영대로 1732, 경희대학교 국제캠퍼스 응용화학과 실험연구동 A동 101, 102호"
   en: "Department of Applied Chemistry, Kyung Hee University Global Campus, 1732 Deogyeong-daero, Giheung-gu, Yongin-si, Gyeonggi-do, Republic of Korea — [TODO: English name of 가설연구동 101호]"
-  postal_code: "[TODO: 우편번호 (Q11)]"
+  postal_code: "17104"
 
 contact:
-  email: "[TODO: 대표 이메일 (Q11)]"
-  phone: "[TODO: 전화 (Q11)]"
-  map_url: ""          # 외부 지도 서비스 링크(선택). iframe 임베드 금지 (§5.8)
+  email: "khufsb@gmail.com"
+  phone: "031-201-2825"
+  map_embed_url: "https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b45000b03bda3%3A0xc69e54f208c9160d!2z6rK97Z2s64yA7ZWZ6rWQIOyLpO2XmOyXsOq1rOuPmUE!5e0!3m2!1sko!2skr"
+  map_links:
+    - { label_ko: "카카오맵", label_en: "Kakao Map", url: "https://map.kakao.com/link/map/경희대학교국제캠퍼스,37.24006,127.08608" }
+    - { label_ko: "구글 지도", label_en: "Google Maps", url: "https://maps.app.goo.gl/NtQNRMvD9DWGimVN9" }
 
 links:
   university:
@@ -33,7 +36,7 @@ links:
   department:
     label_en: Department of Applied Chemistry
     label_ko: 응용화학과
-    url: ""            # [TODO: 학과 홈페이지 URL]
+    url: "https://applchem.khu.ac.kr/applchem/user/main/view.do"            # [TODO: 학과 홈페이지 URL]
 
 # 헤더 메뉴 순서 (§4). key 는 src/i18n/*.json 의 nav.<key> 와 같아야 합니다.
 # hide_when_empty 가 가리키는 컬렉션이 비어 있으면 메뉴에서 자동 숨김.

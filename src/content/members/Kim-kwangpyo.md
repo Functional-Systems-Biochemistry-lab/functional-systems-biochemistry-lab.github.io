@@ -1,12 +1,12 @@
 ---
-id: kim-kwang-pyo
-name_en: Kwang Pyo Kim
+id: Kim-kwangpyo
+name_en: Kwangpyo Kim
 name_ko: 김광표
 role: pi
 since: null
 left: null
-topic_en: Mass spectrometry-based multi-omics
-topic_ko: 질량분석 기반 멀티오믹스
+topic_en: Proteomics, Mass spectrometry, Lipidomics, Proteogenomics, Post translational modifications
+topic_ko: 단백질체학, 질량 분석기, 지질체학, 단백유전체학, 번역 후 변형
 photo: null
 email: null
 current_position: null

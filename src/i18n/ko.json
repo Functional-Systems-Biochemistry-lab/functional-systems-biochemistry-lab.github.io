@@ -153,6 +153,8 @@
     "email": "이메일",
     "phone": "전화",
     "map": "지도에서 보기",
+    "map_alt": "연구실 위치를 보여 주는 지도",
+    "map_embed_note": "지도는 Google 지도에서 불러옵니다.",
     "directions": "오시는 길"
   },
   "news": {

@@ -15,7 +15,16 @@ export interface SiteData {
   department: Record<Locale, string>;
   pi_id: string;
   address: { en: string; ko: string; postal_code?: string };
-  contact: { email?: string; phone?: string; map_url?: string };
+  contact: {
+    email?: string;
+    phone?: string;
+    map_url?: string;
+    map_links?: { label_en: string; label_ko: string; url: string }[];
+    map_embed_url?: string;
+    map_image?: string;
+    map_credit?: string;
+    map_credit_url?: string;
+  };
   links: Record<string, { label_en: string; label_ko: string; url: string }>;
   nav: { header: NavItem[]; footer: NavItem[]; join: NavItem };
 }
@@ -41,6 +50,10 @@ export function address(locale: Locale): string {
 export function linkLabel(key: string, locale: Locale): string {
   const l = site.links[key];
   if (!l) return key;
+  return locale === 'ko' ? l.label_ko : l.label_en;
+}
+
+export function mapLinkLabel(l: { label_en: string; label_ko: string }, locale: Locale): string {
   return locale === 'ko' ? l.label_ko : l.label_en;
 }
 

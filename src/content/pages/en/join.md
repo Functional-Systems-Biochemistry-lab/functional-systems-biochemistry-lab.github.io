@@ -1,7 +1,7 @@
 ---
 title: Join Us
 lead: Open to students who want to learn how to measure biology with mass spectrometry.
-apply_email: "[TODO: application email (Q5)]"
+apply_email: "khufsb@gmail.com"
 faq:
   - q: Can I apply if my major is not chemistry?
     a: "[TODO: answer to be confirmed by the PI (Q5)]"

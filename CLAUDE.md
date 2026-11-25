@@ -90,6 +90,7 @@
 | D24 | 색상 기조를 랩미팅 PPT(`1_랩미팅_양식.pptx`) 색으로 변경: 로열블루·금색·네이비. D15의 시안 색(청록·앰버)을 대체 | 확정 | 사용자 요청(2026-11-25). 값은 §8 |
 | D25 | Draft 띠(`PUBLIC_DRAFT_BANNER`)가 켜진 동안 robots.txt는 `Disallow: /`, 모든 페이지에 `<meta name="robots" content="noindex">`. 띠를 끄면 같은 변수로 함께 해제 | 확정 | 사용자 요청(2026-11-25). 공개 전 검색 노출 방지. 구현 `src/lib/draft.ts` |
 | D26 | 배경 그림 + 부드러운 스크롤: 설정은 `src/data/background.yml` 한 파일, 그림은 `src/assets/backdrops/`. 그림은 `float`(떠 있는 그림: `near` 구역 또는 자동 배치, 패럴랙스, 나타나기)과 `fixed`(전체 배경, 스크롤 %에 따라 스며듦) 두 종류. 마우스 휠은 Lenis(`lenis`, MIT, 번들 자체 호스팅)로 부드럽게, 터치·키보드는 기본 동작. `prefers-reduced-motion` 이면 패럴랙스·나타나기·부드러운 스크롤 모두 끔 | 확정 | 사용자 요청(2026-11-25, 참고: leejoosang.wixsite.com/ngml). §8 '장식 최소'의 예외 — 글자 가독성·R6(credit·license)·`npm run check` 검증 필수. 구현 `src/lib/background.ts`, `src/components/Backdrops.astro` |
+| D27 | Contact 지도: 구글 지도 퍼가기 iframe(`site.yml` `contact.map_embed_url`, `https://www.google.com/maps/embed`로 시작하는 주소만 통과)만 허용, 그 외 외부 iframe 금지. 퍼가기 주소가 없으면 지도 이미지(`map_image` + `map_credit`)로 대체. 외부 지도 링크 버튼은 `map_links`(여러 개) 또는 `map_url` | 확정 | 사용자 요청(2026-11-25, `inbox/fsb-contact-map-image.patch`). §5.8·§8 금지 목록 수정. 지도 iframe은 Google 서버에서 불러오므로 §7.6(외부 스크립트·쿠키 미사용)의 예외 — 캡션 `contact.map_embed_note`로 표기. 구현 `src/views/ContactView.astro` |
 
 ---
 
@@ -213,7 +214,7 @@
 
 - 주소(기관 공개 주소, 기존 사이트 기준): 경기도 용인시 기흥구 덕영대로 1732, 경희대학교 국제캠퍼스 응용화학과 가설연구동 101호. 우편번호·현행 여부 `[TODO]`.
 - 대표 이메일 `[TODO]`, 전화 `[TODO]`.
-- 지도는 외부 지도 서비스 링크만(iframe 임베드 금지). 교통편은 선택.
+- 지도: 구글 지도 퍼가기 iframe(`site.yml`의 `contact.map_embed_url`)만 허용, 그 외 외부 iframe 금지(D27). 퍼가기 주소가 없으면 지도 이미지(`map_image`, R6에 따라 `map_credit` 표기)로 대체. 외부 지도 링크 버튼(`map_links`)과 교통편은 선택.
 
 ### 5.9 후속 페이지
 
@@ -387,7 +388,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 **접근성**: WCAG AA(본문 대비 4.5:1 이상), 키보드 포커스 표시(3px outline), 본문 건너뛰기 링크, `prefers-reduced-motion` 존중, 터치 타깃 44px 이상, 이미지 alt 필수, 색만으로 정보를 전달하지 않음.
 
-**금지**: 이모지 아이콘, 보라–파랑 그라디언트, 자동 재생 미디어, 외부 지도 iframe.
+**금지**: 이모지 아이콘, 보라–파랑 그라디언트, 자동 재생 미디어, 외부 iframe(구글 지도 퍼가기 iframe `map_embed_url`만 허용, D27).
 
 **배경 그림·스크롤(D26)**: 사용자 요청으로 `src/data/background.yml` 의 그림을 글자 뒤(`z-index:-1`)에 깔고 마우스 휠 스크롤을 부드럽게 함. §8 '장식 최소'의 예외이므로 ① 글자 대비 4.5:1 을 해치지 않게 그림은 옅게(float `opacity` ≤ 0.8, 선 그림 0.5~0.7, 사진 0.15~0.3) ② 그림마다 `credit`·`license` 필수(R6) ③ 보라–파랑 그라디언트 금지는 그대로 ④ `prefers-reduced-motion` 에서는 모든 움직임 끔 ⑤ 그림은 장식이므로 `alt=""`·`aria-hidden`. 홈페이지 기본 샘플은 자체 제작 SVG(`license: own`)이며 실제 그림이 오면 교체.
 
@@ -496,3 +497,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.3: 색상 토큰을 랩미팅 PPT 기조(로열블루 `#113386`, 금색 `#FFD579`, 네이비 `#0E2841`)로 교체(D24, §8). 플레이스홀더 SVG 색도 함께 교체.
 - 2026-11-25 rev.4: GitHub 공개 준비. 배포 주소 확정(D16 확정, Q9 닫힘): `https://functional-systems-biochemistry-lab.github.io`, base `/`. `.gitignore`에 `inbox/`·`.env.*`(`.env.example` 제외) 추가. Draft 띠가 켜진 동안 robots.txt `Disallow: /`와 전 페이지 `noindex` 메타(D25, `src/lib/draft.ts`). R5·R12 보강(Public 저장소 공개 범위, 멤버 동의 후 파일 생성, `inbox/` git 제외, 비밀키·미발표 데이터·임상 정보·대용량 원본 커밋 금지, 커밋 전 `git status`). 공개 체크리스트에 noindex 제거 확인 추가.
 - 2026-11-25 rev.5: 배경 그림·부드러운 스크롤 추가(D26). `src/data/background.yml`(설정), `src/lib/background.ts`(검증·기본값), `src/components/Backdrops.astro`(그림 층 + Lenis 스크롤 + 패럴랙스), `src/assets/backdrops/`(샘플 SVG 7개, `license: own`), `scripts/check.mjs`(설정 점검), 의존성 `lenis`. `docs/MAINTAINING.md` 3.6 추가. 참고: Wix 사이트(leejoosang.wixsite.com/ngml)의 고정 배경·구역에 걸친 그림·부드러운 스크롤 느낌.
+- 2026-11-25 rev.6: Contact 지도 추가(D27, `inbox/fsb-contact-map-image.patch`). `site.yml` `contact`에 `map_embed_url`(구글 퍼가기 iframe)·`map_image`·`map_credit`·`map_links` 지원(`src/lib/site.ts`, `src/views/ContactView.astro`), UI 문구 `contact.map_alt`·`contact.map_embed_note`. §5.8과 §8 금지 목록을 "구글 지도 퍼가기 iframe만 허용, 그 외 외부 iframe 금지"로 수정. 브랜치 `feat/contact-map-image`.

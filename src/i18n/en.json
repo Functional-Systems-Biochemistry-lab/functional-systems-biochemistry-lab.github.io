@@ -153,6 +153,8 @@
     "email": "Email",
     "phone": "Phone",
     "map": "Open in maps",
+    "map_alt": "Map showing the location of the lab",
+    "map_embed_note": "The map is loaded from Google Maps.",
     "directions": "Directions"
   },
   "news": {
