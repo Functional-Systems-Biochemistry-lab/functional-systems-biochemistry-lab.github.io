@@ -1,2 +1,2 @@
 # functional-systems-biochemistry-lab.github.io
-Functional Systems Biochemistry Lab, Kyung Hee University
+Welcome to Functional Systems Biochemistry Lab, Kyung Hee University, Department of Applied Chemisty
