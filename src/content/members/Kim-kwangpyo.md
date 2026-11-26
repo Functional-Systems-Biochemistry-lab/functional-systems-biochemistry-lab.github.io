@@ -10,7 +10,7 @@ topic_ko: 단백질체학, 질량 분석기, 지질체학, 단백유전체학, �
 photo: null
 email: null
 current_position: null
-aliases: ["Kim KP", "Kim, Kwang Pyo", "Kwang Pyo Kim", "Kim K.P.", "K. P. Kim"]
+aliases: ["Kim KP", "Kim, Kwang Pyo", "Kwang Pyo Kim", "Kim K.P.", "K. P. Kim", "Kim, KP"]
 consent: true
 status: draft
 source: "CLAUDE.md §2 (이름·직위). 사진·이메일·연구 주제 문구는 Q4 자료로 교체"
