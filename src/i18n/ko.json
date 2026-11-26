@@ -25,7 +25,8 @@
     "contact": "연락처",
     "news": "소식",
     "gallery": "사진",
-    "resources": "자료"
+    "resources": "자료",
+    "privacy": "개인정보 처리 안내"
   },
   "home": {
     "about_label": "소개",
@@ -178,6 +179,7 @@
     "form_error": "전송에 실패했습니다. 잠시 후 다시 시도하거나 이메일로 직접 문의해 주세요.",
     "form_no_subject": "(제목 없음)",
     "form_privacy": "수집 항목: 성명, 이메일, 제목, 문의 내용. 이용 목적: 문의 응답. 전송은 외부 서비스(Web3Forms)를 거칩니다.",
+    "form_privacy_link": "개인정보 처리 안내 보기",
     "form_privacy_retention": "[TODO: 보유 기간 — 교수님·학과 확인]",
     "directions": "오시는 길"
   },
@@ -191,6 +193,9 @@
     "title": "사진",
     "empty": "아직 사진이 없습니다.",
     "photos": "사진 {n}장"
+  },
+  "privacy": {
+    "label": "개인정보"
   },
   "footer": {
     "links": "링크",

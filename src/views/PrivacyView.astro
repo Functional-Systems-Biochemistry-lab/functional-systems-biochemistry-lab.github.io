@@ -1,0 +1,35 @@
+---
+// 개인정보 처리 안내 (§5.10, D32): 문의 폼으로 받는 개인정보의 수집 항목 → 목적 → 보유 기간 → 외부 전송 → 요청 방법 → 쿠키 → 시행일.
+// 본문은 pages/<locale>/privacy.md. 대표 이메일은 본문의 {{site.contact.email}} 표식이 빌드 때 site.yml 값으로 바뀜(remark-site-vars).
+import Base from '../layouts/Base.astro';
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { getPage } from '../lib/content';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const page = await getPage(locale, 'privacy');
+---
+
+<Base locale={locale} title={page.data.title} description={page.data.lead}>
+  <div class="container page-head">
+    <span class="label">{t('privacy.label')}</span>
+    <h1>{page.data.title}</h1>
+    {page.data.lead && <p class="lead">{page.data.lead}</p>}
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="prose privacy-body" set:html={page.rendered?.html ?? ''} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .privacy-body {
+    max-width: 72ch;
+  }
+</style>

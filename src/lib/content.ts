@@ -29,7 +29,7 @@ export async function getFacility(locale: Locale): Promise<FacilityEntry[]> {
   return all.sort((a, b) => a.data.order - b.data.order);
 }
 
-export async function getPage(locale: Locale, name: 'home' | 'faculty' | 'join' | 'contact'): Promise<PageEntry> {
+export async function getPage(locale: Locale, name: 'home' | 'faculty' | 'join' | 'contact' | 'privacy'): Promise<PageEntry> {
   const entry = (await getEntry('pages', `${locale}/${name}`)) ?? (await getEntry('pages', `${defaultLocale}/${name}`));
   if (!entry) throw new Error(`pages/${locale}/${name}.md 가 없습니다.`);
   return entry;

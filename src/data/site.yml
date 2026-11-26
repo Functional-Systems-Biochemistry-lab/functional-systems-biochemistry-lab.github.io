@@ -52,8 +52,9 @@ nav:
     - { key: publications, path: "/publications" }
     - { key: members, path: "/members" }
     - { key: contact, path: "/contact" }
-  # 메뉴가 8개를 넘으므로 News·Gallery 는 푸터로 (§4)
+  # 메뉴가 8개를 넘으므로 News·Gallery 는 푸터로 (§4). 개인정보 처리 안내는 푸터에만 (D32)
   footer:
     - { key: news, path: "/news", hide_when_empty: news }
     - { key: gallery, path: "/gallery", hide_when_empty: gallery }
+    - { key: privacy, path: "/privacy" }
   join: { key: join, path: "/join" }

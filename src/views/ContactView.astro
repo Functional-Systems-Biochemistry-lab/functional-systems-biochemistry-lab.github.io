@@ -8,6 +8,7 @@ import { useTranslations } from '../lib/i18n';
 import { getPage } from '../lib/content';
 import { resolveAsset, responsive } from '../lib/assets';
 import { address, department, isReal, linkLabel, mapLinkLabel, site } from '../lib/site';
+import { href } from '../lib/url';
 
 interface Props {
   locale: Locale;
@@ -215,7 +216,8 @@ if (locale === 'ko') nameFields.reverse(); // 국문은 성 → 이름 순서
             <label class="cform__consent">
               <input type="checkbox" name="consent" value="yes" required />
               <span>
-                {t('contact.form_consent')} <span aria-hidden="true">*</span>
+                {t('contact.form_consent')} (<a href={href(locale, '/privacy')}>{t('nav.privacy')}</a>){' '}
+                <span aria-hidden="true">*</span>
               </span>
             </label>
             <button type="submit" class="btn btn--primary cform__submit">
@@ -225,6 +227,7 @@ if (locale === 'ko') nameFields.reverse(); // 국문은 성 → 이름 순서
           </form>
           <p class="cform__privacy small muted">
             {t('contact.form_privacy')} <TodoText text={t('contact.form_privacy_retention')} />
+            <a href={href(locale, '/privacy')}>{t('contact.form_privacy_link')}</a>
           </p>
         </div>
       </section>

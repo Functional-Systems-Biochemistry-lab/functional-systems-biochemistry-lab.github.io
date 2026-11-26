@@ -95,6 +95,7 @@
 | D29 | Publications 개편: 논문 항목을 블록형 3줄(① 제목 ② 저자, 구성원 굵게 ③ 저널·연도;권(호):쪽·IF·DOI/PubMed/PDF·분야 링크)로. 목록 페이지는 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `PUBS_PER_PAGE`)이 함께 동작하고, 바꾸면 1페이지로. 모두 클라이언트 JS 이며 JS 없으면 연도별 전체 목록. DOI 링크 앞 작은 인라인 SVG 아이콘 허용(§8 금지의 예외). Faculty 학력·경력과 구성원 연구 주제에 `**…**` 굵게 지원(bold만, 이스케이프 후 치환) | 확정 | 사용자 요청(2026-11-26). 연도별·저널별 두 보기를 모두 서버에서 그리고 스크립트가 하나만 보여 줌(저널별 항목에는 id 없음). 구현 `PubList.astro`, `PubItem.astro`, `src/lib/publications.ts`, `src/lib/inline.ts`, `TodoText.astro` |
 | D30 | 저자 접기: 저자가 `AUTHOR_FOLD_LIMIT`(= 10)명을 넘는 논문은 앞 3명 · 숨은 구간의 연구실 구성원(굵게) · … · 마지막 저자만 보이고 "+N more"(`aria-expanded`) 버튼으로 전체를 펼침("Show less"로 다시 접음). 순서는 그대로, 구성원이 앞 3명·마지막에 있으면 중복 표시 없음. 서버는 전체 저자를 그리고 접기는 클라이언트 JS 가 적용 | 확정 | 사용자 요청(2026-11-26). 기준 수는 `src/lib/publications.ts` 한 곳. 분야 필터·보기 전환·페이지네이션·Research 상세 목록 모두 적용. i18n `publications.more_authors`·`show_less`. 구현 `PubList.astro` 스크립트, `PubItem.astro`(`.pub__author[data-member]`) |
 | D31 | Contact 문의 폼: Web3Forms(무료, 월 250건)로 전송. `site.yml` `contact.form_key`(access key)가 실제 값일 때만 폼을 그리고, `[TODO…]`·빈 값이면 연락처만 표시. 받는 이메일 주소는 Web3Forms 쪽에만 보관(코드·site.yml·CLAUDE.md에 쓰지 않음). 필드 `first_name`·`last_name`·`email`(필수)·`subject`·`message`(필수) + 개인정보 동의 체크(필수) + 숨김 `botcheck`. 클라이언트 JS가 JSON POST(제목 앞 "[FSB Lab] ", 비면 "(제목 없음)"), 보내는 동안 버튼 잠금, 성공 시 폼 초기화, 결과는 `role="status"` 한 줄. JS 없으면 기본 form POST | 확정 | 사용자 요청(2026-11-26). 폼 활성화(키 입력)는 교수님 확인 후(R9). 외부 전송이므로 §7.6의 예외 — 폼 아래 안내문(수집 항목·목적·외부 서비스; 보유 기간은 Q16)에 명시. 디자인은 D28 톤(라벨 위, 밑줄 입력, 직사각 버튼). 구현 `src/views/ContactView.astro`, i18n `contact.form_*` |
+| D32 | 개인정보 처리 안내 페이지 `/privacy`(한/영): 문의 폼이 이름·이메일을 받으므로 신설. 구성 ① 수집 항목 ② 이용 목적 ③ 보유·이용 기간 ④ 외부 폼 서비스(Web3Forms) 경유 ⑤ 열람·정정·삭제 요청(대표 이메일) ⑥ 쿠키·방문 통계 ⑦ 시행일. 헤더 메뉴에는 넣지 않고 푸터 링크(`site.yml` `nav.footer`, i18n `nav.privacy`)만. 본문은 `pages/{en,ko}/privacy.md`(prose, 박스 없음). 문의 폼의 동의 문구·안내문에서 링크 | 확정 | 사용자 요청(2026-11-26). 미확정(보유 기간·책임자·시행일·국외 이전 고지 여부)은 `[TODO]`(Q17). ⑥은 코드 점검 결과(`src`·`public`에 cookie·localStorage·sessionStorage·분석 스크립트·외부 스크립트 없음) 기준 — 단 Contact 의 구글 지도 iframe(D27)은 Google 서버에서 불러오므로 Google 이 쿠키를 설정할 수 있다고 함께 적음. Markdown 에서 `site.yml` 값을 쓰는 표식 `{{site.contact.email}}`(remark 플러그인 `src/lib/remark-site-vars.mjs`, TODO 값이면 `[TODO: site.yml …]` 표식) 도입. 구현 `src/views/PrivacyView.astro`, `routes.ts` `privacy` |
 
 ---
 
@@ -110,6 +111,7 @@
 | Members / 구성원 | `/members` | 1 | 한/영 | Current(Graduate, Undergraduate) + Alumni |
 | Join Us / 지원 안내 | `/join` | 1 | 한/영 | 헤더 버튼으로 강조 |
 | Contact / 연락처 | `/contact` | 1 | 한/영 | |
+| Privacy / 개인정보 처리 안내 | `/privacy` | 1 | 한/영 | 푸터 링크만(D32). 문의 폼 안내문·동의 문구에서 링크 |
 | News / 소식 | `/news` | 2 | 한/영 | Home에는 최근 3건 |
 | Gallery / 사진 | `/gallery` | 2 | 캡션만 한/영 | 행사별 앨범 |
 | Resources / 자료 | `/resources` | 3 | 영문 | 프로토콜, 코드, 데이터 링크 |
@@ -230,6 +232,13 @@
 - **Resources**: 프로토콜, 분석 코드(GitHub 링크), 공개 데이터, 소프트웨어. 영문.
 
 ---
+
+### 5.10 Privacy (개인정보 처리 안내, D32)
+
+- 본문 `src/content/pages/{en,ko}/privacy.md`, 뷰 `PrivacyView.astro`(prose, 72ch). 순서 고정: ① 수집 항목(성, 이름, 이메일, 제목, 문의 내용) ② 이용 목적(문의 응답) ③ 보유·이용 기간 ④ 외부 폼 서비스(Web3Forms) 경유 ⑤ 열람·정정·삭제 요청(연구실 대표 이메일 `{{site.contact.email}}`) ⑥ 쿠키·방문 통계 ⑦ 시행일.
+- 확인되지 않은 것(보유 기간, 개인정보 보호책임자, 시행일, 국외 이전·처리 위탁 고지 필요 여부)은 `[TODO]`로 두고 지어내지 않음(Q17). 교수님 확인 후 `final`.
+- ⑥ 문장은 코드 점검 결과에 따름: 추적 스크립트·쿠키·저장소 사용이 생기면 그 문장을 고침. 구글 지도 iframe(D27)의 Google 쿠키 가능성은 명시.
+- 메뉴는 푸터만. 문의 폼(§5.8)의 동의 문구와 개인정보 안내문에서 `/privacy`로 링크.
 
 ## 6. 콘텐츠 모델 & 폴더 구조
 
@@ -357,6 +366,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 ### 7.6 프라이버시·보안
 - 외부 추적 스크립트, 쿠키, 분석 도구 미사용. 폰트는 자체 호스팅(Fontsource 등). 문의 폼 전송만 사용자가 보낼 때 외부 서비스(Web3Forms)로 감(D31, 폼 아래 안내문에 표기).
 - 이메일 스팸 방지를 위한 표기 난독화는 선택(§12에서 사용자 결정).
+- 개인정보 처리 안내 `/privacy`(D32, §5.10): 문의 폼 수집 항목·목적·보유 기간·외부 전송·요청 방법·쿠키·시행일. 푸터 링크.
 
 ### 7.7 대안 스택 (사용자가 요청할 때만)
 - Hugo Blox Research Group 템플릿. 논문은 `content/publications/*/index.md` 페이지 번들이며 `academic import --bibtex`로 생성, 언어별 폴더는 `--publication-dir` 옵션. 연구 분야는 Projects 콘텐츠 유형 사용.
@@ -475,6 +485,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 사용자 제공 질량 스펙트럼 그림 사용(`src/assets/home/hero-ms-spectrum.png`) | 닫힘(2026-11-25): 연구실 자체 데이터이며 공개 가능(사용자 확인). 실제 사진으로 바꾸려면 `home.md`의 `hero_image` 교체 |
 | Q15 | 현재 구성원 명단(이름 국/영, 과정, 입학 연월, 연구 주제, 공개 동의) | Members | PI 카드만 표시 | 열림 |
 | Q16 | 문의 폼 개인정보 안내문·보유 기간 확인(교수님·학과) | Contact | 초안 안내문 + `[TODO: 보유 기간]` 표시. 폼은 `form_key` 입력 전까지 숨김 | 열림 |
+| Q17 | 개인정보 처리 안내(`/privacy`): 보유 기간, 개인정보 보호책임자(성명·직위), 시행일, 외부 폼 서비스(Web3Forms) 이용에 따른 국외 이전·처리 위탁 고지 필요 여부(학교 개인정보보호 담당 부서 확인) | Privacy, Contact | 해당 항목 `[TODO]` 표시, `status: draft` | 열림 |
 
 ---
 
@@ -495,6 +506,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
 | Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
 | Contact | 1 | 초안 | 초안 | 초안 | Q11, Q16(문의 폼 키·안내문) |
+| Privacy | 1 | 초안 | 초안 | 초안 | Q17(보유 기간·책임자·시행일·국외 이전 고지) |
 | News | 2 | 골격 | 골격 | 골격 | 0건(메뉴 숨김) |
 | Gallery | 2 | 골격 | 골격 | 골격 | Q12, 0건(메뉴 숨김) |
 | Resources | 3 | 미착수 | – | 미착수 | |
@@ -520,3 +532,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.15: Contact 문의 폼 추가(D31, 사용자 요청). Web3Forms JSON POST(`src/views/ContactView.astro` 스크립트), `site.yml` `contact.form_key`(지금은 `[TODO]`라 폼 숨김), `src/lib/site.ts` 타입, i18n `contact.form_*`(en·ko). 라벨 위·밑줄 입력·직사각 버튼(D28 톤). 개인정보 안내문 초안(보유 기간 `[TODO]`, Q16). R9에 폼 활성화 조건, §5.8·§7.6·§13 갱신.
 - 2026-11-26 rev.16: 논문 데이터 갱신(사용자 제공 bib, 2026-11-26 15:56). IF 를 JCR 2025 학술지 값으로 통일(소수 첫째 자리, JCR 미수록은 비움), `keywords`에 `selected` 8편, 저널 표기 통일. 저널별 보기는 `normalizeName` 키로 묶고 그룹 제목에 IF 표시(`groupByJournal` → `JournalGroup`, `PubList.astro`). `pubs-check`에 "journal 표기 불일치"·"같은 저널인데 IF 가 다름" 경고 추가. pubs:check 경고 93·오류 0, build 33페이지, check 통과.
 - 2026-11-26 rev.17: 배포 전 자동 검사(사용자 요청). `.github/workflows/deploy.yml`에 `check` 잡(checkout → setup-node 24, npm 캐시 → `npm ci` → `pubs:check` → `build` → `check`) 추가, `build`는 `needs: check`, `deploy`는 `needs: build`. `on`에 `pull_request`(main) 추가 — PR 에서는 `check`만. concurrency 를 `deploy` 잡으로 이동. §7.5 한 줄, `docs/MAINTAINING.md` 1·7 갱신.
+- 2026-11-26 rev.18: 개인정보 처리 안내 페이지(D32, 사용자 요청). `/privacy`·`/ko/privacy`(`routes.ts`, `RouteView`, `PrivacyView.astro`, `pages/{en,ko}/privacy.md`, i18n `nav.privacy`·`privacy.label`·`contact.form_privacy_link`), 푸터 링크(`site.yml` `nav.footer`). 문의 폼 동의 문구·안내문에서 링크. Markdown `{{site.…}}` 표식 플러그인(`remark-site-vars.mjs`, `astro.config.mjs`). 코드 점검: cookie·storage·분석·외부 스크립트 없음(구글 지도 iframe만). §4·§5.10·§7.6·Q17·§13 갱신, `docs/MAINTAINING.md` 3.7.

@@ -11,6 +11,7 @@ import PublicationsView from './PublicationsView.astro';
 import MembersView from './MembersView.astro';
 import JoinView from './JoinView.astro';
 import ContactView from './ContactView.astro';
+import PrivacyView from './PrivacyView.astro';
 import NewsView from './NewsView.astro';
 import GalleryView from './GalleryView.astro';
 
@@ -31,5 +32,6 @@ const { locale, kind, slug } = Astro.props;
 {kind === 'members' && <MembersView locale={locale} />}
 {kind === 'join' && <JoinView locale={locale} />}
 {kind === 'contact' && <ContactView locale={locale} />}
+{kind === 'privacy' && <PrivacyView locale={locale} />}
 {kind === 'news' && <NewsView locale={locale} />}
 {kind === 'gallery' && <GalleryView locale={locale} />}

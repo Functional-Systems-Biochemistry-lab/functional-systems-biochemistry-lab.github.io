@@ -25,7 +25,8 @@
     "contact": "Contact",
     "news": "News",
     "gallery": "Gallery",
-    "resources": "Resources"
+    "resources": "Resources",
+    "privacy": "Privacy Notice"
   },
   "home": {
     "about_label": "About",
@@ -178,6 +179,7 @@
     "form_error": "Sending failed. Please try again later or email us directly.",
     "form_no_subject": "(no subject)",
     "form_privacy": "Collected: name, email, subject, and message. Purpose: responding to your inquiry. Messages are delivered through an external service (Web3Forms).",
+    "form_privacy_link": "Read the Privacy Notice",
     "form_privacy_retention": "[TODO: retention period — confirm with the professor and department]",
     "directions": "Directions"
   },
@@ -191,6 +193,9 @@
     "title": "Gallery",
     "empty": "No photos yet.",
     "photos": "{n} photos"
+  },
+  "privacy": {
+    "label": "Privacy"
   },
   "footer": {
     "links": "Links",

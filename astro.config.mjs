@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import { defaultLocale, locales } from './src/i18n/config.ts';
 import { remarkTodo } from './src/lib/remark-todo.mjs';
+import { remarkSiteVars } from './src/lib/remark-site-vars.mjs';
 import { remarkLocalizeLinks } from './src/lib/remark-localize-links.mjs';
 
 // 배포 주소 (CLAUDE.md §7.5, D16). GitHub Pages: https://functional-systems-biochemistry-lab.github.io
@@ -34,7 +35,7 @@ export default defineConfig({
   markdown: {
     // Astro 7 기본 처리기는 Sätteri. remark 플러그인([TODO] 표식, 내부 링크 언어 접두어)을 쓰기 위해 unified 파이프라인 사용.
     processor: unified({
-      remarkPlugins: [remarkTodo, [remarkLocalizeLinks, { base, defaultLocale, locales: [...locales] }]],
+      remarkPlugins: [remarkSiteVars, remarkTodo, [remarkLocalizeLinks, { base, defaultLocale, locales: [...locales] }]],
     }),
   },
 });

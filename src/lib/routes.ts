@@ -12,6 +12,7 @@ export type RouteKind =
   | 'members'
   | 'join'
   | 'contact'
+  | 'privacy'
   | 'news'
   | 'gallery';
 
@@ -34,6 +35,7 @@ export async function getRoutes(locale: Locale): Promise<RouteDef[]> {
     { kind: 'members', path: 'members' },
     { kind: 'join', path: 'join' },
     { kind: 'contact', path: 'contact' },
+    { kind: 'privacy', path: 'privacy' },
     { kind: 'news', path: 'news' },
     { kind: 'gallery', path: 'gallery' },
   ];
