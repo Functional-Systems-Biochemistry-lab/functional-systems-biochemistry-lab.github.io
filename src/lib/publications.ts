@@ -213,6 +213,11 @@ export function isMemberAuthor(author: Author, aliasKeys: Set<string>): boolean 
   return author.keys.some((k) => aliasKeys.has(k));
 }
 
+/** 논문 제목 안의 HTML 은 서식 태그(i, b, em, strong, sup, sub, span)만 남깁니다 — PubItem·SelectedPubs 공용 */
+export function sanitizeTitle(html: string): string {
+  return html.replace(/<(?!\/?(i|b|em|strong|sup|sub|span)\b)[^>]*>/gi, '');
+}
+
 export function doiUrl(doi: string): string {
   return `https://doi.org/${doi}`;
 }

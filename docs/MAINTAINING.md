@@ -39,7 +39,7 @@ src/assets/                  그림·사진 (research/, members/, facility/, gal
 2. 내보낸 내용을 `data/publications.bib` 맨 아래에 붙여 넣습니다.
 3. 각 항목에 `keywords` 를 적습니다. 연구 분야 slug를 쉼표로 구분합니다.
    - 사용 가능한 slug: `biomarker-discovery`, `imaging-ms`, `lipidomics`, `ptm`, `nitroproteomics`, `systems-biology`
-   - 대표 논문으로 교수 페이지에 올리려면 `selected` 를 추가합니다.
+   - 교수 페이지의 **대표 논문**을 바꾸려면 이 `keywords` 에서 `selected` 를 추가하거나(올리기) 지우면(내리기) 됩니다. 다른 파일은 고칠 필요가 없습니다. 지금은 교수님이 저자인 논문 중 JCR 2025 IF 가 높은 8편이 지정되어 있습니다.
    ```bibtex
    keywords = {lipidomics, ptm, selected}
    ```

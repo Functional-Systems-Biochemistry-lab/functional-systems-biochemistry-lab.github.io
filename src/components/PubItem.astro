@@ -3,7 +3,7 @@
 //   ① 제목  ② 저자(연구실 구성원은 굵게)  ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
-import { doiUrl, isMemberAuthor, pubmedUrl, type Publication } from '../lib/publications';
+import { doiUrl, isMemberAuthor, pubmedUrl, sanitizeTitle, type Publication } from '../lib/publications';
 import { href, withBase } from '../lib/url';
 
 interface Props {
@@ -16,10 +16,6 @@ interface Props {
 const { p, locale, aliasKeys, withId = true } = Astro.props;
 const t = useTranslations(locale);
 
-/** 제목 안의 HTML 은 서식 태그(i, b, em, strong, sup, sub, span)만 남깁니다 */
-function sanitizeTitle(html: string): string {
-  return html.replace(/<(?!\/?(i|b|em|strong|sup|sub|span)\b)[^>]*>/gi, '');
-}
 function pdfHref(pdf: string): string {
   return /^https?:\/\//i.test(pdf) ? pdf : withBase(pdf);
 }

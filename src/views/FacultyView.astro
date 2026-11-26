@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import TodoText from '../components/TodoText.astro';
-import PubList from '../components/PubList.astro';
+import SelectedPubs from '../components/SelectedPubs.astro';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
 import { getMembers, getPage, getResearch } from '../lib/content';
@@ -27,7 +27,8 @@ const photo = resolveAsset(d.photo ?? pi?.data.photo);
 const slugs = (await getResearch(locale)).map((r) => r.data.slug);
 const { publications } = loadPublications(slugs);
 const selected = publications.filter((p) => p.selected);
-const aliasKeys = aliasKeySet(members.map((m) => m.data.aliases));
+// 대표 논문 저자 줄에서 교수님만 굵게: site.yml pi_id 멤버의 aliases 로 판별
+const piAliasKeys = aliasKeySet(pi ? [pi.data.aliases] : []);
 
 // 주소가 있는 링크만 표시합니다. 비어 있는 링크(예: PubMed)는 [TODO] 칩 대신 줄 자체를 숨깁니다.
 const links = [
@@ -128,7 +129,7 @@ const email = d.email;
             title={t('faculty.selected_pubs')}
             link={{ href: href(locale, '/publications'), text: t('faculty.all_pubs') }}
           />
-          <PubList publications={selected} locale={locale} aliasKeys={aliasKeys} slugs={slugs} id="selected-pubs" />
+          <SelectedPubs publications={selected} locale={locale} piAliasKeys={piAliasKeys} />
         </div>
       </section>
     )

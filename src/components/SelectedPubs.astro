@@ -1,0 +1,125 @@
+---
+// Faculty 대표 논문 (CLAUDE.md §5.2, 2026-11-26 사용자 요청): keywords 에 selected 가 든 논문을 2열 격자로, 글자만.
+//   a. 저널 + 연도(큰 글씨, 연도는 accent)  b. 제1저자 + 교수님(굵게) + et al.  c. 제목(전체가 링크: DOI > PubMed > url)
+// IF·분야 태그·PubMed·PDF 링크는 여기서는 표시하지 않음. Publications·Research 의 PubList 와는 별개 컴포넌트.
+import type { Locale } from '../i18n/config';
+import { doiUrl, isMemberAuthor, pubmedUrl, sanitizeTitle, type Author, type Publication } from '../lib/publications';
+
+interface Props {
+  publications: Publication[];
+  locale: Locale;
+  /** 교수님(site.yml pi_id 멤버)의 aliases 로 만든 aliasKeySet */
+  piAliasKeys: Set<string>;
+}
+const { publications, piAliasKeys } = Astro.props;
+
+/** 연도 내림차순, 같은 연도는 IF 내림차순(IF 없는 논문은 뒤) */
+const ifNum = (p: Publication) => Number.parseFloat(p.impactFactor ?? '') || 0;
+const items = [...publications].sort((a, b) => b.year - a.year || ifNum(b) - ifNum(a));
+
+/** 저자 줄: 3명 이하면 전부. 교수님이 제1저자면 제1·제2저자 + et al., 아니면 제1저자 + 교수님 + et al. 표시 이름은 "Last Initials" */
+function authorLine(authors: Author[]): { name: string; pi: boolean }[] {
+  const mark = (a: Author) => ({ name: a.display, pi: isMemberAuthor(a, piAliasKeys) });
+  if (authors.length <= 3) return authors.map(mark);
+  const first = authors[0]!;
+  if (isMemberAuthor(first, piAliasKeys)) return [first, authors[1]!].map(mark);
+  const pi = authors.find((a) => isMemberAuthor(a, piAliasKeys));
+  return pi ? [mark(first), mark(pi)] : [mark(first)];
+}
+
+function titleHref(p: Publication): string | undefined {
+  if (p.doi) return doiUrl(p.doi);
+  if (p.pmid) return pubmedUrl(p.pmid);
+  return p.url || undefined;
+}
+---
+
+<ul class="selected-pubs">
+  {
+    items.map((p) => {
+      const line = authorLine(p.authors);
+      const etAl = p.authors.length > 3;
+      const url = titleHref(p);
+      return (
+        <li class="spub">
+          <p class="spub__venue">
+            <span class="spub__journal">{p.journal || '—'}</span> <span class="spub__year">{p.year || ''}</span>
+          </p>
+          {line.length > 0 && (
+            <p class="spub__authors">
+              {line.map((a, i) => (
+                <>
+                  {a.pi ? <strong>{a.name}</strong> : a.name}
+                  {i < line.length - 1 ? ', ' : ''}
+                </>
+              ))}
+              {etAl && ', et al.'}
+            </p>
+          )}
+          <p class="spub__title">
+            {url ? <a href={url} rel="noopener" set:html={sanitizeTitle(p.title)} /> : <span set:html={sanitizeTitle(p.title)} />}
+          </p>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  /* 박스·테두리·그림자·둥근 모서리·배지 없이 글자만 (D28) */
+  .selected-pubs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px 56px;
+  }
+  .spub {
+    min-width: 0;
+  }
+  .spub__venue {
+    margin: 0 0 12px;
+    font-size: clamp(26px, 3.2vw, 36px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .spub__year {
+    color: var(--accent);
+  }
+  .spub__authors {
+    margin: 0 0 6px;
+    max-width: 40ch;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .spub__authors strong {
+    font-weight: 700;
+  }
+  .spub__title {
+    margin: 0;
+    max-width: 40ch;
+    font-size: var(--fs-body);
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .spub__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .spub__title a:hover {
+    text-decoration: underline;
+  }
+  /* 포커스 표시는 전역 :focus-visible(3px outline) 그대로 */
+  @media (max-width: 640px) {
+    .selected-pubs {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+    }
+  }
+</style>

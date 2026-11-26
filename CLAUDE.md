@@ -144,6 +144,7 @@
 - 사진, 이름(국/영), 소속·직위, 연락처(기관 이메일 `[TODO]`).
 - 학력, 경력(연도 역순 타임라인), 연구 관심사, 수상·활동, 대표 논문(선택, Publications의 `selected`), 외부 링크(Google Scholar, ORCID, PubMed `[TODO]`).
 - 자료 출처: 사용자 보유 자료(D7) → `inbox/faculty/`. 기존 사이트 Professor 페이지에 학력·경력이 있으나 참고만 하고 사용자가 준 최신본으로 대체.
+- 대표 논문: `keywords`의 `selected`, 교수님 저자 논문 중 JCR 2025 IF 상위 8편(합의문·데이터베이스 제외, 동률은 최신 우선, 2026-11-26 사용자 요청), 2열 표시(`src/components/SelectedPubs.astro`, 640px 이하 1열). 항목은 글자만: 저널+연도(큰 글씨, 연도 `--accent`) → 저자 줄(제1저자 + 교수님 굵게 + et al.; 교수님이 제1저자면 제1·제2저자 + et al.; 3명 이하면 전부. 교수님 판별은 `site.yml` `pi_id` 멤버의 `aliases`) → 제목(전체가 링크: DOI > PubMed > url, `sanitizeTitle`). IF·분야 태그·PubMed·PDF 는 표시하지 않음. 정렬 연도 내림차순, 같은 연도는 IF 내림차순. Publications·Research 의 `PubList`와는 별개.
 
 ### 5.3 Research
 
@@ -533,3 +534,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.16: 논문 데이터 갱신(사용자 제공 bib, 2026-11-26 15:56). IF 를 JCR 2025 학술지 값으로 통일(소수 첫째 자리, JCR 미수록은 비움), `keywords`에 `selected` 8편, 저널 표기 통일. 저널별 보기는 `normalizeName` 키로 묶고 그룹 제목에 IF 표시(`groupByJournal` → `JournalGroup`, `PubList.astro`). `pubs-check`에 "journal 표기 불일치"·"같은 저널인데 IF 가 다름" 경고 추가. pubs:check 경고 93·오류 0, build 33페이지, check 통과.
 - 2026-11-26 rev.17: 배포 전 자동 검사(사용자 요청). `.github/workflows/deploy.yml`에 `check` 잡(checkout → setup-node 24, npm 캐시 → `npm ci` → `pubs:check` → `build` → `check`) 추가, `build`는 `needs: check`, `deploy`는 `needs: build`. `on`에 `pull_request`(main) 추가 — PR 에서는 `check`만. concurrency 를 `deploy` 잡으로 이동. §7.5 한 줄, `docs/MAINTAINING.md` 1·7 갱신.
 - 2026-11-26 rev.18: 개인정보 처리 안내 페이지(D32, 사용자 요청). `/privacy`·`/ko/privacy`(`routes.ts`, `RouteView`, `PrivacyView.astro`, `pages/{en,ko}/privacy.md`, i18n `nav.privacy`·`privacy.label`·`contact.form_privacy_link`), 푸터 링크(`site.yml` `nav.footer`). 문의 폼 동의 문구·안내문에서 링크. Markdown `{{site.…}}` 표식 플러그인(`remark-site-vars.mjs`, `astro.config.mjs`). 코드 점검: cookie·storage·분석·외부 스크립트 없음(구글 지도 iframe만). §4·§5.10·§7.6·Q17·§13 갱신, `docs/MAINTAINING.md` 3.7.
+- 2026-11-26 rev.19: Faculty 대표 논문 2열 표시(사용자 요청). `selected` 8편(mun2019proteogenomic, chung2026macrophages, lim2017suppression, jang2020breast, choi2012quantitative, jiang2016arginylation, song2024proteogenomic, chamolstad2017p62) 확인(데이터 변경 없음). `SelectedPubs.astro` 신설 — 저널+연도 큰 글씨, 제1저자+교수님(굵게)+et al., 제목 전체 링크; `FacultyView`에서 `PubList` 대신 사용. `sanitizeTitle`을 `src/lib/publications.ts`로 옮겨 공용화(PubList 동작 그대로). §5.2 대표 논문 줄, `docs/MAINTAINING.md` 3.1.
