@@ -41,7 +41,7 @@ const groups: { title: string; items: typeof members }[] = [
   <section class="section">
     <div class="container">
       <SectionHeading title={t('members.pi')} level={2} />
-      <div class="grid grid--2">
+      <div class="member-list">
         {pi.map((m) => <MemberCard member={m} locale={locale} link={href(locale, '/faculty')} compact />)}
       </div>
     </div>
@@ -63,7 +63,7 @@ const groups: { title: string; items: typeof members }[] = [
           .map((g) => (
             <div class="member-group">
               <h3 class="member-group__title">{g.title}</h3>
-              <div class="grid grid--4">
+              <div class="grid grid--4 member-grid">
                 {g.items.map((m) => (
                   <MemberCard member={m} locale={locale} />
                 ))}
@@ -83,7 +83,7 @@ const groups: { title: string; items: typeof members }[] = [
             {t('members.empty_alumni')} <TodoText text="[TODO: Alumni 공개 동의 (Q6)]" />
           </p>
         ) : (
-          <div class="grid grid--4">
+          <div class="grid grid--4 member-grid">
             {alumni.map((m) => (
               <MemberCard member={m} locale={locale} />
             ))}
@@ -102,5 +102,10 @@ const groups: { title: string; items: typeof members }[] = [
     margin-bottom: 16px;
     color: var(--muted);
     font-weight: 600;
+  }
+  /* D28: 타일은 각자 위 1px 선, 묶음 아래를 1px 선으로 닫음 */
+  .member-grid {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
   }
 </style>

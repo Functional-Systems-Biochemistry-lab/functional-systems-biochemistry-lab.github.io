@@ -91,6 +91,7 @@
 | D25 | Draft 띠(`PUBLIC_DRAFT_BANNER`)가 켜진 동안 robots.txt는 `Disallow: /`, 모든 페이지에 `<meta name="robots" content="noindex">`. 띠를 끄면 같은 변수로 함께 해제 | 확정 | 사용자 요청(2026-11-25). 공개 전 검색 노출 방지. 구현 `src/lib/draft.ts` |
 | D26 | 배경 그림 + 부드러운 스크롤: 설정은 `src/data/background.yml` 한 파일, 그림은 `src/assets/backdrops/`. 그림은 `float`(떠 있는 그림: `near` 구역 또는 자동 배치, 패럴랙스, 나타나기)과 `fixed`(전체 배경, 스크롤 %에 따라 스며듦) 두 종류. 마우스 휠은 Lenis(`lenis`, MIT, 번들 자체 호스팅)로 부드럽게, 터치·키보드는 기본 동작. `prefers-reduced-motion` 이면 패럴랙스·나타나기·부드러운 스크롤 모두 끔 | 확정 | 사용자 요청(2026-11-25, 참고: leejoosang.wixsite.com/ngml). §8 '장식 최소'의 예외 — 글자 가독성·R6(credit·license)·`npm run check` 검증 필수. 구현 `src/lib/background.ts`, `src/components/Backdrops.astro` |
 | D27 | Contact 지도: 구글 지도 퍼가기 iframe(`site.yml` `contact.map_embed_url`, `https://www.google.com/maps/embed`로 시작하는 주소만 통과)만 허용, 그 외 외부 iframe 금지. 퍼가기 주소가 없으면 지도 이미지(`map_image` + `map_credit`)로 대체. 외부 지도 링크 버튼은 `map_links`(여러 개) 또는 `map_url` | 확정 | 사용자 요청(2026-11-25, `inbox/fsb-contact-map-image.patch`). §5.8·§8 금지 목록 수정. 지도 iframe은 Google 서버에서 불러오므로 §7.6(외부 스크립트·쿠키 미사용)의 예외 — 캡션 `contact.map_embed_note`로 표기. 구현 `src/views/ContactView.astro` |
+| D28 | 디자인 정리 — 장식을 걷어낸 담백한 학술 사이트, 템플릿으로 찍어낸 느낌 배제. ① 배경은 흰색·차가운 회색만(베이지·크림 등 따뜻한 톤 금지) ② 보이는 그라디언트 전부 금지(보라 계열 포함; Backdrops 그림 가장자리 mask용 radial-gradient만 예외) ③ 모서리 `--radius`·`--radius-sm` 2px, 알약형(999px)·원형(50%) 금지, 인물 사진은 정사각 ④ 카드(테두리+흰 배경 `.card`) 제거 — Research는 번호 행 목록(큰 번호·제목, 한 줄 요약, 이미지 옆, 위아래 1px), Members·Facility·News는 사진·글·구분선만 ⑤ 배지·태그 최소화 — 논문 분야 `.tag`는 밑줄 평문 링크, 분야 필터 `.chip`은 밑줄 탭, Draft 띠는 유지 ⑥ 장식 아이콘·이모지 금지(모바일 메뉴 버튼 등 기능용만) ⑦ box-shadow 전부 제거, 헤더 메뉴는 1px 테두리, hover는 밑줄·색 변화만 ⑧ 홈 섹션 리듬 — 교차 배경 띠(`section--alt`) 제거, 섹션마다 간격(96/40/120px)·열 비율(4:8, 전폭, 5:7)·제목 위치(왼쪽 열/위)를 다르게, Hero는 왼쪽 정렬 큰 제목 + 이미지 비대칭(12열 중 글 1~8열, 그림 4~12열) | 확정 | 사용자 요청(2026-11-26). 유지: 색 토큰(D24), WCAG AA, 포커스 outline 3px, 터치 44px, `prefers-reduced-motion`, 한/영, 400px 이하 1열, 섹션 불투명 배경 금지(배경 그림 D26이 비치게; Join Us 다크 밴드는 §5.1 명세대로, 헤더·푸터는 가독성 때문에 유지). 고정 배경 `wash-blue.svg`·`wash-gold.svg`는 radial 그라디언트였으므로 옅은 차가운 단색으로 교체(`background.yml`은 그대로). 구현: `tokens.css`, `global.css`, `Hero`·`ResearchCard`·`MemberCard`·`FacilityCard`·`PubList`·`Header`·`Figure`, `HomeView` 등 |
 
 ---
 
@@ -356,7 +357,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 ## 8. 디자인 가이드
 
-**방향**: 담백한 학술 사이트. 장식 최소, 텍스트·그림 중심, 여백 넉넉. 단일 흐름으로 읽히는 정보형 구성.
+**방향**: 담백한 학술 사이트. 장식 최소, 텍스트·그림 중심, 여백 넉넉. 단일 흐름으로 읽히는 정보형 구성. 카드·알약·그림자 없이 1px 구분선과 여백으로만 나누고, 섹션마다 간격·열 비율·제목 위치를 달리해 템플릿으로 찍어낸 느낌을 피함(D28).
 
 **색상 토큰** (CSS 변수, 라이트 모드만. 다크 모드는 Phase 3)
 
@@ -380,15 +381,15 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 국문: Pretendard 또는 Noto Sans KR. 폰트 스택 `'Manrope','Pretendard','Noto Sans KR',system-ui,sans-serif`.
 - 크기: 본문 16~18px, h1 46px(모바일 32px), h2 32px, h3 20px, 라벨 12~13px mono 대문자 `letter-spacing: 0.06em`.
 
-**레이아웃**: 최대 폭 1120px, 좌우 여백 24px(모바일 16px), 섹션 상하 72px, 카드 `border-radius: 12px` + 1px `--line`. flex/grid + `gap` 사용. 400px 이하에서 1열.
+**레이아웃**: 최대 폭 1120px, 좌우 여백 24px(모바일 16px). 안쪽 페이지 섹션 상하 72px, 홈은 섹션마다 96/40/120px로 다르게(`--section-sm/md/lg`, D28). 카드 없음 — 목록은 1px `--line` 구분선만, 모서리는 `--radius` 2px(알약형·원형 금지). flex/grid + `gap` 사용. 400px 이하에서 1열.
 
-**컴포넌트**: 헤더(로고·메뉴·Join Us 버튼·언어 토글), Hero, 섹션 헤딩(mono 라벨 + 제목), 카드(연구/멤버/장비), 연도별 논문 리스트, 뉴스 행(날짜 mono + 제목), 다크 밴드(Join Us), FAQ(`details/summary`), 푸터(주소, 학과·학교 링크).
+**컴포넌트**: 헤더(로고·메뉴·Join Us 버튼·언어 토글), Hero, 섹션 헤딩(mono 라벨 + 제목), 행 목록(연구: 큰 번호·제목·요약·옆 이미지 / 멤버: 정사각 사진·글 / 장비: 사진·글 — 모두 1px 구분선만, D28), 연도별 논문 리스트(분야는 밑줄 링크, 필터는 밑줄 탭), 뉴스 행(날짜 mono + 제목), 다크 밴드(Join Us), FAQ(`details/summary`), 푸터(주소, 학과·학교 링크).
 
 **이미지**: 인물 사진은 정사각 크롭, 같은 크기. Astro 이미지 최적화와 lazy loading 사용. 연구 내용을 스톡 이미지로 대체하지 않음.
 
 **접근성**: WCAG AA(본문 대비 4.5:1 이상), 키보드 포커스 표시(3px outline), 본문 건너뛰기 링크, `prefers-reduced-motion` 존중, 터치 타깃 44px 이상, 이미지 alt 필수, 색만으로 정보를 전달하지 않음.
 
-**금지**: 이모지 아이콘, 보라–파랑 그라디언트, 자동 재생 미디어, 외부 iframe(구글 지도 퍼가기 iframe `map_embed_url`만 허용, D27).
+**금지**: 이모지·장식 아이콘, 보이는 그라디언트 전부(보라 계열 포함; Backdrops mask용 radial-gradient만 예외), box-shadow, 알약형(999px)·원형(50%) 모서리, 테두리+흰 배경 카드, 베이지·크림 등 따뜻한 톤 배경, 섹션 불투명 배경(배경 그림이 가려짐; Join Us 다크 밴드 제외), 자동 재생 미디어, 외부 iframe(구글 지도 퍼가기 iframe `map_embed_url`만 허용, D27). (D28)
 
 **배경 그림·스크롤(D26)**: 사용자 요청으로 `src/data/background.yml` 의 그림을 글자 뒤(`z-index:-1`)에 깔고 마우스 휠 스크롤을 부드럽게 함. §8 '장식 최소'의 예외이므로 ① 글자 대비 4.5:1 을 해치지 않게 그림은 옅게(float `opacity` ≤ 0.8, 선 그림 0.5~0.7, 사진 0.15~0.3) ② 그림마다 `credit`·`license` 필수(R6) ③ 보라–파랑 그라디언트 금지는 그대로 ④ `prefers-reduced-motion` 에서는 모든 움직임 끔 ⑤ 그림은 장식이므로 `alt=""`·`aria-hidden`. 홈페이지 기본 샘플은 자체 제작 SVG(`license: own`)이며 실제 그림이 오면 교체.
 
@@ -456,7 +457,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q5 | Join Us: 모집 구분, 지원 방법, 인건비 안내 범위, 인턴 조건, 수신 이메일 | Join Us | `상시 모집, 문의 환영` draft | 열림 |
 | Q6 | Alumni 공개 동의 | Members | 공개하지 않음 | 열림 |
 | Q7 | Research 6개의 대표 그림, 논문 그림, 소개문 | Research | 일러스트 placeholder | 열림 |
-| Q8 | 2024~2026 논문 목록 | Publications | 비어 있음 | 열림 |
+| Q8 | 2024~2026 논문 목록 | Publications | – | 닫힘(2026-11-26): 사용자 제공 `publications.bib` 191편(2010~2026) 반영. `keywords`(Research slug)·`impactfactor`는 초안이라 사용자 확인 필요(pubs:check 경고 93건) |
 | Q9 | GitHub 계정/조직명(주소) | 배포 | – | 닫힘(2026-11-25): Organization `Functional-Systems-Biochemistry-lab`, 저장소 `functional-systems-biochemistry-lab.github.io` |
 | Q10 | 학교·학과 도메인 사용 가능 여부 | 주소 | `github.io` | 열림 |
 | Q11 | Contact 이메일·전화·우편번호 | Contact | – | 대부분 닫힘(2026-11-25): 사용자가 `site.yml`에 이메일·전화·우편번호·주소(실험연구동 A동 101, 102호) 입력. 남은 것: 영문 건물명은 번역("Experimental Research Building A")이라 학교 공식 영문명 확인 필요 |
@@ -480,7 +481,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Faculty | 1 | 골격 | 골격 | 골격 | Q4 (약력 전부 `[TODO]`) |
 | Research 목록 + 상세 ×6 | 1 | 초안 | 초안 | 초안 | Q7 (대표 결과·그림) |
 | Facility | 1 | 초안 | 초안 | 초안 | Q3 (3종만, 현행 확인) |
-| Publications | 1 | 골격 | – | 골격 | Q8 (목록 0건) |
+| Publications | 1 | 초안 | – | 초안 | 191편 반영(Q8 닫힘). keywords·IF 초안은 사용자 확인 대기 |
 | Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
 | Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
 | Contact | 1 | 초안 | 초안 | 초안 | Q11 |
@@ -502,3 +503,5 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.8: 구성원 카드(`src/components/MemberCard.astro`) 손질(사용자 요청). 사진이 없으면 이니셜 칸을 그리지 않고 글이 카드 전체를 씀. 가로 카드의 사진은 120px 정사각에 고정(카드 높이를 따라 커지지 않음). 교수 영문 이름을 Faculty 페이지와 같은 "Kwang Pyo Kim"으로 통일(`members/Kim-kwangpyo.md`).
 - 2026-11-25 rev.9: 소속 라벨(히어로·푸터·Contact)의 끝 괄호 묶음 "(Global Campus)"이 좁은 화면에서 "(Global" / "Campus)"로 쪼개지지 않도록 `src/lib/site.ts` `department()`에서 괄호 안 공백을 줄바꿈 안 되는 공백으로 바꿈(사용자 요청). Home 히어로 그림을 사용자 제공 질량 스펙트럼으로 교체(Q14): `src/assets/home/hero-ms-spectrum.png`, 원본 2044×429 중 m/z 1100대까지(왼쪽 1142px)만 잘라 씀, 원본은 `inbox/_done/home/MS_spectrum.png`. 연구실 자체 데이터·공개 가능(사용자 확인 2026-11-25, `license: own`).
 - 2026-11-25 rev.10: 히어로 그림을 사용자가 새로 준 두 번째 스펙트럼(m/z 350–1100, 1486×428, `inbox/home/` → `inbox/_done/home/ms_spectrum-2.png`)으로 교체. 자르지 않고 그대로 `src/assets/home/hero-ms-spectrum.png`에 덮어씀.
+- 2026-11-26 rev.11: 논문 데이터 반영(커밋 `428faa1`, 브랜치 `feat/pubs-if-and-design`). `inbox/fsb-impact-factor.patch` 적용 — bib `impactfactor` 필드를 논문 항목에 "IF n"으로 표시(`src/lib/publications.ts`, `PubList.astro`, i18n `publications.if`·`if_title`, `pubs-check` 숫자 검사). `data/publications.bib`를 사용자 제공 191편(2010~2026, keywords 초안 포함)으로 교체. pubs:check 경고 93(keywords 없는 항목·DOI 없음)·오류 0. Q8 닫힘, §13 Publications 초안.
+- 2026-11-26 rev.12: 디자인 정리(D28, 사용자 요청). 카드·알약·그림자 제거, 모서리 2px, 교차 배경 띠 제거, 홈 섹션 리듬(96/40/120px, 4:8·전폭·5:7, 제목 위치 혼합), Hero 비대칭(12열: 글 1~8열, 그림 4~12열). Research는 번호 행 목록(`ResearchCard.astro`), Members·Facility는 구분선만(`MemberCard.astro`, `FacilityCard.astro`), 논문 `.tag` 밑줄 링크·`.chip` 밑줄 탭(`PubList.astro`), 햄버거 아이콘 box-shadow → 가상 요소(`Header.astro`), Faculty 타임라인 원형 점 → 각진 눈금. 고정 배경 `wash-blue.svg`·`wash-gold.svg`의 radial 그라디언트를 옅은 차가운 단색으로 교체(`background.yml`은 그대로). §8 방향·레이아웃·컴포넌트·금지 문구 수정.

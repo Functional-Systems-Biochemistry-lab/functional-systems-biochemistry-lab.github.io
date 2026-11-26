@@ -197,14 +197,28 @@ function isActive(path: string): boolean {
       color: var(--ink);
       cursor: pointer;
     }
+    /* 햄버거 선 3개: 그림자 대신 ::before/::after 로 그립니다 (D28: box-shadow 미사용) */
     .nav-toggle__bars {
+      position: relative;
       display: inline-block;
       width: 18px;
       height: 2px;
       background: currentColor;
-      box-shadow:
-        0 -6px 0 currentColor,
-        0 6px 0 currentColor;
+    }
+    .nav-toggle__bars::before,
+    .nav-toggle__bars::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+    }
+    .nav-toggle__bars::before {
+      top: -6px;
+    }
+    .nav-toggle__bars::after {
+      top: 6px;
     }
     .site-nav {
       display: none;

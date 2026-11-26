@@ -1,5 +1,5 @@
 ---
-// 구성원 카드: 정사각 사진(없으면 사진 칸을 생략하고 글만 표시), 이름, 과정, 연구 주제, 이메일(동의 시)
+// 구성원 (D28, 카드 아님): 정사각 사진(없으면 사진 칸 생략) + 이름·과정·연구 주제·이메일(동의 시). 박스 없이 위 1px 구분선만.
 import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import { memberName, memberTopic, type MemberEntry } from '../lib/content';
@@ -21,17 +21,18 @@ const name = memberName(member, locale);
 const altName = locale === 'ko' ? d.name_en : d.name_ko;
 const topic = memberTopic(member, locale);
 const isAlumni = d.role === 'alumni';
+const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
 ---
 
-<article class:list={['card', 'member-card', { 'member-card--compact': compact, 'member-card--nophoto': !photo }]}>
+<article class:list={['member-card', { 'member-card--compact': compact, 'member-card--nophoto': !photo }]}>
   {
     photo && (
       <div class="member-card__photo">
-        <Image src={photo} alt={name} width={320} height={320} {...responsive(photo, [160, 320, 480], '160px')} />
+        <Image src={photo} alt={name} width={320} height={320} {...responsive(photo, [160, 320, 480], sizes)} />
       </div>
     )
   }
-  <div class="card__body">
+  <div class="member-card__body">
     <h3 class="member-card__name">
       {link ? <a href={link}>{name}</a> : name}
       {altName && altName !== name && <span class="member-card__alt muted"> {altName}</span>}
@@ -60,13 +61,14 @@ const isAlumni = d.role === 'alumni';
 <style>
   .member-card {
     height: 100%;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
   }
   .member-card__photo {
     aspect-ratio: 1 / 1;
     background: var(--tint);
-    display: grid;
-    place-items: center;
     overflow: hidden;
+    margin-bottom: 14px;
   }
   .member-card__photo img {
     width: 100%;
@@ -97,18 +99,19 @@ const isAlumni = d.role === 'alumni';
   .member-card p:last-child {
     margin-bottom: 0;
   }
+  /* 가로형(PI): 사진 160px 정사각 왼쪽, 글 오른쪽. 위아래 1px */
   .member-card--compact {
     display: grid;
-    grid-template-columns: 120px 1fr;
-    align-items: center;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: var(--gap);
+    align-items: start;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--line);
   }
-  /* 가로 카드: 사진은 120px 정사각 한 칸에 고정(카드 높이를 따라 커지지 않음), 글 영역이 나머지를 모두 차지 */
   .member-card--compact .member-card__photo {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    align-self: start;
+    margin-bottom: 0;
   }
-  /* 사진이 없으면 사진 칸 없이 글이 카드 전체를 씀 */
+  /* 사진이 없으면 사진 칸 없이 글이 전체를 씀 */
   .member-card--compact.member-card--nophoto {
     grid-template-columns: 1fr;
   }

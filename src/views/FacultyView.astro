@@ -145,8 +145,6 @@ const email = d.email;
   .profile__photo {
     aspect-ratio: 1 / 1;
     background: var(--tint);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -192,14 +190,14 @@ const email = d.email;
     padding: 0 0 14px 22px;
     border-left: 2px solid var(--line);
   }
+  /* 연도 눈금: 원형(50%) 대신 각진 가로 눈금 (D28) */
   .timeline li::before {
     content: '';
     position: absolute;
-    left: -7px;
-    top: 6px;
+    left: -2px;
+    top: 0.7em;
     width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    height: 2px;
     background: var(--accent);
   }
   .plain-list li {

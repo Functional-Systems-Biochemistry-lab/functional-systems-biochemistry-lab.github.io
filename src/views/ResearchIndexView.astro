@@ -22,7 +22,7 @@ const research = await getResearch(locale);
   </div>
   <section class="section">
     <div class="container">
-      <div class="grid grid--3">
+      <div class="research-list">
         {research.map((entry) => <ResearchCard entry={entry} locale={locale} headingLevel={2} />)}
       </div>
     </div>

@@ -1,12 +1,13 @@
 /* 디자인 토큰 — CLAUDE.md §8. 라이트 모드만 (다크 모드는 Phase 3)
-   색상 기조: 연구실 랩미팅 PPT(1_랩미팅_양식.pptx) — 표지 로열블루(#113386)·금색(#FFD579), 본문 네이비(#0E2841)·앰버(#FFC000) */
+   색상 기조: 연구실 랩미팅 PPT(1_랩미팅_양식.pptx) — 표지 로열블루(#113386)·금색(#FFD579), 본문 네이비(#0E2841)·앰버(#FFC000)
+   형태(D28): 장식 없는 담백한 학술 사이트 — 카드·알약·그림자 없음, 모서리는 거의 각지게(2px), 목록은 1px 구분선만 */
 :root {
-  --bg: #F3F5F9;            /* 페이지 배경: 차가운 연회색 */
-  --surface: #FFFFFF;       /* 카드, 교차 섹션 */
+  --bg: #F3F5F9;            /* 페이지 배경: 차가운 연회색 (따뜻한 베이지·크림은 쓰지 않음) */
+  --surface: #FFFFFF;       /* 헤더·푸터·버튼 배경 */
   --ink: #0E2841;           /* 본문·제목 (PPT 본문 네이비) */
   --muted: #44536C;         /* 보조 텍스트 */
   --muted-2: #55657E;       /* 캡션, 날짜, 라벨 */
-  --line: #D3DAE6;          /* 테두리, 구분선 */
+  --line: #D3DAE6;          /* 구분선 — 목록·섹션 경계는 이 1px 선만 사용 */
   --tint: #E7EDF8;          /* 이미지 자리·그림 배경의 옅은 파랑 */
   --accent: #1A4CC8;        /* 링크, 기본 버튼 (PPT 표지 파랑 accent4 의 75% 밝기) */
   --accent-hover: #153E9F;
@@ -14,7 +15,7 @@
   --brand: #113386;         /* 다크 밴드 배경 (PPT 표지 배경색 그대로) */
   --highlight: #FFD579;     /* CTA·강조에만 드물게 (PPT 표지 제목 금색, 글자색 --ink) */
   --highlight-hover: #F2C45C;
-  --todo-bg: #FFF4DC;
+  --todo-bg: #FFF4DC;       /* [TODO] 표식 전용 (공개 전 0건이어야 함) */
 
   --font-sans: 'Manrope Variable', 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -29,9 +30,12 @@
 
   --max: 1120px;
   --gutter: 24px;
-  --section: 72px;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --section: 72px;          /* 안쪽 페이지의 기본 섹션 간격 */
+  --section-sm: 40px;       /* 홈 섹션 리듬 (D28): 좁게 */
+  --section-md: 96px;       /*                     보통 */
+  --section-lg: 120px;      /*                     넓게 */
+  --radius: 2px;            /* 거의 각진 모서리 (D28). 알약형(999px)·원형(50%)은 쓰지 않음 */
+  --radius-sm: 2px;
   --gap: 24px;
   --touch: 44px;
 }
@@ -40,6 +44,9 @@
   :root {
     --gutter: 16px;
     --section: 48px;
+    --section-sm: 24px;
+    --section-md: 56px;
+    --section-lg: 72px;
     --fs-h1: 32px;
     --fs-h2: 26px;
     --fs-h2-prose: 22px;

@@ -40,7 +40,7 @@ const albums = await getGallery();
                   const alt = locale === 'ko' ? p.alt_ko : p.alt_en;
                   const caption = locale === 'ko' ? p.caption_ko : p.caption_en;
                   return (
-                    <figure class="card album__photo">
+                    <figure class="album__photo">
                       {img && <Image src={img} alt={alt} {...responsive(img, [400, 800, 1200], '(max-width: 720px) 100vw, 360px')} />}
                       {caption && <figcaption class="small muted">{caption}</figcaption>}
                     </figure>
@@ -77,6 +77,6 @@ const albums = await getGallery();
     object-fit: cover;
   }
   .album__photo figcaption {
-    padding: 8px 12px;
+    padding: 8px 0 0;
   }
 </style>

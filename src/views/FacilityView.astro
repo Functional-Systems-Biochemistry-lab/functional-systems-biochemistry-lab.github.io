@@ -22,7 +22,7 @@ const items = await getFacility(locale);
   </div>
   <section class="section">
     <div class="container">
-      <div class="grid grid--3">
+      <div class="facility-list">
         {items.map((entry) => <FacilityCard entry={entry} locale={locale} />)}
       </div>
     </div>

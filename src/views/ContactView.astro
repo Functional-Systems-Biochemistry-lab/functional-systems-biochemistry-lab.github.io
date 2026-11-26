@@ -46,8 +46,7 @@ const mapLinked = !!mapTarget;
 
   <section class="section">
     <div class="container contact">
-      <div class="card contact__card">
-        <div class="card__body">
+      <div class="contact__info">
           <dl class="dl contact__dl">
             <dt>{t('contact.affiliation')}</dt>
             <dd>
@@ -152,7 +151,6 @@ const mapLinked = !!mapTarget;
               </p>
             )
           }
-        </div>
       </div>
       <div class="prose contact__body" set:html={page.rendered?.html ?? ''} />
     </div>

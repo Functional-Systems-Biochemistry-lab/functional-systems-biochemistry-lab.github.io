@@ -1,5 +1,5 @@
 ---
-// 장비 카드: 사진(없으면 "사진 준비 중"), 장비명, 제조사·모델, 용도 1~2문장(자체 문장)
+// 장비 행 (D28, 카드 아님): 사진(없으면 "사진 준비 중") 옆에 장비명, 제조사·모델, 용도 1~2문장(자체 문장). 위아래 1px 구분선만.
 import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import type { FacilityEntry } from '../lib/content';
@@ -16,19 +16,19 @@ const photo = resolveAsset(entry.data.photo);
 const html = entry.rendered?.html ?? '';
 ---
 
-<article class="card facility-card">
-  <div class="facility-card__media">
+<article class="facility-row">
+  <div class="facility-row__media">
     {
       photo ? (
-        <Image src={photo} alt={entry.data.photo_alt ?? entry.data.name} {...responsive(photo, [400, 800, 1200], '(max-width: 720px) 100vw, 420px')} />
+        <Image src={photo} alt={entry.data.photo_alt ?? entry.data.name} {...responsive(photo, [400, 800, 1200], '(max-width: 720px) 100vw, 320px')} />
       ) : (
         <span class="label">{t('facility.photo_pending')}</span>
       )
     }
   </div>
-  <div class="card__body">
-    <h3 class="facility-card__name">{entry.data.name}</h3>
-    <dl class="dl facility-card__specs">
+  <div class="facility-row__text">
+    <h3 class="facility-row__name">{entry.data.name}</h3>
+    <dl class="dl facility-row__specs">
       <dt>{t('facility.vendor')}</dt>
       <dd>{entry.data.vendor}</dd>
       {
@@ -40,37 +40,51 @@ const html = entry.rendered?.html ?? '';
         )
       }
     </dl>
-    <div class="facility-card__body prose small" set:html={html} />
+    <div class="facility-row__body prose small" set:html={html} />
   </div>
 </article>
 
 <style>
-  .facility-card {
-    height: 100%;
+  .facility-row {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: var(--gap);
+    align-items: start;
+    padding-block: 28px;
+    border-top: 1px solid var(--line);
   }
-  .facility-card__media {
+  .facility-row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .facility-row__media {
     aspect-ratio: 16 / 9;
     background: var(--tint);
     display: grid;
     place-items: center;
     overflow: hidden;
   }
-  .facility-card__media img {
+  .facility-row__media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .facility-card__name {
+  .facility-row__name {
     font-size: var(--fs-h3);
     margin-bottom: 12px;
   }
-  .facility-card__specs {
+  .facility-row__specs {
     margin-bottom: 12px;
     font-size: var(--fs-small);
   }
-  .facility-card__body :global(p) {
+  .facility-row__body :global(p) {
     margin: 0;
     color: var(--muted);
+  }
+  @media (max-width: 720px) {
+    .facility-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
   }
 </style>

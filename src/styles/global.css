@@ -92,10 +92,7 @@ th { font-weight: 700; }
 }
 .section { padding-block: var(--section); }
 .section + .section { padding-top: 0; }
-.section--alt { background: var(--surface); border-block: 1px solid var(--line); }
-.section--alt + .section { padding-top: var(--section); }
-/* 배경 그림이 있는 페이지(html.bd-on): 교차 섹션을 살짝 투명하게 해서 그림이 은은하게 비치게 */
-html.bd-on .section--alt { background: color-mix(in srgb, var(--surface) 72%, transparent); }
+/* 교차 배경 띠(section--alt)는 D28 로 없앴습니다. 섹션에는 불투명 배경을 깔지 않아 배경 그림(D26)이 글자 뒤에 비칩니다 */
 
 .grid {
   display: grid;
@@ -124,15 +121,7 @@ html.bd-on .section--alt { background: color-mix(in srgb, var(--surface) 72%, tr
 .mono { font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.01em; }
 .muted { color: var(--muted); }
 
-/* 카드 */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.card__body { padding: 20px; }
-.card__body > :last-child { margin-bottom: 0; }
+/* 카드(.card)는 D28 로 없앴습니다. 목록(연구·구성원·장비·뉴스)은 1px --line 구분선만 씁니다 */
 
 /* 버튼 */
 .btn {
@@ -170,7 +159,7 @@ html.bd-on .section--alt { background: color-mix(in srgb, var(--surface) 72%, tr
 .prose h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .prose h3 { margin-top: 1.5em; }
 .prose p, .prose li { color: var(--ink); }
-.prose img { border-radius: var(--radius); border: 1px solid var(--line); }
+.prose img { border-radius: var(--radius); }
 .prose blockquote {
   margin: 1em 0;
   padding: 0.5em 1em;
@@ -184,7 +173,7 @@ mark.todo {
   background: var(--todo-bg);
   color: var(--ink);
   border: 1px dashed var(--highlight);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 0 0.3em;
   font-family: var(--font-mono);
   font-size: 0.85em;
@@ -223,11 +212,10 @@ mark.todo {
 
 /* 빈 상태 */
 .empty {
-  padding: 24px;
-  border: 1px dashed var(--line);
-  border-radius: var(--radius);
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   color: var(--muted);
-  background: var(--surface);
 }
 
 /* 정의 목록 (연락처, 장비 사양) */

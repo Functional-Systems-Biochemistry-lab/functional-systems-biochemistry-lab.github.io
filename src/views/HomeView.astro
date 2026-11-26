@@ -1,5 +1,7 @@
 ---
 // Home (§5.1): Hero → About → Research 하이라이트 6개 → News 최근 3건(없으면 숨김) → Members 요약 + Join Us 띠
+// D28: 섹션마다 간격(96/40/120px)·열 비율(4:8, 전폭, 5:7)·제목 위치(왼쪽 열/위)를 다르게 둡니다. 교차 배경 띠는 없음.
+// 섹션 id(about/research/news/people)는 배경 그림(background.yml)의 near 기준이므로 유지합니다.
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
@@ -44,21 +46,21 @@ const heroImage = resolveAsset(home.data.hero_image);
     secondary={{ href: href(locale, '/publications'), text: t('home.cta_pubs') }}
   />
 
-  <section class="section section--alt" id="about">
-    <div class="container about">
-      <span class="label">{t('home.about_label')}</span>
-      <div class="about__body prose" set:html={home.rendered?.html ?? ''} />
+  <section class="home-about" id="about">
+    <div class="container home-about__grid">
+      <span class="label home-about__label">{t('home.about_label')}</span>
+      <div class="home-about__body prose" set:html={home.rendered?.html ?? ''} />
     </div>
   </section>
 
-  <section class="section" id="research">
+  <section class="home-research" id="research">
     <div class="container">
       <SectionHeading
         label={t('home.research_label')}
         title={t('home.research_title')}
         link={{ href: href(locale, '/research'), text: t('home.research_all') }}
       />
-      <div class="grid grid--3">
+      <div class="research-list">
         {research.map((entry) => <ResearchCard entry={entry} locale={locale} />)}
       </div>
     </div>
@@ -66,28 +68,28 @@ const heroImage = resolveAsset(home.data.hero_image);
 
   {
     news.length > 0 && (
-      <section class="section" id="news">
-        <div class="container">
-          <SectionHeading
-            label={t('home.news_label')}
-            title={t('home.news_title')}
-            link={{ href: href(locale, '/news'), text: t('home.news_all') }}
-          />
+      <section class="home-news" id="news">
+        <div class="container home-news__grid">
+          <div class="home-news__aside">
+            <span class="label">{t('home.news_label')}</span>
+            <h2>{t('home.news_title')}</h2>
+            <a href={href(locale, '/news')}>{t('home.news_all')}</a>
+          </div>
           <NewsList items={news} locale={locale} />
         </div>
       </section>
     )
   }
 
-  <section class="section" id="people">
-    <div class="container people">
-      <div class="people__text">
+  <section class="home-people" id="people">
+    <div class="container home-people__grid">
+      <div class="home-people__text">
         <span class="label">{t('home.people_label')}</span>
         <h2>{t('home.people_title')}</h2>
         <p class="muted">{t('home.people_text')}</p>
         <a class="btn btn--secondary" href={href(locale, '/members')}>{t('home.people_link')}</a>
       </div>
-      <div class="people__cards">
+      <div class="home-people__list">
         {pi && <MemberCard member={pi} locale={locale} link={href(locale, '/faculty')} compact />}
         {currentCount === 0 && <p class="empty small">{t('members.empty_current')}</p>}
       </div>
@@ -102,33 +104,69 @@ const heroImage = resolveAsset(home.data.hero_image);
 </Base>
 
 <style>
-  .about {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 24px;
+  /* About: 라벨 4열 + 본문 8열. 위 96px / 아래 64px */
+  .home-about {
+    padding-block: var(--section-md) 64px;
   }
-  .about__body {
-    font-size: 1.1em;
-    max-width: 64ch;
-  }
-  .people {
+  .home-about__grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 4fr 8fr;
+    column-gap: var(--gap);
     align-items: start;
   }
-  .people__text .btn {
+  .home-about__label {
+    padding-top: 0.45em;
+  }
+  .home-about__body {
+    font-size: 1.1em;
+    max-width: 60ch;
+  }
+  /* Research: 전폭 행 목록, 제목은 위. 위 40px / 아래 120px */
+  .home-research {
+    padding-block: var(--section-sm) var(--section-lg);
+  }
+  /* News: 제목 왼쪽 5열, 목록 7열 */
+  .home-news {
+    padding-block: 64px;
+  }
+  .home-news__grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: var(--gap);
+    align-items: start;
+  }
+  .home-news__aside h2 {
+    margin-top: 0.3em;
+  }
+  /* People: 글 5열, PI 행 7열. 위 120px / 아래 96px */
+  .home-people {
+    padding-block: var(--section-lg) var(--section-md);
+  }
+  .home-people__grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: var(--gap);
+    row-gap: 32px;
+    align-items: start;
+  }
+  .home-people__text h2 {
+    margin-top: 0.3em;
+  }
+  .home-people__text .btn {
     margin-top: 8px;
   }
-  .people__cards {
-    display: grid;
-    gap: 16px;
-  }
   @media (max-width: 860px) {
-    .about,
-    .people {
+    .home-about__grid,
+    .home-news__grid,
+    .home-people__grid {
       grid-template-columns: 1fr;
-      gap: 16px;
+      row-gap: 16px;
+    }
+    .home-about {
+      padding-block: 56px 40px;
+    }
+    .home-news {
+      padding-block: 40px;
     }
   }
 </style>
