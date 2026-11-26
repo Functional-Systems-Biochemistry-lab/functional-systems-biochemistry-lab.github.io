@@ -473,7 +473,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 |---|---|---|---|---|
 | Q1 | 국문 연구실명 | 헤더·푸터 | `[TODO]` | 열림 |
 | Q2 | 기본 언어: 영어 `/` vs 한국어 `/` | 라우팅 | 영어 | 열림 |
-| Q3 | Facility 현재 보유 장비 목록 | Facility | 기존 3종만 draft 표기 | 열림 |
+| Q3 | Facility 현재 보유 장비 목록 | Facility | 14종 draft 표기(기존 3종 + 사용자 패치 11종, 2026-11-26). 각 항목에 `[TODO: 현재 보유·운용 확인]` | 열림 |
 | Q4 | 교수님 약력·연락처·수상(D7) | Faculty | `[TODO]` 자리 | 열림 |
 | Q5 | Join Us: 모집 구분, 지원 방법, 인건비 안내 범위, 인턴 조건, 수신 이메일 | Join Us | `상시 모집, 문의 환영` draft | 열림 |
 | Q6 | Alumni 공개 동의 | Members | 공개하지 않음 | 열림 |
@@ -503,7 +503,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Home | 1 | 초안 | 초안 | 초안 | Q1, Q14 |
 | Faculty | 1 | 골격 | 골격 | 골격 | Q4 (약력 전부 `[TODO]`) |
 | Research 목록 + 상세 ×6 | 1 | 초안 | 초안 | 초안 | Q7 (대표 결과·그림) |
-| Facility | 1 | 초안 | 초안 | 초안 | Q3 (3종만, 현행 확인) |
+| Facility | 1 | 초안 | 초안 | 초안 | Q3 (14종 draft, 현재 보유·운용 여부 확인) |
 | Publications | 1 | 초안 | – | 초안 | 191편 반영(Q8 닫힘). IF 는 JCR 2025 로 확정, keywords 초안은 사용자 확인 대기 |
 | Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
 | Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
@@ -537,3 +537,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.18: 개인정보 처리 안내 페이지(D32, 사용자 요청). `/privacy`·`/ko/privacy`(`routes.ts`, `RouteView`, `PrivacyView.astro`, `pages/{en,ko}/privacy.md`, i18n `nav.privacy`·`privacy.label`·`contact.form_privacy_link`), 푸터 링크(`site.yml` `nav.footer`). 문의 폼 동의 문구·안내문에서 링크. Markdown `{{site.…}}` 표식 플러그인(`remark-site-vars.mjs`, `astro.config.mjs`). 코드 점검: cookie·storage·분석·외부 스크립트 없음(구글 지도 iframe만). §4·§5.10·§7.6·Q17·§13 갱신, `docs/MAINTAINING.md` 3.7.
 - 2026-11-26 rev.19: Faculty 대표 논문 2열 표시(사용자 요청). `selected` 8편(mun2019proteogenomic, chung2026macrophages, lim2017suppression, jang2020breast, choi2012quantitative, jiang2016arginylation, song2024proteogenomic, chamolstad2017p62) 확인(데이터 변경 없음). `SelectedPubs.astro` 신설 — 저널+연도 큰 글씨, 제1저자+교수님(굵게)+et al., 제목 전체 링크; `FacultyView`에서 `PubList` 대신 사용. `sanitizeTitle`을 `src/lib/publications.ts`로 옮겨 공용화(PubList 동작 그대로). §5.2 대표 논문 줄, `docs/MAINTAINING.md` 3.1.
 - 2026-11-26 rev.20: Publications IF 기준 안내 문구(사용자 결정). 소개 문단 아래 작은 muted 한 줄(`PublicationsView.astro` `.pubs-if-note`, i18n `publications.if_note` en·ko). §5.5 IF 기준 줄, `docs/MAINTAINING.md` 3.1 IF 입력 안내.
+- 2026-11-26 rev.21: Facility 장비 11종 추가(사용자 패치 `inbox/fsb-facility-equipment.patch`, `--ignore-whitespace` 적용 → `inbox/_done/`). `src/content/facility/{en,ko}/` 22개 파일(order 4~14, `photo: null`, `status: draft`, 현재 보유·운용 여부 `[TODO]`, Q3). build 35페이지·check 통과. §13 Facility, Q3 갱신.
