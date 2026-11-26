@@ -181,14 +181,14 @@
 
 - **소스**: `data/publications.bib` (Zotero 내보내기). 연도 역순 그룹.
 - **항목 형식(D29)**: 블록형 3줄 — ① 제목(굵게) ② 저자(연구실 멤버 굵게) ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크(굵은 밑줄 평문).
-- **목록 페이지 동작(D29)**: 연도별 \| 저널별 보기 전환(`?view=journal`, 저널명 알파벳순·안에서는 연도 내림차순, 제목 "저널 · 편수"), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `src/lib/publications.ts`의 `PUBS_PER_PAGE`). 필터·보기를 바꾸면 1페이지, 빈 그룹 제목 숨김. JS 없으면 연도별 전체 목록. Research 상세의 관련 논문 5편에는 탭·필터·페이지네이션 없음.
+- **목록 페이지 동작(D29)**: 연도별 \| 저널별 보기 전환(`?view=journal`, 저널명 알파벳순·안에서는 연도 내림차순, 제목 "저널 · IF n · 편수". 저널명은 `normalizeName` 키로 묶어 표기 차이를 무시하고 가장 많이 쓰인 표기·IF 를 보여 줌), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `src/lib/publications.ts`의 `PUBS_PER_PAGE`). 필터·보기를 바꾸면 1페이지, 빈 그룹 제목 숨김. JS 없으면 연도별 전체 목록. Research 상세의 관련 논문 5편에는 탭·필터·페이지네이션 없음.
 - **저자 접기(D30)**: 저자가 `AUTHOR_FOLD_LIMIT`(= 10, `src/lib/publications.ts` 한 곳에서 변경)명을 넘으면 앞 3명 · 숨은 구간의 연구실 구성원 · … · 마지막 저자만 보이고 "+N more / Show less" 버튼으로 펼침. 서버는 전체 저자를 그리므로 JS 없으면 전체 표시.
 - **분야 연결**: BibTeX `keywords`에 Research slug(예: `lipidomics, ptm`) 기재 → 해당 Research 상세에 자동 노출. 목록 페이지에서 분야별 필터.
 - **멤버 강조**: 멤버 파일의 `aliases`(예: `Kim KP`, `Kim, Kwang Pyo`)로 저자명 매칭.
 - **링크**: DOI/PubMed 링크가 기본. PDF는 오픈액세스 논문만 `pdf` 필드로 연결(R6).
 - **현황**: 기존 사이트 목록은 화면상 2023년이 최신이었음. 2024~2026 논문은 새로 수집(§12 Q8).
 - **입력 형식**: `.bib`, `.ris`, `.nbib`(PubMed MEDLINE), DOI 목록(.txt)을 `inbox/publications/`에서 받아 BibTeX로 변환.
-- **점검**: `npm run pubs:check` — DOI 중복, 필수 필드 누락, 연도 정렬, `keywords`의 slug 오타.
+- **점검**: `npm run pubs:check` — DOI 중복, 필수 필드 누락, 연도 정렬, `keywords`의 slug 오타. 저널 표기 불일치와 같은 저널의 IF 불일치는 경고(빌드는 통과).
 - **선택(Phase 3)**: DOI → BibTeX 변환 스크립트. `doi.org`의 content negotiation(`Accept: application/x-bibtex`) 사용. 동작 확인 후 구현.
 
 ### 5.6 Members
@@ -465,7 +465,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q5 | Join Us: 모집 구분, 지원 방법, 인건비 안내 범위, 인턴 조건, 수신 이메일 | Join Us | `상시 모집, 문의 환영` draft | 열림 |
 | Q6 | Alumni 공개 동의 | Members | 공개하지 않음 | 열림 |
 | Q7 | Research 6개의 대표 그림, 논문 그림, 소개문 | Research | 일러스트 placeholder | 열림 |
-| Q8 | 2024~2026 논문 목록 | Publications | – | 닫힘(2026-11-26): 사용자 제공 `publications.bib` 191편(2010~2026) 반영. `keywords`(Research slug)·`impactfactor`는 초안이라 사용자 확인 필요(pubs:check 경고 93건) |
+| Q8 | 2024~2026 논문 목록 | Publications | – | 닫힘(2026-11-26): 사용자 제공 `publications.bib` 191편(2010~2026) 반영. `impactfactor`는 JCR 2025 학술지 값으로 통일, `selected` 8편 지정(사용자 제공 bib, 2026-11-26). `keywords`(Research slug)는 초안이라 사용자 확인 필요(pubs:check 경고 93건) |
 | Q9 | GitHub 계정/조직명(주소) | 배포 | – | 닫힘(2026-11-25): Organization `Functional-Systems-Biochemistry-lab`, 저장소 `functional-systems-biochemistry-lab.github.io` |
 | Q10 | 학교·학과 도메인 사용 가능 여부 | 주소 | `github.io` | 열림 |
 | Q11 | Contact 이메일·전화·우편번호 | Contact | – | 대부분 닫힘(2026-11-25): 사용자가 `site.yml`에 이메일·전화·우편번호·주소(실험연구동 A동 101, 102호) 입력. 남은 것: 영문 건물명은 번역("Experimental Research Building A")이라 학교 공식 영문명 확인 필요 |
@@ -490,7 +490,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Faculty | 1 | 골격 | 골격 | 골격 | Q4 (약력 전부 `[TODO]`) |
 | Research 목록 + 상세 ×6 | 1 | 초안 | 초안 | 초안 | Q7 (대표 결과·그림) |
 | Facility | 1 | 초안 | 초안 | 초안 | Q3 (3종만, 현행 확인) |
-| Publications | 1 | 초안 | – | 초안 | 191편 반영(Q8 닫힘). keywords·IF 초안은 사용자 확인 대기 |
+| Publications | 1 | 초안 | – | 초안 | 191편 반영(Q8 닫힘). IF 는 JCR 2025 로 확정, keywords 초안은 사용자 확인 대기 |
 | Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
 | Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
 | Contact | 1 | 초안 | 초안 | 초안 | Q11, Q16(문의 폼 키·안내문) |
@@ -517,3 +517,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.13: Publications 개편(D29, 사용자 요청). 논문 항목을 블록형 3줄로(`PubItem.astro` 신설, DOI 링크 아이콘 인라인 SVG). 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 10편씩 페이지네이션(`PUBS_PER_PAGE`, `?page=`), 분야 필터와 함께 동작(`PubList.astro` 스크립트, JS 없으면 연도별 전체 목록). i18n `publications.view_label/view_year/view_journal/pagination_label/page_n` 추가. Faculty 학력·경력·구성원 연구 주제에 `**…**` 굵게(`src/lib/inline.ts`, `TodoText` `bold`). `global.css`에 `[hidden]` 우선 규칙. §5.5 항목 형식·목록 동작, §6 굵게 규칙, §8 금지 예외 갱신.
 - 2026-11-26 rev.14: 저자 접기(D30, 사용자 요청). 저자 10명 초과(`AUTHOR_FOLD_LIMIT`, `src/lib/publications.ts`) 논문은 앞 3명·숨은 구간의 구성원·…·마지막 저자만 보이고 "+N more/Show less" 버튼으로 펼침(`PubList.astro` 스크립트, `PubItem.astro` 버튼 스타일, i18n `publications.more_authors`·`show_less`). §5.5 저자 접기 줄 추가.
 - 2026-11-26 rev.15: Contact 문의 폼 추가(D31, 사용자 요청). Web3Forms JSON POST(`src/views/ContactView.astro` 스크립트), `site.yml` `contact.form_key`(지금은 `[TODO]`라 폼 숨김), `src/lib/site.ts` 타입, i18n `contact.form_*`(en·ko). 라벨 위·밑줄 입력·직사각 버튼(D28 톤). 개인정보 안내문 초안(보유 기간 `[TODO]`, Q16). R9에 폼 활성화 조건, §5.8·§7.6·§13 갱신.
+- 2026-11-26 rev.16: 논문 데이터 갱신(사용자 제공 bib, 2026-11-26 15:56). IF 를 JCR 2025 학술지 값으로 통일(소수 첫째 자리, JCR 미수록은 비움), `keywords`에 `selected` 8편, 저널 표기 통일. 저널별 보기는 `normalizeName` 키로 묶고 그룹 제목에 IF 표시(`groupByJournal` → `JournalGroup`, `PubList.astro`). `pubs-check`에 "journal 표기 불일치"·"같은 저널인데 IF 가 다름" 경고 추가. pubs:check 경고 93·오류 0, build 33페이지, check 통과.

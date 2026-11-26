@@ -163,17 +163,42 @@ export const PUBS_PER_PAGE = 10;
 /** 저자가 이 수를 넘으면 접어서 표시 — 앞 3명 · 숨은 구간의 구성원 · … · 마지막 저자 + "+N more" 버튼 (D30, §5.5) */
 export const AUTHOR_FOLD_LIMIT = 10;
 
-/** 저널별 그룹: 저널명 알파벳순, 저널 안에서는 연도 내림차순 (D29). 저널명이 없으면 '—' */
-export function groupByJournal(pubs: Publication[]): { journal: string; items: Publication[] }[] {
-  const map = new Map<string, Publication[]>();
+export interface JournalGroup {
+  /** 표시용 저널명 — 같은 저널의 표기가 여러 가지면 가장 많이 쓰인 표기(동률은 먼저 나온 것) */
+  journal: string;
+  /** normalizeName 으로 정규화한 그룹 키 (공백·구두점·대소문자 차이 무시) */
+  key: string;
+  /** 그룹의 학술지 IF — 항목들의 impactfactor 중 가장 많이 쓰인 값. 모두 비어 있으면 undefined */
+  impactFactor?: string;
+  items: Publication[];
+}
+
+/** 저널별 그룹 (D29): 저널명을 normalizeName 키로 묶어 표기 차이("J. Proteome Res." / "J Proteome Res")를 한 그룹으로.
+ *  저널명 알파벳순, 저널 안에서는 연도 내림차순. 저널명이 없으면 '—'. pubs:check 가 표기·IF 불일치를 경고함. */
+export function groupByJournal(pubs: Publication[]): JournalGroup[] {
+  const map = new Map<string, { names: Map<string, number>; ifs: Map<string, number>; items: Publication[] }>();
   for (const p of pubs) {
-    const journal = p.journal.trim() || '—';
-    if (!map.has(journal)) map.set(journal, []);
-    map.get(journal)!.push(p);
+    const name = p.journal.trim() || '—';
+    const key = normalizeName(name) || '—';
+    let g = map.get(key);
+    if (!g) {
+      g = { names: new Map(), ifs: new Map(), items: [] };
+      map.set(key, g);
+    }
+    g.names.set(name, (g.names.get(name) ?? 0) + 1);
+    if (p.impactFactor) g.ifs.set(p.impactFactor, (g.ifs.get(p.impactFactor) ?? 0) + 1);
+    g.items.push(p);
   }
+  const mostCommon = (m: Map<string, number>): string | undefined =>
+    [...m.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
   return [...map.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0], 'en', { sensitivity: 'base' }))
-    .map(([journal, items]) => ({ journal, items: [...items].sort((a, b) => b.year - a.year) }));
+    .map(([key, g]) => ({
+      key,
+      journal: mostCommon(g.names) ?? '—',
+      impactFactor: mostCommon(g.ifs),
+      items: [...g.items].sort((a, b) => b.year - a.year),
+    }))
+    .sort((a, b) => a.journal.localeCompare(b.journal, 'en', { sensitivity: 'base' }));
 }
 
 /** 멤버 alias 집합 (정규화) */

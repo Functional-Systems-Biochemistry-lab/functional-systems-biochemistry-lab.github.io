@@ -100,7 +100,13 @@ const countText = publications.length === 1 ? t('publications.count_one') : t('p
         {byJournal.map((g) => (
           <section class="publist__group publist__group--journal" data-group>
             <h3 class="publist__group-heading">
-              {g.journal} <span class="publist__group-count mono">· {g.items.length}</span>
+              {g.journal}
+              {g.impactFactor && (
+                <span class="publist__group-count mono" title={t('publications.if_title')}>
+                  · {t('publications.if')} {g.impactFactor}
+                </span>
+              )}
+              <span class="publist__group-count mono">· {g.items.length}</span>
             </h3>
             <ol class="publist__items">
               {g.items.map((p) => (

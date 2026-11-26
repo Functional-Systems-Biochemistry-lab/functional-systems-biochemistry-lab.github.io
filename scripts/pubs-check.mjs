@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // npm run pubs:check — data/publications.bib 검증 (CLAUDE.md §5.5)
-//  DOI 중복, 필수 필드 누락, 연도 형식, keywords 의 Research slug 오타, pdf 파일 존재, 중복 키
+//  DOI 중복, 필수 필드 누락, 연도 형식, keywords 의 Research slug 오타, pdf 파일 존재, 중복 키,
+//  저널 표기 불일치·같은 저널의 IF 불일치(경고)
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -58,6 +59,10 @@ function suggest(word) {
 const seenKeys = new Map();
 const seenDoi = new Map();
 const years = [];
+/** 정규화한 저널명 → { names: 표기별 키 목록, ifs: IF 값별 키 목록 } */
+const journals = new Map();
+/** src/lib/publications.ts 의 normalizeName 과 같은 규칙 — 저널별 보기가 같은 저널로 묶는 기준 */
+const normalizeName = (s) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9가-힣]/g, '');
 
 for (const e of lib.entries) {
   const where = `@${e.type}{${e.key}}`;
@@ -93,6 +98,15 @@ for (const e of lib.entries) {
   const ifRaw = str(e.fields.impactfactor);
   if (ifRaw && !/^\d+(\.\d+)?$/.test(ifRaw)) warn(`${where}: impactfactor 는 숫자만 적어야 표시됩니다 (${ifRaw})`);
 
+  const journalRaw = str(e.fields.journal) || str(e.fields.journaltitle) || str(e.fields.booktitle);
+  if (journalRaw) {
+    const jk = normalizeName(journalRaw);
+    if (!journals.has(jk)) journals.set(jk, { names: new Map(), ifs: new Map() });
+    const jg = journals.get(jk);
+    jg.names.set(journalRaw, [...(jg.names.get(journalRaw) ?? []), e.key]);
+    if (ifRaw && /^\d+(\.\d+)?$/.test(ifRaw)) jg.ifs.set(ifRaw, [...(jg.ifs.get(ifRaw) ?? []), e.key]);
+  }
+
   const kwRaw = e.fields.keywords;
   const keywords = (Array.isArray(kwRaw) ? kwRaw : str(kwRaw).split(/[,;]/)).map((k) => String(k).trim().toLowerCase()).filter(Boolean);
   if (keywords.filter((k) => k !== 'selected').length === 0) warn(`${where}: keywords 에 Research slug 가 없어 어느 분야에도 표시되지 않음`);
@@ -108,6 +122,19 @@ for (const e of lib.entries) {
     const p = path.join(root, 'public', pdf.replace(/^\//, ''));
     if (!exists(p)) fail(`${where}: pdf 파일 없음 — public${pdf.startsWith('/') ? '' : '/'}${pdf}`);
     warn(`${where}: pdf 는 오픈액세스 논문에만 사용합니다 (R6) — 라이선스 확인`);
+  }
+}
+
+// 저널 표기·IF 일관성: 저널별 보기는 정규화 키로 묶으므로 표기가 달라도 한 그룹이 되지만, 화면에는 가장 많이 쓰인 표기·IF 하나만 나옴
+for (const [, g] of journals) {
+  if (g.names.size > 1) {
+    const list = [...g.names.entries()].map(([n, keys]) => `"${n}"(${keys.length}편)`).join(' / ');
+    warn(`journal 표기 불일치 — ${list}: 같은 저널로 묶이지만 표기를 하나로 통일하세요`);
+  }
+  if (g.ifs.size > 1) {
+    const name = [...g.names.keys()][0];
+    const list = [...g.ifs.entries()].map(([v, keys]) => `${v}(${keys.join(', ')})`).join(' / ');
+    warn(`같은 저널인데 IF 가 다름 — "${name}": ${list} — JCR 2025 값 하나로 통일하세요`);
   }
 }
 
