@@ -103,8 +103,10 @@ const groups: { title: string; items: typeof members }[] = [
     color: var(--muted);
     font-weight: 600;
   }
-  /* D28: 타일은 각자 위 1px 선, 묶음 아래를 1px 선으로 닫음 */
+  /* D28: 타일은 각자 위 1px 선, 묶음 아래를 1px 선으로 닫음.
+     row-gap 6px 은 카드(subgrid 6행)의 줄 사이 간격 — 카드 행 사이 여백은 카드의 위아래 padding 이 맡음 */
   .member-grid {
+    row-gap: 6px;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--line);
   }

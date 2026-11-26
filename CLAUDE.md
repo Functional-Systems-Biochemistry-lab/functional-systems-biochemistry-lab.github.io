@@ -202,6 +202,7 @@
 - **Alumni**: 이름, 학위·졸업 연도, 현재 소속·직위(동의 시).
 - 정렬: 직위 → 입학 연도.
 - `consent: true`가 아닌 항목은 렌더링 제외(R5).
+- 연구 분야 줄은 기본 bold(weight 700, `--ink`), 카드 줄 간격 line-height 1.5 로 통일(줄 사이 6px). 같은 행의 카드는 CSS subgrid(사진·이름·과정·분야·입학·이메일 6행)로 줄 위치를 맞춤(2026-11-26).
 
 ### 5.7 Join Us
 
@@ -541,3 +542,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.20: Publications IF 기준 안내 문구(사용자 결정). 소개 문단 아래 작은 muted 한 줄(`PublicationsView.astro` `.pubs-if-note`, i18n `publications.if_note` en·ko). §5.5 IF 기준 줄, `docs/MAINTAINING.md` 3.1 IF 입력 안내.
 - 2026-11-26 rev.21: Facility 장비 11종 추가(사용자 패치 `inbox/fsb-facility-equipment.patch`, `--ignore-whitespace` 적용 → `inbox/_done/`). `src/content/facility/{en,ko}/` 22개 파일(order 4~14, `photo: null`, `status: draft`, 현재 보유·운용 여부 `[TODO]`, Q3). build 35페이지·check 통과. §13 Facility, Q3 갱신.
 - 2026-11-26 rev.22: Publications 저널명을 제목과 구분(사용자 요청). `PubItem.astro` `.pub__journal` 이탤릭 → `--accent`·600(밑줄·hover 없음), `.pub__ref` muted·400. 연도별·저널별·Research 상세 목록에 공통 적용(저널별 그룹 제목은 그대로). 대비 accent/bg 6.6:1·accent/surface 7.2:1. §5.5 항목 형식, §8 한 줄.
+- 2026-11-26 rev.23: Members 카드 줄 정리(사용자 요청). `MemberCard.astro` — 연구 분야 줄 bold(700, ink; PI·일반·Alumni 공통, `**…**` 처리 유지), 모든 줄 line-height 1.5·줄 사이 6px, 세로 카드는 부모 격자 subgrid 6행에 줄을 고정(미지원 시 분야 줄 min-height 2줄), 글 묶음은 `display: contents`. `MembersView` `.member-grid` row-gap 6px. §5.6 한 줄.

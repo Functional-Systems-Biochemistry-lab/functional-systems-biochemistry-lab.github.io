@@ -1,5 +1,9 @@
 ---
-// 구성원 (D28, 카드 아님): 정사각 사진(없으면 사진 칸 생략) + 이름·과정·연구 주제·이메일(동의 시). 박스 없이 위 1px 구분선만.
+// 구성원 (D28, 카드 아님): 정사각 사진(없으면 사진 칸 생략) + 이름·과정·연구 분야·입학·이메일(동의 시). 박스 없이 위 1px 구분선만.
+// 줄 간격: 모든 줄 line-height 1.5, 줄 사이 6px 한 값 (§5.6). 연구 분야 줄은 기본 bold(700, ink).
+// 세로형은 부모 격자(.member-grid 등, row-gap 6px)의 subgrid 6행(사진·이름·과정·분야·입학·이메일)에 줄을 고정해
+// 같은 행의 카드끼리 줄 위치가 맞음. subgrid 미지원 브라우저는 분야 줄 min-height 2줄로 대신함.
+// 가로형(compact, PI): 사진 160px 왼쪽, 글 오른쪽. 400px 이하 1열.
 import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import { memberName, memberTopic, type MemberEntry } from '../lib/content';
@@ -37,11 +41,11 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
       {link ? <a href={link}>{name}</a> : name}
       {altName && altName !== name && <span class="member-card__alt muted"> {altName}</span>}
     </h3>
-    <p class="label">{t(`members.role.${d.role}`)}</p>
+    <p class="member-card__role label">{t(`members.role.${d.role}`)}</p>
     {!isAlumni && topic && <p class="member-card__topic"><TodoText text={topic} bold /></p>}
     {
       isAlumni && (
-        <p class="member-card__topic small">
+        <p class="member-card__topic">
           {d.degree && <span>{d.degree}</span>}
           {d.left && <span class="mono"> {formatYearMonth(d.left, locale)}</span>}
           {d.current_position && (
@@ -53,22 +57,45 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
         </p>
       )
     }
-    {!isAlumni && d.since && <p class="small muted mono">{t('members.since')} {formatYearMonth(d.since, locale)}</p>}
-    {d.email && <p class="small"><a href={`mailto:${d.email}`}>{d.email}</a></p>}
+    {!isAlumni && d.since && <p class="member-card__since small muted mono">{t('members.since')} {formatYearMonth(d.since, locale)}</p>}
+    {d.email && <p class="member-card__email small"><a href={`mailto:${d.email}`}>{d.email}</a></p>}
   </div>
 </article>
 
 <style>
+  /* 세로형(기본): 카드 자체가 6행 격자. 부모가 격자이면 subgrid 로 같은 행의 카드와 줄을 맞춤 */
   .member-card {
-    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto auto minmax(3em, auto) auto auto; /* subgrid 미지원: 분야 줄 2줄 높이 확보 */
+    row-gap: 6px;
+    align-content: start;
     padding-top: 16px;
+    padding-bottom: 24px;
     border-top: 1px solid var(--line);
+    line-height: 1.5;
+  }
+  @supports (grid-template-rows: subgrid) {
+    .member-card {
+      grid-template-rows: subgrid;
+      grid-row: span 6;
+      row-gap: normal; /* 부모 격자의 row-gap(6px)을 따름 */
+    }
+  }
+  /* 글 묶음은 격자에 녹여서(display: contents) 각 줄이 격자 행에 직접 놓임 */
+  .member-card__body {
+    display: contents;
+  }
+  .member-card__body > *,
+  .member-card__photo {
+    margin: 0;
+    line-height: 1.5;
   }
   .member-card__photo {
+    grid-row: 1;
     aspect-ratio: 1 / 1;
     background: var(--tint);
     overflow: hidden;
-    margin-bottom: 14px;
+    margin-bottom: 8px; /* 사진 아래는 글 줄 사이보다 조금 더 띄움(6px + 8px) */
   }
   .member-card__photo img {
     width: 100%;
@@ -77,8 +104,8 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
     display: block;
   }
   .member-card__name {
+    grid-row: 2;
     font-size: var(--fs-h3);
-    margin: 0 0 4px;
   }
   .member-card__name a {
     color: var(--ink);
@@ -92,32 +119,68 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
     font-weight: 400;
     font-size: var(--fs-small);
   }
+  .member-card__role {
+    grid-row: 3;
+    display: block;
+  }
+  /* 연구 분야(주제) 줄: 기본 bold, ink. PI·일반·Alumni 공통 (§5.6) */
   .member-card__topic {
-    margin: 8px 0 4px;
+    grid-row: 4;
     font-size: var(--fs-small);
+    font-weight: 700;
+    color: var(--ink);
   }
-  .member-card p:last-child {
-    margin-bottom: 0;
+  .member-card__since {
+    grid-row: 5;
   }
-  /* 가로형(PI): 사진 160px 정사각 왼쪽, 글 오른쪽. 위아래 1px */
+  .member-card__email {
+    grid-row: 6;
+  }
+
+  /* 가로형(PI): 사진 160px 정사각 왼쪽, 글 오른쪽(줄 사이 6px). 위아래 1px */
   .member-card--compact {
-    display: grid;
     grid-template-columns: 160px minmax(0, 1fr);
-    gap: var(--gap);
+    grid-template-rows: auto;
+    grid-row: auto;
+    column-gap: var(--gap);
+    row-gap: 0;
     align-items: start;
     padding-block: 20px;
     border-bottom: 1px solid var(--line);
   }
   .member-card--compact .member-card__photo {
+    grid-column: 1;
+    grid-row: 1;
     margin-bottom: 0;
+  }
+  .member-card--compact .member-card__body {
+    display: grid;
+    row-gap: 6px;
+    align-content: start;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .member-card--compact .member-card__body > * {
+    grid-row: auto;
   }
   /* 사진이 없으면 사진 칸 없이 글이 전체를 씀 */
   .member-card--compact.member-card--nophoto {
     grid-template-columns: 1fr;
   }
+  .member-card--compact.member-card--nophoto .member-card__body {
+    grid-column: 1;
+  }
   @media (max-width: 400px) {
     .member-card--compact {
       grid-template-columns: 1fr;
+    }
+    .member-card--compact .member-card__photo {
+      width: 160px;
+      margin-bottom: 8px;
+    }
+    .member-card--compact .member-card__body {
+      grid-column: 1;
+      grid-row: auto;
     }
   }
 </style>
