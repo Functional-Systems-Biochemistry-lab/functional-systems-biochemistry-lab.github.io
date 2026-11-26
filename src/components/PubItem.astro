@@ -1,6 +1,6 @@
 ---
 // 논문 한 편 — 블록형 3줄 (CLAUDE.md D29)
-//   ① 제목  ② 저자(연구실 구성원은 굵게)  ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크
+//   ① 제목(ink·700)  ② 저자(연구실 구성원은 굵게)  ③ 저널(accent·600, 링크 아님) 연도;권(호):쪽(muted) · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
 import { doiUrl, isMemberAuthor, pubmedUrl, sanitizeTitle, type Publication } from '../lib/publications';
@@ -133,8 +133,15 @@ const authors = p.authors.map((a) => ({ name: a.display, member: isMemberAuthor(
     margin: 0;
     font-size: var(--fs-small);
   }
+  /* 저널명: 제목(ink·700)과 구분되게 accent 색·600. 밑줄·hover 없음 — 링크가 아님 (§8). 대비 accent/bg 6.6:1, accent/surface 7.2:1 */
   .pub__journal {
-    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  /* 연도;권(호):쪽 은 muted·보통 굵기로 저널명만 도드라지게 */
+  .pub__ref {
+    color: var(--muted);
+    font-weight: 400;
   }
   .pub__links {
     display: inline-flex;

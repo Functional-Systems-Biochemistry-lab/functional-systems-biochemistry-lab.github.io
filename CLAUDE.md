@@ -183,7 +183,7 @@
 ### 5.5 Publications (영문 전용)
 
 - **소스**: `data/publications.bib` (Zotero 내보내기). 연도 역순 그룹.
-- **항목 형식(D29)**: 블록형 3줄 — ① 제목(굵게) ② 저자(연구실 멤버 굵게) ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크(굵은 밑줄 평문).
+- **항목 형식(D29)**: 블록형 3줄 — ① 제목(굵게) ② 저자(연구실 멤버 굵게) ③ 저널(`--accent`·600, 링크 아님) 연도;권(호):쪽(muted) · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크(굵은 밑줄 평문).
 - **목록 페이지 동작(D29)**: 연도별 \| 저널별 보기 전환(`?view=journal`, 저널명 알파벳순·안에서는 연도 내림차순, 제목 "저널 · IF n · 편수". 저널명은 `normalizeName` 키로 묶어 표기 차이를 무시하고 가장 많이 쓰인 표기·IF 를 보여 줌), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `src/lib/publications.ts`의 `PUBS_PER_PAGE`). 필터·보기를 바꾸면 1페이지, 빈 그룹 제목 숨김. JS 없으면 연도별 전체 목록. Research 상세의 관련 논문 5편에는 탭·필터·페이지네이션 없음.
 - **저자 접기(D30)**: 저자가 `AUTHOR_FOLD_LIMIT`(= 10, `src/lib/publications.ts` 한 곳에서 변경)명을 넘으면 앞 3명 · 숨은 구간의 연구실 구성원 · … · 마지막 저자만 보이고 "+N more / Show less" 버튼으로 펼침. 서버는 전체 저자를 그리므로 JS 없으면 전체 표시.
 - **분야 연결**: BibTeX `keywords`에 Research slug(예: `lipidomics, ptm`) 기재 → 해당 Research 상세에 자동 노출. 목록 페이지에서 분야별 필터.
@@ -406,6 +406,8 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 **컴포넌트**: 헤더(로고·메뉴·Join Us 버튼·언어 토글), Hero, 섹션 헤딩(mono 라벨 + 제목), 행 목록(연구: 큰 번호·제목·요약·옆 이미지 / 멤버: 정사각 사진·글 / 장비: 사진·글 — 모두 1px 구분선만, D28), 연도별 논문 리스트(분야는 밑줄 링크, 필터는 밑줄 탭), 뉴스 행(날짜 mono + 제목), 다크 밴드(Join Us), FAQ(`details/summary`), 푸터(주소, 학과·학교 링크).
 
+논문 항목의 저널명은 `--accent`·weight 600 (제목과 구분, 링크 아님 — 밑줄·hover 없음). 연도·권(호):쪽은 muted·보통 굵기(2026-11-26).
+
 **이미지**: 인물 사진은 정사각 크롭, 같은 크기. Astro 이미지 최적화와 lazy loading 사용. 연구 내용을 스톡 이미지로 대체하지 않음.
 
 **접근성**: WCAG AA(본문 대비 4.5:1 이상), 키보드 포커스 표시(3px outline), 본문 건너뛰기 링크, `prefers-reduced-motion` 존중, 터치 타깃 44px 이상, 이미지 alt 필수, 색만으로 정보를 전달하지 않음.
@@ -538,3 +540,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.19: Faculty 대표 논문 2열 표시(사용자 요청). `selected` 8편(mun2019proteogenomic, chung2026macrophages, lim2017suppression, jang2020breast, choi2012quantitative, jiang2016arginylation, song2024proteogenomic, chamolstad2017p62) 확인(데이터 변경 없음). `SelectedPubs.astro` 신설 — 저널+연도 큰 글씨, 제1저자+교수님(굵게)+et al., 제목 전체 링크; `FacultyView`에서 `PubList` 대신 사용. `sanitizeTitle`을 `src/lib/publications.ts`로 옮겨 공용화(PubList 동작 그대로). §5.2 대표 논문 줄, `docs/MAINTAINING.md` 3.1.
 - 2026-11-26 rev.20: Publications IF 기준 안내 문구(사용자 결정). 소개 문단 아래 작은 muted 한 줄(`PublicationsView.astro` `.pubs-if-note`, i18n `publications.if_note` en·ko). §5.5 IF 기준 줄, `docs/MAINTAINING.md` 3.1 IF 입력 안내.
 - 2026-11-26 rev.21: Facility 장비 11종 추가(사용자 패치 `inbox/fsb-facility-equipment.patch`, `--ignore-whitespace` 적용 → `inbox/_done/`). `src/content/facility/{en,ko}/` 22개 파일(order 4~14, `photo: null`, `status: draft`, 현재 보유·운용 여부 `[TODO]`, Q3). build 35페이지·check 통과. §13 Facility, Q3 갱신.
+- 2026-11-26 rev.22: Publications 저널명을 제목과 구분(사용자 요청). `PubItem.astro` `.pub__journal` 이탤릭 → `--accent`·600(밑줄·hover 없음), `.pub__ref` muted·400. 연도별·저널별·Research 상세 목록에 공통 적용(저널별 그룹 제목은 그대로). 대비 accent/bg 6.6:1·accent/surface 7.2:1. §5.5 항목 형식, §8 한 줄.
