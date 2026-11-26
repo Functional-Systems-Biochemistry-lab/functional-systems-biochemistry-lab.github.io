@@ -160,6 +160,9 @@ export function groupByYear(pubs: Publication[]): { year: number; items: Publica
 /** 목록 페이지에서 한 페이지에 보여 줄 논문 수 (D29) */
 export const PUBS_PER_PAGE = 10;
 
+/** 저자가 이 수를 넘으면 접어서 표시 — 앞 3명 · 숨은 구간의 구성원 · … · 마지막 저자 + "+N more" 버튼 (D30, §5.5) */
+export const AUTHOR_FOLD_LIMIT = 10;
+
 /** 저널별 그룹: 저널명 알파벳순, 저널 안에서는 연도 내림차순 (D29). 저널명이 없으면 '—' */
 export function groupByJournal(pubs: Publication[]): { journal: string; items: Publication[] }[] {
   const map = new Map<string, Publication[]>();

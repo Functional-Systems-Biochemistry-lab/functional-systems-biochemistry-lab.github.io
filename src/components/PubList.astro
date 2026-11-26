@@ -4,7 +4,7 @@
 // JS 가 없으면 서버가 그린 연도별 전체 목록이 그대로 보입니다. Research 상세의 관련 논문(filters=false)은 목록만 그립니다.
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
-import { PUBS_PER_PAGE, groupByJournal, groupByYear, type Publication } from '../lib/publications';
+import { AUTHOR_FOLD_LIMIT, PUBS_PER_PAGE, groupByJournal, groupByYear, type Publication } from '../lib/publications';
 import PubItem from './PubItem.astro';
 
 interface Props {
@@ -31,6 +31,9 @@ const countText = publications.length === 1 ? t('publications.count_one') : t('p
   id={id}
   data-controls={filters ? '' : undefined}
   data-per-page={PUBS_PER_PAGE}
+  data-author-limit={AUTHOR_FOLD_LIMIT}
+  data-more={t('publications.more_authors')}
+  data-less={t('publications.show_less')}
   data-prev={t('common.previous')}
   data-next={t('common.next')}
   data-page-label={t('publications.page_n')}
@@ -114,6 +117,37 @@ const countText = publications.length === 1 ? t('publications.count_one') : t('p
 </div>
 
 <script>
+  // 저자 접기 (D30): 저자가 AUTHOR_FOLD_LIMIT(data-author-limit)를 넘으면 앞 3명 · 숨은 구간의 연구실 구성원 · … · 마지막 저자만 보이고
+  // "+N more" 버튼(aria-expanded)으로 펼칩니다. 서버는 전체 저자를 그리므로 JS 가 없으면 전체가 보입니다. 순서는 그대로 둡니다.
+  document.querySelectorAll<HTMLElement>('[data-publist]').forEach((root) => {
+    const limit = Number(root.dataset.authorLimit) || 10;
+    const moreTemplate = root.dataset.more || '+{n} more';
+    const lessText = root.dataset.less || 'Show less';
+    root.querySelectorAll<HTMLElement>('[data-authors]').forEach((line) => {
+      const authors = Array.from(line.querySelectorAll<HTMLElement>('.pub__author'));
+      const last = authors[authors.length - 1];
+      if (authors.length <= limit || !last) return;
+      const folded = authors.slice(3, authors.length - 1).filter((el) => !el.hasAttribute('data-member'));
+      if (folded.length === 0) return;
+      const ellipsis = document.createElement('span');
+      ellipsis.className = 'pub__ellipsis';
+      ellipsis.textContent = '… ';
+      last.before(ellipsis);
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'pub__fold';
+      const setOpen = (open: boolean) => {
+        for (const el of folded) el.hidden = !open;
+        ellipsis.hidden = open;
+        button.textContent = open ? lessText : moreTemplate.replace('{n}', String(folded.length));
+        button.setAttribute('aria-expanded', String(open));
+      };
+      button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+      line.append(' ', button);
+      setOpen(false);
+    });
+  });
+
   // 목록 동작 (D29): 보기 전환(연도별|저널별) · 분야 필터 · 페이지네이션. 상태는 URL 쿼리 view / area / page 에 기억합니다.
   // 필터나 보기를 바꾸면 1페이지로 돌아가고, 페이지를 넘기면 목록 맨 위로 스크롤합니다. 빈 그룹 제목은 숨깁니다.
   document.querySelectorAll<HTMLElement>('[data-publist][data-controls]').forEach((root) => {

@@ -120,7 +120,9 @@
     "view_year": "연도별",
     "view_journal": "저널별",
     "pagination_label": "페이지 이동",
-    "page_n": "{n}페이지"
+    "page_n": "{n}페이지",
+    "more_authors": "외 {n}명 더 보기",
+    "show_less": "접기"
   },
   "members": {
     "label": "구성원",

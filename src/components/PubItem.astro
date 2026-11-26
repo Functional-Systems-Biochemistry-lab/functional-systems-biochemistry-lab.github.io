@@ -113,6 +113,26 @@ const authors = p.authors.map((a) => ({ name: a.display, member: isMemberAuthor(
     font-size: var(--fs-small);
     color: var(--muted);
   }
+  /* 저자 접기 버튼(스크립트가 그림, D30): 링크처럼 보이는 글자 버튼. 터치 타깃 44px 는 위아래 음수 여백으로 줄 높이를 지킴 */
+  .pub__authors :global(.pub__fold) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch);
+    margin-block: calc((1.5em - var(--touch)) / 2);
+    padding: 0 2px;
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+    cursor: pointer;
+    vertical-align: baseline;
+  }
+  .pub__authors :global(.pub__fold:hover) {
+    text-decoration-thickness: 2px;
+  }
   .pub__meta {
     margin: 0;
     font-size: var(--fs-small);

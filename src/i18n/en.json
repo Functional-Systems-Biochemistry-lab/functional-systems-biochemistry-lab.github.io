@@ -120,7 +120,9 @@
     "view_year": "By year",
     "view_journal": "By journal",
     "pagination_label": "Pages",
-    "page_n": "Page {n}"
+    "page_n": "Page {n}",
+    "more_authors": "+{n} more",
+    "show_less": "Show less"
   },
   "members": {
     "label": "Members",
