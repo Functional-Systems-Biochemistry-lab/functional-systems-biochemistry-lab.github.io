@@ -8,6 +8,7 @@
 %  - keywords에 selected 를 추가하면 Faculty 페이지의 대표 논문으로 표시됩니다.
 %  - pdf 필드는 오픈액세스 논문에만 사용합니다(R6). 예: pdf = {/pdf/2025-example.pdf} (public/pdf/ 에 파일)
 %  - 멤버 이름 굵게 표시는 src/content/members/*.md 의 aliases 와 저자명을 맞춰서 처리합니다.
+%  - impactfactor 필드(숫자만)에 학술지 Impact Factor 를 적으면 논문 목록에 "IF 4.1" 처럼 표시됩니다.
 %  - 검사: npm run pubs:check
 %
 % 항목 형식 예시 (실제 논문이 아닌 형식 예시이며 주석 처리되어 있음)
@@ -23,4 +24,2153 @@
 %   keywords = {lipidomics, ptm, selected}
 % }
 % ------------------------------------------------------------------
-% [TODO: 논문 목록 — Q8. inbox/publications/ 에 Zotero 내보내기(.bib)를 넣어 주세요.]
+% 논문 198행 중 DOI 중복 6건을 제거한 192편 (hompage_publication_.xlsx 에서 변환).
+% keywords 는 비어 있으므로 Research 페이지 연결은 아직 되어 있지 않습니다.
+% ------------------------------------------------------------------
+
+@article{chung2026macrophages,
+  author  = {Chung, Hyewon and Kim, Sang Wha and Oh, Jae Won and Park, Gyu Mi and Cho, Yurim and Choi, Hae Suk and Kim, MinJi and Kim, Kwang Pyo and Na, Yi Rang and Lee, Hye Seung and Kim, Hak Jae and Seok, Seung Hyeok},
+  title   = {Macrophages Drive Ferroptosis Resistance after Radiotherapy},
+  journal = {Cancer Commun (Lond)},
+  impactfactor = {28.4},
+  year    = {2026},
+  volume  = {46},
+  doi     = {10.34133/cancomm.0039}
+}
+
+@article{jun2026dulaglutide,
+  author  = {Jun, Ji Eun and Oh, Da-Hee and Jeong, In-Kyung and Ryu, Hyun Jin and Hwang, You-Cheol and Ahn, Kyu Jeung and Chung, Ho Yeon and Kim, Kwang Pyo},
+  title   = {Dulaglutide versus empagliflozin as add-on therapy to metformin and sulfonylurea in type 2 diabetes: a randomized pilot study with exploratory metabolomic and microbiome analyses},
+  journal = {Front Endocrinol (Lausanne)},
+  impactfactor = {5.7},
+  year    = {2026},
+  volume  = {17},
+  doi     = {10.3389/fendo.2026.1843595}
+}
+
+@article{kim2026ifi35,
+  author  = {Kim, Nayeon and Shin, Jae Jin and Oh, Jae Won and Won, Juhee and Lee, Ah Ram and Dezhbord, Mehrangiz and Park, Jeongwoo and Lee, Ki-Young and Kim, Dong-Sik and Kim, Kwang Pyo and Kim, Kyun-Hwan},
+  title   = {IFI35 suppresses the transcription of hepatitis B virus cccDNA minichromosome via promoting HNF4α proteasomal degradation},
+  journal = {J Biomed Sci},
+  impactfactor = {14.5},
+  year    = {2026},
+  volume  = {33},
+  number  = {1},
+  doi     = {10.1186/s12929-026-01239-w}
+}
+
+@article{cho2026platelet,
+  author  = {Cho, Yeong Eun and Kim, Andrew and Lee, Hyeong Min and Oh, Jae Won and Son, Sang Joon and Roh, Hyun Woong and Jung, Yi-Sook and Hong, Chang Hyung and Lee, Sang Yoon and Kim, Kwang Pyo},
+  title   = {Platelet proteomic signatures of amyloid β-positive mild cognitive impairment and Alzheimer's disease},
+  journal = {Mol Brain},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.8},
+  year    = {2026},
+  volume  = {19},
+  number  = {1},
+  doi     = {10.1186/s13041-026-01294-2}
+}
+
+@article{han2026proteomics,
+  author  = {Han, Bitnara and Lim, Hyun Ji and Kim, Su-Jung and Shin, Jaejin and Kim, Hyeong Hwan and Kim, Kyun-Hwan and Nam, Chang-Hoon and Kim, Kwang Pyo},
+  title   = {Proteomics and phosphoproteomics of human colorectal cancer cells lacking a specific kinase activity reveal kinase-specific compensatory responses},
+  journal = {Anim Cells Syst (Seoul)},
+  keywords = {ptm},
+  impactfactor = {3.6},
+  year    = {2026},
+  volume  = {30},
+  number  = {1},
+  pages   = {219--234},
+  doi     = {10.1080/19768354.2026.2625524}
+}
+
+@article{lee2026phenotypic,
+  author  = {Lee, Junghyeon and Jung, Hyeryeon and Kim, Eunhee G and Ahn, Jinsung and Haffner, Michael C and Nelson, Peter S and Kim, Kwang Pyo and Lee, John K and Yi, Eugene C and Kim, Kristine M},
+  title   = {Phenotypic discovery and therapeutic evaluation of an ITGA3B1-targeting antibody-drug conjugate for bladder cancer},
+  journal = {Sci Adv},
+  impactfactor = {13.9},
+  year    = {2026},
+  volume  = {12},
+  number  = {1},
+  doi     = {10.1126/sciadv.ady0041}
+}
+
+@article{jeon2025krasg12d,
+  author  = {Jeon, Eunhye and Kim, Chan and Ko, Minjoo and Kim, Taeyul K and Bae, Juhyeon and Oh, Jae Won and Kim, Kwang Pyo and Kim, Han Sang and Sim, Taebo},
+  title   = {KRASG12D selective VHL-PROTAC with sparing KRASWT and other KRAS mutants},
+  journal = {Eur J Med Chem},
+  impactfactor = {6.7},
+  year    = {2025},
+  doi     = {10.1016/j.ejmech.2025.117928}
+}
+
+@article{song2025assessing,
+  author  = {Song, Kyu Jin and Kim, Minsuh and Heo, Yong Jin and Cho, Kyung-Cho and Oh, Jae-Won and Kim, Dae Ho and Hwa, Chanwoong and Do, Yeji and Choi, Seunghyuk and Hwang, Hee Sang and Kim, Kwoneel and Kim, Kyunggon and Na, Seungjin and Paek, Eunok and An, Joon-Yong and Jang, Se Jin and Kim, Min-Sik and Kim, Kwang Pyo},
+  title   = {Assessing Long-Term Stored Tissues for Multi-Omics Data Quality and Proteogenomics Suitability},
+  journal = {J Proteome Res},
+  keywords = {systems-biology},
+  impactfactor = {3.8},
+  year    = {2025},
+  doi     = {10.1021/acs.jproteome.5c00289}
+}
+
+@article{park2025peripheral,
+  author  = {Park, Yeon Ji and Oh, Jae Won and Chung, Hyewon and Kwon, Jung Won and Na, Yi Rang and Kim, Kwang Pyo and Seok, Seung Hyeok},
+  title   = {Peripheral blood proteome biomarkers distinguish immunosuppressive features of cancer progression},
+  journal = {Mol Oncol},
+  keywords = {biomarker-discovery},
+  impactfactor = {4.5},
+  year    = {2025},
+  doi     = {10.1002/1878-0261.13817}
+}
+
+@article{oh2025proteomic,
+  author  = {Oh, Jae Won and Ahn, Seong Joon and Jung, Jae Hun and Kim, Tae Wan and Kim, Kwang Pyo},
+  title   = {Proteomic analysis of aqueous humor identified clinically relevant molecular targets for neovascular complications in diabetic retinopathy},
+  journal = {Mol Cell Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {6.3},
+  year    = {2025},
+  doi     = {10.1016/j.mcpro.2025.100953}
+}
+
+@article{kim2025cooperation,
+  author  = {Kim, Su-Jung and Saeidi, Soma and Cho, Nam-Chul and Lee, Han-Byoel and Han, Wonshik and Kim, Kwang Pyo and Surh, Young-Joon},
+  title   = {Cooperation between oncogenic NRF2 and wild-type HRAS promotes progression of breast cancer},
+  journal = {Cell Signal},
+  impactfactor = {4.7},
+  year    = {2025},
+  doi     = {10.1016/j.cellsig.2025.111920}
+}
+
+@article{anwar2023p176s,
+  author  = {Anwar, Muhammad Ayaz and Haseeb, Muhammad and Choi, Sangdun and Kim, Kwang Pyo},
+  title   = {P176S Mutation Rewires Electrostatic Interactions That Alter Maspin Functionality},
+  journal = {ACS Omega},
+  year    = {2023},
+  doi     = {10.1021/acsomega.3c01850}
+}
+
+@article{nguyen2024enrichment,
+  author  = {Nguyen, Dinh Phi Long and Le, Hoa Thi and Kim, Dae Ho and Lee, Chang-Wook and Li, Jiao and Lim, Choon Woo},
+  title   = {Enrichment and MALDI-TOF-MS/MS analysis of phosphatidylinositol bisphosphates in brain tissue},
+  journal = {Anal Biochem},
+  keywords = {lipidomics},
+  impactfactor = {2.6},
+  year    = {2024},
+  volume  = {698},
+  doi     = {10.1016/j.ab.2024.115749}
+}
+
+@article{song2024proteogenomic,
+  author  = {Song, Kyu Jin and Choi, Seunghyuk and Kim, Kwoneel and Hwang, Hee Sang and Chang, Eunhyong and Park, Ji Soo and Shim, Seok Bo and Choi, Seunghwan and Heo, Yong Jin and An, Woo Ju and Yang, Dae Yeol and Cho, Kyung-Cho and Ji, Wonjun and Choi, Chang-Min and Lee, Jae Cheol and Kim, Hyeong-Ryul and Yoo, Jiyoung and Ahn, Hee-Sung and Lee, Gang-Hee and Hwa, Chanwoong and Kim, Seoyeon and Kim, Kyunggon and Kim, Min-Sik and Paek, Eunok and Na, Seungjin and Jang, Se Jin and An, Joon-Yong},
+  title   = {Proteogenomic analysis reveals non-small cell lung cancer subtypes predicting chromosome instability, and tumor microenvironment},
+  journal = {Nat Commun},
+  keywords = {biomarker-discovery, systems-biology},
+  impactfactor = {14.7},
+  year    = {2024},
+  volume  = {15},
+  number  = {1},
+  doi     = {10.1038/s41467-024-54434-4}
+}
+
+@article{nagarajan2024novel,
+  author  = {Nagarajan, Manikandan Palinci and Ramalingam, Manikandan and Arivuthilagam, Ilakeya Subbiah and Paramaguru, Vishwa and Rahman, Md. Mahbubur and Park, Jongdeok and Asiam, Francis Kwaku and Lee, Byungjik},
+  title   = {A Novel Ferrocene-Linked Thionine as a Dual Redox Mediator for the Electrochemical Detection of Dopamine and Hydrogen Peroxide},
+  journal = {Biosensors (Basel)},
+  impactfactor = {4.9},
+  year    = {2024},
+  volume  = {14},
+  number  = {9},
+  pages   = {448--458},
+  doi     = {10.3390/bios14090448}
+}
+
+@article{chang2024pan,
+  author  = {Chang, Eunhyong and Kim, Su-Jung and Hwang, Hee Sang and Song, Kyu Jin and Kim, Min-Sik and Jang, Se Jin and You, Sungyong and Kim, Kwang Pyo},
+  title   = {Pan-cancer proteogenomic landscape of whole-genome doubling reveals putative therapeutic targets in various cancer types},
+  journal = {Clin Transl Med},
+  keywords = {systems-biology},
+  impactfactor = {7.9},
+  year    = {2024},
+  volume  = {14},
+  number  = {8},
+  doi     = {10.1002/ctm2.1796}
+}
+
+@article{lim2024systematic,
+  author  = {Lim, Ji Hyae and Lim, Jae Min and Lee, Hyeong Min and Lee, Hyun Jung and Kwak, Dong Wook and Han, You Jung and Kim, Moon Young and Jung, Sang Hee and Kim, Young Ran and Ryu, Hyun Mee and Kim, Kwang Pyo},
+  title   = {Systematic Proteome Profiling of Maternal Plasma for Development of Preeclampsia Biomarkers},
+  journal = {Mol Cell Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {6.1},
+  year    = {2024},
+  volume  = {23},
+  number  = {9},
+  doi     = {10.1016/j.mcpro.2024.100826}
+}
+
+@article{lee2024sirt1,
+  author  = {Lee, Seung Eon and Lee, Su Bin and Roh, Jae-Il and Kim, Kwang Pyo},
+  title   = {SIRT1 regulates the localization and stability of telomerase protein by direct interaction},
+  journal = {Biochem Biophys Res Commun},
+  impactfactor = {3.58},
+  year    = {2024},
+  volume  = {720},
+  doi     = {10.1016/j.bbrc.2024.150098}
+}
+
+@article{shin2024paraoxonase,
+  author  = {Shin, Gu-Choul and Lee, Hyeong Min and Kim, Nayeon and Hur, Jihyeon and Yoo, Sang-Ku and Park, Yun Sun and Park, Hyung Soon and Ryu, Dongryeol and Park, Min-Ho and Park, Jung Hee and Seo, Sang-Uk and Choi, Leo Sungwong and Madsen, Martin Rønn and Feigh, Michael},
+  title   = {Paraoxonase-2 agonist vutiglabridin promotes autophagy activation and mitochondrial function to alleviate non-alcoholic steatohepatitis},
+  journal = {Br J Pharmacol},
+  impactfactor = {8.74},
+  year    = {2024},
+  volume  = {181},
+  number  = {19},
+  pages   = {3717--3742},
+  doi     = {10.1111/bph.16438}
+}
+
+@article{bandu2024extracellular,
+  author  = {Bandu, Raju and Oh, Jae Won and Kim, Kwang Pyo},
+  title   = {Extracellular vesicle proteins as breast cancer biomarkers: Mass spectrometry-based analysis},
+  journal = {Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.98},
+  year    = {2024},
+  volume  = {24},
+  number  = {11},
+  doi     = {10.1002/pmic.202300062}
+}
+
+@article{le2024enrichment,
+  author  = {Le, Hoa Thi and Nguyen, Dinh Phi Long and Jung, Gun Tae and Kim, Eunju and Yang, Seon Hee and Lee, Sun Min and Lee, Eun Ah and Jung, Woong},
+  title   = {Enrichment and MALDI-TOF MS Analysis of Phosphoinositides in Brain Tissue},
+  journal = {J Am Soc Mass Spectrom},
+  keywords = {lipidomics},
+  impactfactor = {3.11},
+  year    = {2024},
+  volume  = {35},
+  pages   = {1069--1075},
+  doi     = {10.1021/jasms.3c00364}
+}
+
+@article{shin2024constitutive,
+  author  = {Shin, Jinwoo and Park, Junhyeon and Jeong, Jieun and Lam, Jordy Homing and Qiu, Xingyu and Wu, Di and Kim, Kuglae and Lee, Joo-Youn and Robinson, Carol V and Hyun, Jaekyung and Katritch, Vsevolod},
+  title   = {Constitutive activation mechanism of a class C GPCR},
+  journal = {Nat Struct Mol Biol},
+  impactfactor = {15.37},
+  year    = {2024},
+  volume  = {31},
+  number  = {4},
+  pages   = {678--687},
+  doi     = {10.1038/s41594-024-01224-7}
+}
+
+@article{park2024rna,
+  author  = {Park, Chan and Han, Bitnara and Choi, Yura and Jin, Yoontae and Kim, Kwang Pyo and Choi, Seong Il and Seong, Baik L},
+  title   = {RNA-dependent proteome solubility maintenance in Escherichia coli lysates analysed by quantitative mass spectrometry: Proteomic characterization in terms of isoelectric point, structural disorder, functional hub, and chaperone network},
+  journal = {RNA Biol},
+  impactfactor = {4.65},
+  year    = {2024},
+  volume  = {21},
+  number  = {1},
+  pages   = {1--18},
+  doi     = {10.1080/15476286.2024.2315383}
+}
+
+@article{shin2024prkcsh,
+  author  = {Shin, Gu-Choul and Lee, Hyeong Min and Kim, Nayeon and Seo, Sang-Uk and Kim, Kwang Pyo},
+  title   = {PRKCSH contributes to TNFSF resistance by extending IGF1R half-life and activation in lung cancer},
+  journal = {Exp Mol Med},
+  impactfactor = {8.72},
+  year    = {2024},
+  volume  = {56},
+  number  = {1},
+  pages   = {192--209},
+  doi     = {10.1038/s12276-023-01147-1}
+}
+
+@article{hyeon2023vutiglabridin,
+  author  = {Hyeon, Jooseung and Lee, Jihan and Nam, Chang-Hoon and Kim, Eunju and Lee, Hyeong Min and Kim, Kwang Pyo and Shin, Jaejin and Park, Hyung Soon and Lee, Yun-Il},
+  title   = {Vutiglabridin exerts anti-ageing effects in aged mice through alleviating age-related metabolic dysfunctions},
+  journal = {Exp Gerontol},
+  impactfactor = {4.253},
+  year    = {2023},
+  volume  = {181},
+  doi     = {10.1016/j.exger.2023.112269}
+}
+
+@article{lim2023creb,
+  author  = {Lim, Jae Min and Anwar, Muhammad Ayaz and Han, Hye-Sook and Koo, Seung-Hoi and Kim, Kwang Pyo},
+  title   = {CREB-Regulated Transcriptional Coactivator 2 Proteome Landscape is Modulated by SREBF1},
+  journal = {Mol Cell Proteomics},
+  impactfactor = {7.381},
+  year    = {2023},
+  volume  = {22},
+  number  = {10},
+  doi     = {10.1016/j.mcpro.2023.100637}
+}
+
+@article{choi2023nitrosylation,
+  author  = {Choi, Da Hyeon and Kang, Seong Ki and Lee, Kyeong Eun and Park, Yoon Shin and Jung, Jongsun and Kim, Eun Ju and Kim, Won-Ho and Kwon, Young-Guen and Kim, Kwang Pyo and Jo, Inho and Park, Sang Ick},
+  title   = {Nitrosylation of β2-Tubulin Promotes Microtubule Disassembly and Differentiated Cardiomyocyte Beating in Ischemic Mice},
+  journal = {Tissue Eng Regen Med},
+  keywords = {ptm, nitroproteomics},
+  impactfactor = {4.451},
+  year    = {2023},
+  volume  = {20},
+  number  = {6},
+  pages   = {921--937},
+  doi     = {10.1007/s13770-023-00582-5}
+}
+
+@article{choi2023ecpas,
+  author  = {Choi, Won Hoon and Glickman, Michael H. and Lee, Min Jae and Yun, Yejin and Byun, Insuk and Kim, Sumin and Lee, Seho and Sim, Jiho and Levi, Shahar and Park, Seo Hyeong and Jun, Jeongmoo and Kleifeld, Oded and Kim, Kwang Pyo and Han, Dohyun and Chiba, Tomoki and Seok, Chaok and Kwon, Yong Tae},
+  title   = {ECPAS/Ecm29-mediated 26S proteasome disassembly is an adaptive response to glucose starvation},
+  journal = {Cell Rep},
+  impactfactor = {9.995},
+  year    = {2023},
+  volume  = {42},
+  doi     = {10.1016/j.celrep.2023.112701}
+}
+
+@article{lee2023plausibility,
+  author  = {Lee, Sangwoo and Kim, Kwang Pyo and Kim, Woo-Keun and Jung, Gun Tae and Cho, Mina and Lee, Jae Won and Eghan, Kojo and Lee, Jieon and Yoon, Seokjoo},
+  title   = {Plausibility of Daphnia magna as an alternative experimental model to evaluate effects on eicosanoid synthesis},
+  journal = {Ecotoxicol Environ Saf},
+  keywords = {lipidomics},
+  impactfactor = {7.129},
+  year    = {2023},
+  volume  = {262},
+  doi     = {10.1016/j.ecoenv.2023.115119}
+}
+
+@article{jung2023characterization,
+  author  = {Jung, Jae Hun and Byeon, Seul Kee and Yang, Da-Qing and Song, Hongmins and Wang, Xiangyu and Wu, Xinyan and Kim, Kwong Pyo and Pandey, Akhilesh},
+  title   = {Characterization of Lipid Alterations by Oncogenic PIK3CA Mutations Using Untargeted Lipidomics in Breast Cancer},
+  journal = {OMICS},
+  keywords = {lipidomics},
+  impactfactor = {3.978},
+  year    = {2023},
+  volume  = {27},
+  pages   = {327--335},
+  doi     = {10.1089/omi.2023.0076}
+}
+
+@article{bandu2023association,
+  author  = {Bandu, Raju and Ha, Kyooseob and Kim, Kwang Pyo and Lee, Hyun Jeong and Lee, Hyeong Min and Ha, Tae Hyon and Lee, Heon-Jeong and Kim, Se Joo},
+  title   = {Association between Plasma Metabolic Profiles of the Antidepressant Escitalopram and Clinical Response in Subjects with Depression},
+  journal = {Mass Spectrom (Tokyo)},
+  keywords = {biomarker-discovery},
+  year    = {2023},
+  volume  = {12},
+  doi     = {10.5702/massspectrometry.a0123}
+}
+
+@article{jung2023proteomic,
+  author  = {Jung, Gun Tae and Kim, Kwang Pyo and Lee, Hyung Keun and Kim, Minha and Song, Jong Suk and Kim, Tae Im and Chung, Tae Young and Choi, Chul Young and Kim, Hyun Seong and An, Woo Ju and Jeong, Su Jin and Lee, Hye Sun and Jeon, Soyoung},
+  title   = {Proteomic analysis of tears in dry eye disease: A prospective, double-blind multicenter study},
+  journal = {Ocul Surf},
+  keywords = {biomarker-discovery},
+  impactfactor = {6.268},
+  year    = {2023},
+  volume  = {29},
+  pages   = {68--76},
+  doi     = {10.1016/j.jtos.2023.04.015}
+}
+
+@article{kim2023protective,
+  author  = {Kim, Seong Hoon and Kim, Kwang Pyo and Surh, Young-Joon and Lee, So Eui and Kim, Su-Jung and Fang, Xizhu and Hur, Jihyeon and Sozen, Erdi and Özer, Nesrin Kartal},
+  title   = {Protective effects of an electrophilic metabolite of docosahexaenoic acid on UVB-induced oxidative cell death, dermatitis, and carcinogenesis},
+  journal = {Redox Biol},
+  impactfactor = {10.787},
+  year    = {2023},
+  volume  = {62},
+  doi     = {10.1016/j.redox.2023.102666}
+}
+
+@article{wang20238,
+  author  = {Wang, Rongbo and Xu, Xingyue and Kim, Yeon-Ju and Dhandapani, Sanjeevram and Baek, Nam-In and Kim, Kwang-Pyo and Cho, Yeong-Eun},
+  title   = {8-paradol from ginger exacerbates PINK1/Parkin mediated mitophagy to induce apoptosis in human gastric adenocarcinoma},
+  journal = {Pharmacol Res},
+  impactfactor = {10.33},
+  year    = {2023},
+  volume  = {187},
+  doi     = {10.1016/j.phrs.2022.106610}
+}
+
+@article{kim2023medium,
+  author  = {Kim, Yang Gyun and Moon, Ju Young and Lee, Sang Ho and Jung, Su Woong and Jung, Gun Tae and Lim, Hyun Ji and Kim, Kwang Pyo and Jo, Young-Il and Jin, KyuBok},
+  title   = {The Medium Cut-Off Membrane Does Not Lower Protein-Bound Uremic Toxins},
+  journal = {Toxins (Basel)},
+  impactfactor = {5.075},
+  year    = {2023},
+  volume  = {14},
+  number  = {11},
+  doi     = {10.3390/toxins14110779}
+}
+
+@article{shin2022paraoxonase,
+  author  = {Shin, Gu-Choul and Lee, Hyeong Min and Kim, Nayeon and Yoo, Sang-Ku and Park, Hyung Soon and Choi, Leo Sungwong and Kim, Kwang Pyo and Lee, Ah-Ra and Seo, Sang-Uk and Kim, Kyun-Hwan},
+  title   = {Paraoxonase-2 contributes to promoting lipid metabolism and mitochondrial function via autophagy activation},
+  journal = {Sci Rep},
+  impactfactor = {4.996},
+  year    = {2022},
+  volume  = {12},
+  number  = {1},
+  doi     = {10.1038/s41598-022-25802-1}
+}
+
+@article{jang2022cntnap2,
+  author  = {Jang, Wooyoung Eric and Park, Ji Hwan and Tag, Sung Hyun and Nam, Eunjoo and Ham, Suji and Ahn, Sujin and Kim, Juhwan and Cho, Doo-Wan and Lee, Sangjoon and Yang, Young-Su and Lee, Seung Eun and Kim, Yong Sik and Cho, Il-Joo and Kim, Kwang Pyo and Han, Su-Cheol and Im, Heh-In},
+  title   = {Cntnap2-dependent molecular networks in autism spectrum disorder revealed through an integrative multi-omics analysis},
+  journal = {Mol Psychiatry},
+  keywords = {systems-biology},
+  year    = {2022},
+  doi     = {10.1038/s41380-022-01822-1}
+}
+
+@article{jun2022evaluation,
+  author  = {Jun, Ikhyun and Kim, Sehui and Kim, Hyoseon and Kim, Sun Woong and Ji, Yong Woo and Kim, Kwang Pyo and Lee, Tai Gyu and Seo, Kyoung Yul},
+  title   = {Evaluation of Meibum Lipid Composition According to Tear Interferometric Patterns: RRH: Meibum Composition According to Interferometric Patterns},
+  journal = {Am J Ophthalmol},
+  keywords = {lipidomics},
+  year    = {2022},
+  volume  = {240},
+  doi     = {10.1016/j.ajo.2022.02.010}
+}
+
+@article{kim2022syncrip,
+  author  = {Kim, Baeksun and Tag, Sung Hyun and Nam, Eunjoo and Ham, Suji and Ahn, Sujin and Kim, Juhwan and Cho, Doo-Wan and Lee, Sangjoon and Yang, Young-Su and Lee, Seung Eun and Kim, Yong Sik and Cho, Il-Joo and Kim, Kwang Pyo and Han, Su-Cheol and Im, Heh-In},
+  title   = {SYNCRIP controls miR-137 and striatal learning in animal models of methamphetamine abstinence},
+  journal = {Acta Pharm Sin B},
+  year    = {2022},
+  volume  = {12},
+  number  = {8},
+  doi     = {10.1016/j.apsb.2022.02.030}
+}
+
+@article{inomata2022downregulation,
+  author  = {Inomata, Yosuke and Oh, Jae-Won and Taniguchi, Kohei and Sugito, Nobuhiko and Kawaguchi, Nao and Hirokawa, Fumitoshi and Lee, Sang-Woong and Akao, Yukihiro and Takai, Shinji and Kim, Kwang-Pyo and Uchiyama, Kazuhisa},
+  title   = {Downregulation of miR-122-5p Activates Glycolysis via PKM2 in Kupffer Cells of Rat and Mouse Models of Non-Alcoholic Steatohepatitis},
+  journal = {Int J Mol Sci},
+  year    = {2022},
+  volume  = {23},
+  number  = {9},
+  doi     = {10.3390/ijms23095230}
+}
+
+@article{oh2022proteomics,
+  author  = {Oh, Jae Won and Yoon, Chang Ho and Ryu, Jin Suk and Kim, Kwang Pyo and Kim, Mee Kum},
+  title   = {Proteomics Analysis of Aqueous Humor and Rejected Graft in Pig-to-Non-Human Primate Corneal Xenotransplantation},
+  journal = {Front Immunol},
+  keywords = {biomarker-discovery},
+  year    = {2022},
+  volume  = {13},
+  doi     = {10.3389/fimmu.2022.859929}
+}
+
+@article{tran2022emerging,
+  author  = {Tran, Quangdon and Lee, Hyunji and Jung, Jae Hun and Chang, Seung-Hee and Shrestha, Robin and Kong, Gyeyeong and Park, Jisoo and Kim, Seon-Hwan and Park, Kyu-Sang and Rhee, Hyun-Woo and Yun, Jeanho and Cho, Myung-Haing and Kim, Kwang Pyo and Park, Jongsun},
+  title   = {Emerging role of LETM1/GRP78 axis in lung cancer},
+  journal = {Cell Death Dis},
+  year    = {2022},
+  volume  = {13},
+  number  = {6},
+  doi     = {10.1038/s41419-022-04993-5}
+}
+
+@article{kim2021rapid,
+  author  = {Kim, Jong-Kwang and Jung, Jae-Hun and Shin, Dong-Hoon and You, Hye-Jin and Cha, Seho and Song, Bo-Seul and Joung, Jae-Young and Park, Weon-Seo and Kim, Kwang-Pyo and Myung, Jae-Kyung},
+  title   = {Rapid Androgen-Responsive Proteome Is Involved in Prostate Cancer Progression},
+  journal = {Biomedicines},
+  year    = {2021},
+  volume  = {9},
+  number  = {12},
+  doi     = {10.3390/biomedicines9121877}
+}
+
+@article{stanly2021crosstalk,
+  author  = {Stanly, Christopher and Kim, Hyoseon and Antonucci, Giuseppe and Fiume, Immacolata and Guescini, Michele and Kim, Kwang Pyo and Ciardiello, Maria Antonietta and Giangrieco, Ivana and Mari, Adriano and Pocsfalvi, Gabriella},
+  title   = {Crosstalk Between the Immune System and Plant-Derived Nanovesicles: A Study of Allergen Transporting},
+  journal = {Front Bioeng Biotechnol},
+  year    = {2021},
+  doi     = {10.3389/fbioe.2021.760730}
+}
+
+@article{an2021effects,
+  author  = {An, Jung Nam and Kim, Hyoseon and Kim, Eun Nim and Cho, Ara and Cho, Yeongeun and Choi, Young Wook and Kim, Jin Hyuk and Yang, Seung Hee and Choi, Bum Soon and Lim, Chun Soo and Kim, Yon Su and Kim, Kwang Pyo and Lee, Jung Pyo},
+  title   = {Effects of periostin deficiency on kidney aging and lipid metabolism},
+  journal = {Aging (Albany NY)},
+  keywords = {lipidomics},
+  impactfactor = {5.682},
+  year    = {2021},
+  volume  = {13},
+  number  = {19},
+  pages   = {22649--22665},
+  doi     = {10.18632/aging.203580}
+}
+
+@article{byeon2021maternal,
+  author  = {Byeon, Seul Kee and Khanam, Rasheda and Rahman, Sayedur and Hasan, Tarik and Rizvi, Syed Jafar Raza and Madugundu, Anil K and Ramarajan, Madan Gopal and Jung, Jae Hun and Chowdhury, Nabidul H and Ahmed, Salahuddin and Raqib, Rubhana and Kim, Kwang Pyo and Piazza, Amy L and Rinaldo, Piero and Pandey, Akhilesh and Baqui, Abdullah H and Group, Amanhi Bio-Banking Study},
+  title   = {Maternal serum lipidomics identifies lysophosphatidic acid as a predictor of small for gestational age neonates},
+  journal = {Mol Omics},
+  keywords = {biomarker-discovery, lipidomics},
+  impactfactor = {2.79},
+  year    = {2021},
+  doi     = {10.1039/d1mo00131k}
+}
+
+@article{park2021fch,
+  author  = {Park, Sungjin and Lee, Ah Young and Cho, Kyung-Cho and Jung, Jae Hun and Hong, Seong-Ho and Kim, Sanghwa and Kim, Kwang Pyo and Park, Jongsun and Cho, Myung-Haing},
+  title   = {FCH domain only 1 (FCHo1), a potential new biomarker for lung cancer},
+  journal = {Cancer Gene Ther},
+  keywords = {biomarker-discovery},
+  impactfactor = {5.987},
+  year    = {2021},
+  doi     = {10.1038/s41417-021-00376-8}
+}
+
+@article{han2021polyubiquitin,
+  author  = {Han, Bitnara and Jung, Byung-Kwon and Park, So-Hyun and Song, Kyu Jin and Anwar, Muhammad Ayaz and Ryu, Kwon-Yul and Kim, Kwang Pyo},
+  title   = {Polyubiquitin gene Ubb is required for upregulation of Piwi protein level during mouse testis development},
+  journal = {Cell Death Discov},
+  impactfactor = {4.53},
+  year    = {2021},
+  volume  = {7},
+  pages   = {194},
+  doi     = {10.1038/s41420-021-00581-2}
+}
+
+@article{kwon2021lipid,
+  author  = {Kwon, Haw-young and Das, Raj Kumar and Jung, Gun Tae and Lee, Hong-Guen and Lee, Sun Hyeok and Berry, Stuart N. and Tan, Justin Kok Soon and Park, Solip and Yang, Jae-Seong and Park, Soohyun and Baek, Kangkyun and Park, Kyeng Min and Lee, Jae Won and Choi, Yun-Kyu and Kim, Ki Hean and Kim, Sangho and Kim, Kwang Pyo and Kang, Nam-Young and Kim, Kimoon and Chang, Young-Tae},
+  title   = {Lipid-Oriented Live-Cell Distinction of B and T Lymphocytes},
+  journal = {J Am Chem Soc},
+  keywords = {lipidomics},
+  impactfactor = {14.33},
+  year    = {2021},
+  volume  = {143},
+  number  = {15},
+  pages   = {5836--5844},
+  doi     = {10.1021/jacs.1c00944}
+}
+
+@article{jung2021lipidomic,
+  author  = {Jung, Gun Tae and Lee, Ju Hee and Park, Dayoung and Ahn, Jeong Min and Um, Da-Eun and Shin, Hyejin and Lee, Jae Won and Kim, Jayeon and Song, Haengseok and Kim, Kwang Pyo and Lim, Hyunjung Jade},
+  title   = {Lipidomic changes in mouse oocytes vitrified in PEG 8000-supplemented vitrification solutions},
+  journal = {Cryobiology},
+  keywords = {lipidomics},
+  impactfactor = {2.487},
+  year    = {2021},
+  volume  = {99},
+  pages   = {140--148},
+  doi     = {10.1016/j.cryobiol.2020.11.004}
+}
+
+@article{cho2021panax,
+  author  = {Cho, Eun-Gyung and Choi, Suh-Yeon and Kim, Hyoseon and Choi, Eun-Jeong and Lee, Eun-Jeong and Park, Phil-Jun and Ko, Jaeyoung and Kim, Kwang Pyo and Baek, Heung Soo},
+  title   = {Panax ginseng-Derived Extracellular Vesicles Facilitate Anti-Senescence Effects in Human Skin Cells: An Eco-Friendly and Sustainable Way to Use Ginseng Substances},
+  journal = {Cells},
+  impactfactor = {4.326},
+  year    = {2021},
+  volume  = {3},
+  pages   = {486},
+  doi     = {10.3390/cells10030486}
+}
+
+@article{kim202115,
+  author  = {Kim, Su Jung and Cho, Nam-Chul and Han, Bitnara and Kim, Kyeojin and Hahn, Young-Il and Kim, Kwang Pyo and Suh, Young Ger and Choi, Bu Young and Na, Hye-Kyung and Surh, Young-Joon},
+  title   = {15-Deoxy-Δ 12,14 -prostaglandin J 2 binds and inactivates STAT3 via covalent modification of cysteine 259 in H-Ras-transformed human breast epithelial cells},
+  journal = {FEBS Lett},
+  keywords = {ptm},
+  impactfactor = {4.124},
+  year    = {2021},
+  doi     = {10.1002/1873-3468.14040}
+}
+
+@article{park2021effect,
+  author  = {Park, Eun Jung and Yoon, Cheolho and Han, Ji-Seok and Lee, Gwang-Hee and Kim, Dong-Wan and Park, Eun-Jun and Lim, Hyun-Ji and Kang, Min-Sung and Han, Hyoung-Yun and Seol, Hyun-Joo and Kim, Kwang Pyo},
+  title   = {Effect of PM10 on pulmonary immune response and fetus development},
+  journal = {Toxicol Lett},
+  impactfactor = {4.372},
+  year    = {2021},
+  volume  = {339},
+  pages   = {1--11},
+  doi     = {10.1016/j.toxlet.2020.11.024}
+}
+
+@article{kang2020proteomic,
+  author  = {Kang, Ka Woo and Kim, Hyo Seon and Hur, Woojune and Jung, Jik-Han and Jeong, Su Jin and Shin, Hyunku and Seo, Dongkwon and Jeong, Hyesun and Choi, Byeong Hyeon and Hong, Sunghoi and Kim, Hyun Koo and Choi, Yeonho and Park, Ji-Ho and Lee, Kil Yeon and Kim, Kwang Pyo and Park, Yong},
+  title   = {A proteomic approach to understand the clinical significance of acute myeloid leukemia-derived extracellular vesicles reflecting essential characteristics of leukemia},
+  journal = {Mol Cell Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {5.911},
+  year    = {2020},
+  doi     = {10.1074/mcp.ra120.002169}
+}
+
+@article{kim2020comparative,
+  author  = {Kim, Hyoseon and Kim, Minjung and Myoung, Kilsun and Kim, Wanil and Ko, Jaeyoung and Kim, Kwang Pyo and Cho, Eun-Gyung},
+  title   = {Comparative Lipidomic Analysis of Extracellular Vesicles Derived from Lactobacillus plantarum APsulloc 331261 Living in Green Tea Leaves Using Liquid Chromatography-Mass Spectrometry Comparative Lipidomic Analysis of Extracellular Vesicles Derived from Lactobacillus plantarum APsulloc 331261 Living in Green Tea Leaves Using Liquid Chromatography-Mass Spectrometry},
+  journal = {Int J Mol Sci},
+  keywords = {lipidomics},
+  impactfactor = {5.542},
+  year    = {2020},
+  volume  = {21},
+  number  = {21},
+  pages   = {8076},
+  doi     = {10.3390/ijms21218076}
+}
+
+@article{hong2020electrophilic,
+  author  = {Hong, Sung Jun and Kim, Jin-Tae and Kim, Su-Jung and Cho, Nam-Chul and Kim, Kyeojin and Lee, Seungbeom and Suh, Young-Ger and Cho, Kyung-Cho and Kim, Kwang Pyo and Surh, Young-Joon},
+  title   = {An Electrophilic Deguelin Analogue Inhibits STAT3 Signaling in H- Ras-Transformed Human Mammary Epithelial Cells: The Cysteine 259 Residue as a Potential Target},
+  journal = {Biomedicines},
+  impactfactor = {5.612},
+  year    = {2020},
+  volume  = {8},
+  number  = {10},
+  pages   = {407},
+  doi     = {10.3390/biomedicines8100407}
+}
+
+@article{jung2020particle,
+  author  = {Jung, Seungwon and Kim, Won Jin and Kim, Bong Kyun and Kim, Junsun and Kim, Mi Jung and Kim, Kwang Pyo and Kim, Sang Kyung},
+  title   = {In-particle stem-loop RT-qPCR for specific and multiplex microRNA profiling},
+  journal = {Biosens Bioelectron},
+  impactfactor = {10.2},
+  year    = {2020},
+  volume  = {163},
+  pages   = {112301},
+  doi     = {10.1016/j.bios.2020.112301}
+}
+
+@article{lee2020proteomic,
+  author  = {Lee, Ji Hyun and Jung, Jae Hun and Kim, Jeesoo and Baek, Won-Ki and Rhee, Jinseol and Kim, Tae-Hwan and Kim, Sang-Hyon and Kim, Kwang Pyo and Son, Chang-Nam and Kim, Jong-Seo},
+  title   = {Proteomic analysis of human synovial fluid reveals potential diagnostic biomarkers for ankylosing spondylitis},
+  journal = {Clin Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.476},
+  year    = {2020},
+  volume  = {17},
+  pages   = {20},
+  doi     = {10.1186/s12014-020-09281-y}
+}
+
+@article{ku2020discovery,
+  author  = {Ku, Eu Jeong and Cho, Kyung Cho and Lim, Cheong and Kang, Jeong Won and Oh, Jae Won and Choi, Yu Ri and Park, Jong-Moon and Han, Na-Young and Oh, Jong Jin and Oh, Tae Jung and Jang, Hak Chul and Lee, Hookeun and Kim, Kwang Pyo and Choi, Sung Hee},
+  title   = {Discovery of plasma biomarkers for predicting the severity of coronary artery atherosclerosis by quantitative proteomics},
+  journal = {BMJ Open Diabetes Res Care},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.21},
+  year    = {2020},
+  volume  = {8},
+  number  = {1},
+  pages   = {e001152},
+  doi     = {10.1136/bmjdrc-2019-001152}
+}
+
+@article{jung2020comparative,
+  author  = {Jung, Jae Hun and Taniguchi, Kohei and Lee, Hyeong Min and Lee, Min Young and Bandu, Raju and Komura, Kazumasa and Lee, Kil Yeon and Akao, Yukihiro and Kim, Kwang Pyo},
+  title   = {Comparative lipidomics of 5-Fluorouracil-sensitive and -resistant colorectal cancer cells reveals altered sphingomyelin and ceramide controlled by acid sphingomyelinase (SMPD1)},
+  journal = {Sci Rep},
+  keywords = {lipidomics},
+  impactfactor = {4.13},
+  year    = {2020},
+  volume  = {10},
+  number  = {1},
+  pages   = {6124},
+  doi     = {10.1038/s41598-020-62823-0}
+}
+
+@article{choi2020irt5,
+  author  = {Choi, Se Hyun and Oh, Jae Won and Ryu, Jin Suk and Kim, Hye Min and Im, Sin-Hyeog and Kim, Kwang Pyo and Kim, Mee Kum},
+  title   = {IRT5 Probiotics Changes Immune Modulatory Protein Expression in the Extraorbital Lacrimal Glands of an Autoimmune Dry Eye Mouse Model},
+  journal = {Invest Ophthalmol Vis Sci},
+  impactfactor = {4.799},
+  year    = {2020},
+  volume  = {61},
+  number  = {3},
+  pages   = {42},
+  doi     = {10.1167/iovs.61.3.42}
+}
+
+@article{choi2020liquid,
+  author  = {Choi, Yu Ri and Kim, Kwang Sung and Bandu, Raju and Kim, Hyoseon and Lee, Jae Eun and Shin, Byong-Kyu and Cho, Yang Je and Park, Jong Moon and Lee, Hookeun and Kim, Kwang Pyo},
+  title   = {Liquid Chromatography/Electrospray Ionization Tandem Mass Spectrometry-based Structural Analysis of Deacylated Lipooligosaccharides From Escherichia coli},
+  journal = {Bull Korean Chem Soc},
+  keywords = {lipidomics},
+  impactfactor = {0.83},
+  year    = {2020},
+  volume  = {41},
+  number  = {4},
+  pages   = {454--459},
+  doi     = {10.1002/bkcs.11993}
+}
+
+@article{choi2020ms1,
+  author  = {Choi, Yeon and Jeong, Kyowon and Shin, Sanghee and Lee, Joon Won and Lee, Young-suk and Kim, Sangtae and Kim, Sun Ah and Jung, Jaehun and Kim, Kwang Pyo},
+  title   = {MS1-Level Proteome Quantification Platform Allowing Maximally Increased Multiplexity for SILAC and In Vitro Chemical Labeling},
+  journal = {Anal Chem},
+  impactfactor = {6.35},
+  year    = {2020},
+  doi     = {10.1021/acs.analchem.9b05148}
+}
+
+@article{jung2020how,
+  author  = {Jung, Gun Tae and Kim, Kwang-Pyo},
+  title   = {How to interpret and integrate multi-omics data at systems level},
+  journal = {Anim Cells Syst (Seoul)},
+  keywords = {systems-biology},
+  impactfactor = {0.549},
+  year    = {2020},
+  volume  = {24},
+  number  = {1},
+  pages   = {1--7},
+  doi     = {10.1080/19768354.2020.1721321}
+}
+
+@article{lim2020gt1b,
+  author  = {Lim, Hyoungsub and Lee, Jaesung and You, Byunghyun and Oh, Jae Hoon and Mok, Hyuck Jun and Kim, Yoo Sung and Yoon, Bo-Eun and Kim, Byung Gon and Back, Seung Keun and Park, Jong-Sang and Kim, Kwang Pyo and Schnaar, Ronald L},
+  title   = {GT1b functions as a novel endogenous agonist of toll-like receptor 2 inducing neuropathic pain},
+  journal = {EMBO J},
+  impactfactor = {11.2},
+  year    = {2020},
+  volume  = {39},
+  number  = {6},
+  doi     = {10.15252/embj.2019102214}
+}
+
+@article{jang2020breast,
+  author  = {Jang, Jeone-Hoon and Kim, Do-Hee and Lim, Jae Min and Lee, Joon Won and Jeong, Su Jin and Kim, Kwang Pyo and Surh, Young-Joon},
+  title   = {Breast Cancer Cell-Derived Soluble CD44 Promotes Tumor Progression by Triggering Macrophage IL1β Production},
+  journal = {Cancer Res},
+  impactfactor = {9.13},
+  year    = {2020},
+  volume  = {80},
+  number  = {6},
+  pages   = {1342--1356},
+  doi     = {10.1158/0008-5472.can-19-2288}
+}
+
+@article{renuse2020signature,
+  author  = {Renuse, S and Madugundu, AK and Jung, JH and Byeon, SK and Goldschmidt, HL and Tahir, R and Meyers, D and Kim, D and Cutler, J and Kim, KP and Wu, X and Huganir, RL and Pandey, A},
+  title   = {Signature Fragment Ions of Biotinylated Peptides},
+  journal = {J Am Soc Mass Spectrom},
+  impactfactor = {3.202},
+  year    = {2020},
+  volume  = {31},
+  number  = {2},
+  pages   = {394--404},
+  doi     = {10.1021/jasms.9b00024}
+}
+
+@article{ji2019changes,
+  author  = {Ji, YW and Kim, HM and Ryu, SY and Oh, JW and Yeo, A and Choi, CY and Kim, MJ and Song, JS and Kim, HS and Seo, KY and Kim, KP and Lee, HK},
+  title   = {Changes in Human Tear Proteome Following Topical Treatment of Dry Eye Disease: Cyclosporine A Versus Diquafosol Tetrasodium},
+  journal = {Invest Ophthalmol Vis Sci},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.812},
+  year    = {2019},
+  volume  = {60},
+  number  = {15},
+  pages   = {5035--5044},
+  doi     = {10.1167/iovs.19-27872}
+}
+
+@article{thery2018minimal,
+  author  = {Théry, C and Witwer, KW and Aikawa, E and Alcaraz, MJ and Anderson, JD and Andriantsitohaina, R and Antoniou, A and Arab, T and Archer, F and Atkin-Smith, GK and Ayre, DC and Bach, JM and Bachurski, D and Baharvand, H and Balaj, L and Baldacchino, S and Bauer, NN and Baxter, AA and Bebawy, M and Beckham, C and Bedina Zavec, A and Benmoussa, A and Berardi, AC and Bergese, P and Bielska, E and Blenkiron, C and Bobis-Wozowicz, S and Boilard, E and Boireau, W and Bongiovanni, A and Borràs, FE and Bosch, S and Boulanger, CM and Breakefield, X and Breglio, AM and Brennan, MÁ and Brigstock, DR and Brisson, A and Broekman, ML and Bromberg, JF and Bryl-Górecka, P and Buch, S and Buck, AH and Burger, D and Busatto, S and Buschmann, D and Bussolati, B and Buzás, EI and Byrd, JB and Camussi, G and Carter, DR and Caruso, S and Chamley, LW and Chang, YT and Chen, C and Chen, S and Cheng, L and Chin, AR and Clayton, A and Clerici, SP and Cocks, A and Cocucci, E and Coffey, RJ and Cordeiro-da-Silva, A and Couch, Y and Coumans, FA and Coyle, B and Crescitelli, R and Criado, MF and D'Souza-Schorey, C and Das, S and Datta Chaudhuri, A and De Candia, P and De Santana, EF and De Wever, O and Del Portillo, HA and Demaret, T and Deville, S and Devitt, A and Dhondt, B and Di Vizio, D and Dieterich, LC and Dolo, V and Dominguez Rubio, AP and Dominici, M and Dourado, MR and Driedoks, TA and Duarte, FV and Duncan, HM and Eichenberger, RM and Ekström, K and El Andaloussi, S and Elie-Caille, C and Erdbrügger, U and Falcón-Pérez, JM and Fatima, F and Fish, JE and Flores-Bellver, M and Försönits, A and Frelet-Barrand, A and Fricke, F and Fuhrmann, G and Gabrielsson, S and Gámez-Valero, A and Gardiner, C and Gärtner, K and Gaudin, R and Gho, YS and Giebel, B and Gilbert, C and Gimona, M and Giusti, I and Goberdhan, DC and Görgens, A and Gorski, SM and Greening, DW and Gross, JC and Gualerzi, A and Gupta, GN and Gustafson, D and Handberg, A and Haraszti, RA and Harrison, P and Hegyesi, H and Hendrix, A and Hill, AF and Hochberg, FH and Hoffmann, KF and Holder, B and Holthofer, H and Hosseinkhani, B and Hu, G and Huang, Y and Huber, V and Hunt, S and Ibrahim, AG and Ikezu, T and Inal, JM and Isin, M and Ivanova, A and Jackson, HK and Jacobsen, S and Jay, SM and Jayachandran, M and Jenster, G and Jiang, L and Johnson, SM and Jones, JC and Jong, A and Jovanovic-Talisman, T and Jung, S and Kalluri, R and Kano, SI and Kaur, S and Kawamura, Y and Keller, ET and Khamari, D and Khomyakova, E and Khvorova, A and Kierulf, P and Kim, KP and Kislinger, T and Klingeborn, M and Klinke, DJ and Kornek, M and Kosanović, MM and Kovács, ÁF and Krämer-Albers, EM and Krasemann, S and Krause, M and Kurochkin, IV and Kusuma, GD and Kuypers, S and Laitinen, S and Langevin, SM and Languino, LR and Lannigan, J and Lässer, C and Laurent, LC and Lavieu, G and Lázaro-Ibáñez, E and Le Lay, S and Lee, MS and Lee, YXF and Lemos, DS and Lenassi, M and Leszczynska, A and Li, IT and Liao, K and Libregts, SF and Ligeti, E and Lim, R and Im, SK and Linē, A and Linnemannstöns, K and Llorente, A and Lombard, CA and Lorenowicz, MJ and Lörincz, ÁM and Lötvall, J and Lovett, J and Lowry, MC and Loyer, X and Lu, Q and Lukomska, B and Lunavat, TR and Maas, SL and Malhi, H and Marcilla, A and Mariani, J and Mariscal, J and Martens-Uzunova, ES and Martin-Jaular, L and Martinez, MC and Martins, VR and Mathieu, M and Mathivanan, S and Maugeri, M and Mc Ginnis, LK and McVey, MJ and Meckes, DG and Meehan, KL and Mertens, I and Minciacchi, VR and Möller, A and Møller Jørgensen, M and Morales-Kastresana, A and Morhayim, J and Mullier, F and Muraca, M and Musante, L and Mussack, V and Muth, DC and Myburgh, KH and Najrana, T and Nawaz, M and Nazarenko, I and Nejsum, P and Neri, C and Neri, T and Nieuwland, R and Nimrichter, L and Nolan, JP and Nolte-'t Hoen, EN and Noren Hooten, N and O'Driscoll, L and O'Grady, T and O'Loghlen, A and Ochiya, T and Olivier, M and Ortiz, A and Ortiz, LA and Osteikoetxea, X and Østergaard, O and Ostrowski, M and Park, J and Pegtel, DM and Peinado, H and Perut, F and Pfaffl, MW and Phinney, DG and Pieters, BC and Pink, RC and Pisetsky, DS and Pogge von Strandmann, E and Polakovicova, I and Poon, IK and Powell, BH and Prada, I and Pulliam, L and Quesenberry, P and Radeghieri, A and Raffai, RL and Raimondo, S and Rak, J and Ramirez, MI and Raposo, G and Rayyan, MS and Regev-Rudzki, N and Ricklefs, FL and Robbins, PD and Roberts, DD and Rodrigues, SC and Rohde, E and Rome, S and Rouschop, KM and Rughetti, A and Russell, AE and Saá, P and Sahoo, S and Salas-Huenuleo, E and Sánchez, C and Saugstad, JA and Saul, MJ and Schiffelers, RM and Schneider, R and Schøyen, TH and Scott, A and Shahaj, E and Sharma, S and Shatnyeva, O and Shekari, F and Shelke, GV and Shetty, AK and Shiba, K and Siljander, PR and Silva, AM and Skowronek, A and Snyder, OL and Soares, RP and Sódar, BW and Soekmadji, C and Sotillo, J and Stahl, PD and Stoorvogel, W and Stott, SL and Strasser, EF and Swift, S and Tahara, H and Tewari, M and Timms, K and Tiwari, S and Tixeira, R and Tkach, M and Toh, WS and Tomasini, R and Torrecilhas, AC and Tosar, JP and Oxavidis, V and Urbanelli, L and Vader, P and Van Balkom, BW and Van der Grein, SG and Van Deun, J and Van Herwijnen, MJ and Van Keuren-Jensen, K and Van Niel, G and Van Royen, ME and Van Wijnen, AJ and Vasconcelos, MH and Vechetti, IJ and Veit, TD and Vella, LJ and Velot, É and Verweij, FJ and Vestad, B and Viñas, JL and Visnovitz, T and Vukman, KV and Wahlgren, J and Watson, DC and Wauben, MH and Weaver, A and Webber, JP and Weber, V and Wehman, AM and Weiss, DJ and Welsh, JA and Wendt, S and Wheelock, AM and Wiener, Z and Witte, L and Wolfram, J and Xagorari, A and Xander, P and Xu, J and Yan, X and Yáñez-Mó, M and Yin, H and Yuana, Y and Zappulli, V and Zarubova, J and Žėkas, V and Zhang, JY and Zhao, Z and Zheng, L and Zheutlin, AR and Zickler, AM and Zimmermann, P and Zivkovic, AM and Zocco, D and Zuba-Surma, EK},
+  title   = {Minimal information for studies of extracellular vesicles 2018 (MISEV2018): a position statement of the International Society for Extracellular Vesicles and update of the MISEV2014 guidelines},
+  journal = {J Extracell Vesicles},
+  impactfactor = {11.0},
+  year    = {2018},
+  volume  = {7},
+  number  = {1},
+  doi     = {10.1080/20013078.2018.1535750}
+}
+
+@article{cutler2019integrative,
+  author  = {Cutler, Jevon A. and Udainiya, Savita and Madugundu, Anil K. and Renuse, Santosh and Xu, Yaoyu and Jung, Jaehun and Kim, Kwang Pyo and Wu, Xinyan and Pandey, Akhilesh},
+  title   = {Integrative phosphoproteome and interactome analysis of the role of Ubash3b in BCR-ABL signaling},
+  journal = {Leukemia},
+  keywords = {ptm, systems-biology},
+  impactfactor = {12.104},
+  year    = {2019},
+  volume  = {34},
+  number  = {1},
+  pages   = {301--305},
+  doi     = {10.1038/s41375-019-0535-4}
+}
+
+@article{jang2019combination,
+  author  = {Jang, SI and Fang, S and Kim, KP and Ko, Y and Kim, H and Oh, J and Hong, GY and Lee, SY and Kim, JM and Noh, I and Lee, DK},
+  title   = {Combination treatment with n-3 polyunsaturated fatty acids and ursodeoxycholic acid dissolves cholesterol gallstones in mice},
+  journal = {Sci Rep},
+  impactfactor = {4.525},
+  year    = {2019},
+  volume  = {9},
+  number  = {1},
+  pages   = {12740},
+  doi     = {10.1038/s41598-019-49095-z}
+}
+
+@article{lee2019quantification,
+  author  = {Lee, N and Lee, JW and Kang, GY and Park, SH and Kim, KP},
+  title   = {Quantification of the Dynamic Phosphorylation Process of ERK Using Stable Isotope Dilution Selective Reaction Monitoring Mass Spectrometry},
+  journal = {Proteomics},
+  keywords = {ptm},
+  impactfactor = {4.041},
+  year    = {2019},
+  volume  = {19},
+  number  = {17},
+  doi     = {10.1002/pmic.201900086}
+}
+
+@article{noh2019alterations,
+  author  = {Noh, Sue Ah and Kim, Su-Mi and Park, SH and Kim, DJ and Lee, JW and Kim, YG and Moon, JY and Lim, SJ and Lee, SH and Kim, KP},
+  title   = {Alterations in Lipid Profile of the Aging Kidney Identified by MALDI Imaging Mass Spectrometry},
+  journal = {J Proteome Res},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {4.268},
+  year    = {2019},
+  volume  = {18},
+  number  = {7},
+  pages   = {2803--2812},
+  doi     = {10.1021/acs.jproteome.9b00108}
+}
+
+@article{lee201915,
+  author  = {Lee, Eun Ji and Kim, Su-Jung and Hahn, Young-Il and Yoon, Hyo -Jin and Han, Bitnara and Kim, Kyeojin and Lee, Seungbeom and Kim, Kwang Pyo and Suh, Young Ger and Na, Hye-Kyung and Surh, Young-Joon},
+  title   = {15-Keto prostaglandin E2 suppresses STAT3 signaling and inhibits breast cancer cell growth and progression},
+  journal = {Redox Biol},
+  impactfactor = {7.126},
+  year    = {2019},
+  doi     = {10.1016/j.redox.2019.101175}
+}
+
+@article{sim2019depth,
+  author  = {Sim, Seo Young and Choi, Yu Ri and Lee, Jun Hyung and Lim, Jae Min and Lee, Seung-Eun and Kim, Kwang Pyo and Kim, Jin Young and Lee, Seung Hyeun and Kim, Min-Sik},
+  title   = {In-depth proteomic analysis of human bronchoalveolar lavage fluid towards the biomarker discovery for lung cancers},
+  journal = {Proteomics Clin Appl},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.567},
+  year    = {2019},
+  doi     = {10.1002/prca.201900028}
+}
+
+@article{madugundu2019integrated,
+  author  = {Madugundu, Anil K. and Na, Chan Hyun and Nirujogi, Raja Sekhar and Renuse, Santosh and Kim, Kwang Pyo and Burns, Kathleen H. and Wilks, Christopher and Langmead, Ben and Ellis, Shannon E. and Collado-Torres, Leonardo and Halushka, Marc K. and Kim, Min-Sik and Pandey, Akhilesh},
+  title   = {Integrated Transcriptomic and Proteomic Analysis of Primary Human Umbilical Vein Endothelial cells},
+  journal = {Proteomics},
+  keywords = {systems-biology},
+  impactfactor = {4.041},
+  year    = {2019},
+  volume  = {0},
+  doi     = {10.1002/pmic.201800315}
+}
+
+@article{park2019co,
+  author  = {Park, Eun-Sook and Byun, Young Ho and Park, Soree and Jang, Yo Han and Han, Woo-Ry and Won, Juhee and Cho, Kyung Cho and Kim, Doo Hyun and Lee, Ah Ram and Shin, Gu-Choul and Park, Yong Kwang and Kang, Hong Seok and Sim, Heewoo and Ha, Yea Na and Jae, Byeongjune and Son, Ahyun and Kim, Paul and Yu, Jieun and Lee, Hye-Min and Kwon, Sun-Bin and Kim, Kwang Pyo and Lee, Seung-Hyun and Park, Yeong-Min and Seong, Baik L and Kim, Kyun-Hwan},
+  title   = {Co-degradation of interferon signaling factor DDX3 by PB1-F2 as a basis for high virulence of 1918 pandemic influenza},
+  journal = {EMBO J},
+  impactfactor = {9.792},
+  year    = {2019},
+  volume  = {38},
+  pages   = {8},
+  doi     = {10.15252/embj.201899475}
+}
+
+@article{bandu2019mass,
+  author  = {Bandu, Raju and Oh, Jae Won and Kim, Kwang Pyo},
+  title   = {Mass spectrometry-based proteome profiling of extracellular vesicles and their roles in cancer biology},
+  journal = {Exp Mol Med},
+  impactfactor = {5.063},
+  year    = {2019},
+  volume  = {51},
+  pages   = {30},
+  doi     = {10.1038/s12276-019-0218-2}
+}
+
+@article{jung2019deuterium,
+  author  = {Jung, Jaehun and Jeong, Kyowon and Choi, Yeon and Kim, Sun Ah and Kim, Hyunjoon and Lee, Joon Won and Narry Kim, V. and Kim, Kwang Pyo and Kim, Jong-Seo},
+  title   = {Deuterium-free, Three-plexed Peptide Di-Ethylation for Highly Accurate Quantitative Proteomics},
+  journal = {J Proteome Res},
+  year    = {2019},
+  pages   = {0},
+  doi     = {10.1021/acs.jproteome.8b00775}
+}
+
+@article{mun2019proteogenomic,
+  author  = {Mun, Dong-Gi and Bhin, Jinhyuk and Kim, Sangok and Kim, Hyunwoo and Jung, Jae Hun and Jung, Yeonjoo and Jang, Ye Eun and Park, Jong Moon and Kim, Hokeun and Jung, Yeonhwa and Lee, Hangyeore and Bae, Jingi and Back, Seunghoon and Kim, Su-Jin and Kim, Jieun and Park, Heejin and Li, Honglan and Hwang, Kyu-Baek and Park, Young Soo and Yook, Jeong Hwan and Kim, Byung Sik and Kwon, Sun Young and Ryu, Seung Wan and Park, Do Youn and Jeon, Tae Yong and Kim, Dae Hwan and Lee, Jae-Hyuck and Han, Sang-Uk and Song, Kyu Sang and Park, Dongmin and Park, Jun Won and Rodriguez, Henry and Kim, Jaesang and Lee, Hookeun and Kim, Kwang Pyo and Yang, Eun Gyeong and Kim, Hark Kyun and Paek, Eunok and Lee, Sanghyuk and Lee, Sang-Won and Hwang, Daehee},
+  title   = {Proteogenomic Characterization of Human Early-Onset Gastric Cancer},
+  journal = {Cancer Cell},
+  keywords = {biomarker-discovery, systems-biology},
+  impactfactor = {22.85},
+  year    = {2019},
+  volume  = {35},
+  number  = {1},
+  pages   = {0--111},
+  doi     = {10.1016/j.ccell.2018.12.003}
+}
+
+@article{yu2018ceramide,
+  author  = {Yu, Jinyeong and Kim, Hye Min and Kim, Kwang Pyo and Son, Young Sook and Kim, Min-Sik and Park, Ki-Sook},
+  title   = {Ceramide kinase regulates the migration of bone marrow-derived mesenchymal stem cells},
+  journal = {Biochem Biophys Res Commun},
+  impactfactor = {2.559},
+  year    = {2018},
+  volume  = {18},
+  pages   = {32589},
+  doi     = {10.1016/j.bbrc.2018.11.154}
+}
+
+@article{jung2018integrated,
+  author  = {Jung, JH and You, S and Oh, JW and Yoon, J and Yeon, A and Shahid, M and Cho, E and Sairam, V and Park, TD and Kim, KP and Kim, J},
+  title   = {Integrated proteomic and phosphoproteomic analyses of cisplatin-sensitive and resistant bladder cancer cells reveal CDK2 network as a key therapeutic target},
+  journal = {Cancer Lett},
+  keywords = {ptm, systems-biology},
+  impactfactor = {6.375},
+  year    = {2018},
+  volume  = {437},
+  pages   = {1--12},
+  doi     = {10.1016/j.canlet.2018.08.014}
+}
+
+@article{seo2018effect,
+  author  = {Seo, JH and Pyo, S and Shin, YK and Nam, BG and Kang, JW and Kim, KP and Lee, HY and Cho, SR},
+  title   = {The Effect of Environmental Enrichment on Glutathione-Mediated Xenobiotic Metabolism and Antioxidation in Normal Adult Mice},
+  journal = {Front Neurol},
+  impactfactor = {3.184},
+  year    = {2018},
+  volume  = {9},
+  pages   = {425},
+  doi     = {10.3389/fneur.2018.00425}
+}
+
+@article{kim2018serum,
+  author  = {Kim, EY and Lee, JW and Lee, MY and Kim, SH and Mok, HJ and Ha, K and Ahn, YM and Kim, KP},
+  title   = {Serum lipidomic analysis for the discovery of biomarkers for major depressive disorder in drug-free patients},
+  journal = {Psychiatry Res},
+  keywords = {biomarker-discovery, lipidomics},
+  impactfactor = {2.528},
+  year    = {2018},
+  volume  = {265},
+  pages   = {174--182},
+  doi     = {10.1016/j.psychres.2018.04.029}
+}
+
+@article{hahn2018curcumin,
+  author  = {Hahn, YI and Kim, SJ and Choi, BY and Cho, KC and Bandu, R and Kim, KP and Kim, DH and Kim, W and Park, JS and Han, BW and Lee, J and Na, HK and Cha, YN and Surh, YJ},
+  title   = {Curcumin interacts directly with the Cysteine 259 residue of STAT3 and induces apoptosis in H-Ras transformed human mammary epithelial cells},
+  journal = {Sci Rep},
+  impactfactor = {4.259},
+  year    = {2018},
+  volume  = {8},
+  number  = {1},
+  pages   = {6409},
+  doi     = {10.1038/s41598-018-23840-2}
+}
+
+@article{tran2018s6,
+  author  = {Tran, Q and Jung, JH and Park, J and Lee, H and Hong, Y and Cho, H and Kim, M and Park, S and Kwon, SH and Kim, SH and Thomas, G and Kim, KP and Cho, MH},
+  title   = {S6 kinase 1 plays a key role in mitochondrial morphology and cellular energy flow},
+  journal = {Cell Signal},
+  impactfactor = {3.937},
+  year    = {2018},
+  volume  = {48},
+  pages   = {13--24},
+  doi     = {10.1016/j.cellsig.2018.04.002}
+}
+
+@article{lee2018altered,
+  author  = {Lee, J and McKinney, KQ and Pavlopoulos, AJ and Niu, M and Kang, JW and Oh, JW and Kim, KP and Hwang, S},
+  title   = {Altered Proteome of Extracellular Vesicles Derived from Bladder Cancer Patients Urine},
+  journal = {Mol Cells},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.054},
+  year    = {2018},
+  volume  = {41},
+  number  = {3},
+  pages   = {179--187},
+  doi     = {10.14348/molcells.2018.2110}
+}
+
+@article{bandu2018liquid,
+  author  = {Bandu, R and Lee, HJ and Lee, HM and Ha, TH and Kim, SJ and Ha, K and Kim, KP},
+  title   = {Liquid chromatography/mass spectrometry-based plasma metabolic profiling study of escitalopram in subjects with major depressive disorder},
+  journal = {J Mass Spectrom},
+  keywords = {biomarker-discovery},
+  impactfactor = {2.422},
+  year    = {2018},
+  volume  = {53},
+  number  = {5},
+  pages   = {385--399},
+  doi     = {10.1002/jms.4070}
+}
+
+@article{park2018golga2,
+  author  = {Park, SJ and Kim, SH and Kim, MJ and Hong, Y and Lee, AY and Lee, H and Tran, Q and Kim, M and Cho, H and Park, J and Kim, KP and Cho, MH},
+  title   = {Golga2 loss causes fibrosis with autophagy in the mouse lung and liver},
+  journal = {Biochem Biophys Res Commun},
+  impactfactor = {2.466},
+  year    = {2018},
+  volume  = {495},
+  number  = {1},
+  pages   = {594--600},
+  doi     = {10.1016/j.bbrc.2017.11.049}
+}
+
+@article{lee2017dihydroceramide,
+  author  = {Lee, Ah Young and Lee, Jae Won and Kim, Ji Eun and Mok, Hyuck Jun and Park, Sungjin and Kim, Sanghwa and Hong, Seong-Ho and Kim, Ji-Young and Park, Eun-Jung and Kang, Kyung-Sun and Kim, Kwang Pyo and Cho, Myung-Haing},
+  title   = {Dihydroceramide is a key metabolite that regulates autophagy and promotes fibrosis in hepatic steatosis model},
+  journal = {Biochem Biophys Res Commun},
+  keywords = {lipidomics},
+  impactfactor = {2.466},
+  year    = {2017},
+  volume  = {494},
+  number  = {3-4},
+  pages   = {460--469},
+  doi     = {10.1016/j.bbrc.2017.10.110}
+}
+
+@article{jung2017proteomic,
+  author  = {Jung, Jae Hun and Ji, Yong Woo and Hwang, Ho Sik and Oh, Jae Won and Kim, Hyun Chang and Lee, Hyung Keun and Kim, Kwang Pyo},
+  title   = {Proteomic analysis of human lacrimal and tear fluid in dry eye disease},
+  journal = {Sci Rep},
+  keywords = {biomarker-discovery},
+  impactfactor = {5.578},
+  year    = {2017},
+  volume  = {7},
+  number  = {1},
+  pages   = {13363},
+  doi     = {10.1038/s41598-017-13817-y}
+}
+
+@article{lee2017characterization,
+  author  = {Lee, JW and Choi, YR and Mok, HJ and Seong, HA and Lee, DY and Kim, GS and Yoon, JH and Kim, KP and Kim, HD},
+  title   = {Characterization of the changes in eicosanoid profiles of activated macrophages treated with 20(S)-ginsenoside Rg3},
+  journal = {J Chromatogr B Analyt Technol Biomed Life Sci},
+  keywords = {lipidomics},
+  impactfactor = {2.603},
+  year    = {2017},
+  volume  = {1065},
+  pages   = {14--19},
+  doi     = {10.1016/j.jchromb.2017.09.002}
+}
+
+@article{le2017triazolium,
+  author  = {Le, H. T. and Lee, J. W. and Park, S. C. and Jeong, J. W. and Jung, W. and Lim, C. W. and Kim, K. P. and Kim, T. W.},
+  title   = {Triazolium cyclodextrin click cluster-resin conjugate: an enrichment material for phosphatidylinositol (3,4,5)-triphosphate},
+  journal = {Chem Commun (Camb)},
+  keywords = {lipidomics},
+  impactfactor = {6.319},
+  year    = {2017},
+  volume  = {75},
+  doi     = {10.1039/c7cc06151j}
+}
+
+@article{chamolstad2017p62,
+  author  = {Cha-Molstad, H and Yu, JE and Feng, Z and Lee, SH and Kim, JG and Yang, P and Han, B and Sung, KW and Yoo, YD and Hwang, J and Mc Guire, T and Shim, SM and Song, HD and Ganipisetti, S and Wang, N and Jang, JM and Lee, MJ and Kim, SJ and Lee, KH and Hong, JT and Ciechanover, A and Mook-Jung, I and Kim, KP and Xie, XQ and Kwon, YT and Kim, BY},
+  title   = {p62/SQSTM1/Sequestosome-1 is an N-recognin of the N-end rule pathway which modulates autophagosome biogenesis},
+  journal = {Nat Commun},
+  impactfactor = {10.742},
+  year    = {2017},
+  volume  = {8},
+  number  = {1},
+  pages   = {102},
+  doi     = {10.1038/s41467-017-00085-7}
+}
+
+@article{cho2017construction,
+  author  = {Cho, HR and Kim, HS and Park, JS and Park, SC and Kim, KP and Wood, TD and Choi, YS},
+  title   = {Construction and characterization of the Korean whole saliva proteome to determine ethnic differences in human saliva proteome},
+  journal = {PLoS One},
+  impactfactor = {3.234},
+  year    = {2017},
+  volume  = {12},
+  number  = {7},
+  pages   = {e0181765},
+  doi     = {10.1371/journal.pone.0181765}
+}
+
+@article{chung2017golgi,
+  author  = {Chung, Chang Geon and Kwon, Min Jee and Jeon, Keun Hye and Hyeon, Do Young and Han, Myeong Hoon and Park, Jeong Hyang and Cha, In Jun and Cho, Jae Ho and Kim, Kunhyung and Rho, Sangchul and Kim, Gyu Ree and Jeong, Hyobin and Lee, Jae Won and Kim, TaeSoo and Kim, Keetae and Kim, Kwang Pyo and Ehlers, Michael D. and Hwang, Daehee and Lee, Sung Bae},
+  title   = {Golgi outpost synthesis impaired by Toxic polyglutamine proteins contributes to dendritic pathology in Neurons},
+  journal = {Cell Rep},
+  impactfactor = {8.282},
+  year    = {2017},
+  volume  = {20},
+  pages   = {356--369},
+  doi     = {10.1016/j.celrep.2017.06.059}
+}
+
+@article{jung2017acyl,
+  author  = {Jung, Seung Hee and Lee, Hyung Chul and Hwang, Hyun Jung and Park, Hyun A and Moon, Young Ah and Kim, Bong Cho and Lee, Hyeong Min and Kim, KP and Kim, Yong-Nyun and Lee, Jae Cheol and Ko, Young Gyu and Park, Heon Joo and Lee, Jae Seon},
+  title   = {Acyl-CoA thioesterase 7 is involved in cell cycle progression via regulation of PKCζ-p53-p21 signaling pathway},
+  journal = {Cell Death Dis},
+  impactfactor = {5.965},
+  year    = {2017},
+  volume  = {8},
+  doi     = {10.1038/cddis.2017.202}
+}
+
+@article{lee2017lsd1,
+  author  = {Lee, JY and Park, JH and Choi, HJ and Won, HY and Joo, HS and Shin, DH and Park, MK and Han, B and Kim, KP and Lee, TJ and Croce, CM and Kong, G},
+  title   = {LSD1 demethylates H1F1α to inhibit hydroxylation and ubiquitin-mediated degradation in tumor angiogenesis},
+  journal = {Oncogene},
+  impactfactor = {7.519},
+  year    = {2017},
+  pages   = {1--10},
+  doi     = {10.1038/onc.2017.158}
+}
+
+@article{lim2017suppression,
+  author  = {Lim, Keo-Heun and Park, Eun-Sook and Kim, Doo Hyun and Cho, Kyung Cho and Kim, Kwang Pyo and Park, Yong Kwang and Ahn, Sung Hyun and Park, Seung Hwa and Kim, Kee-Hwan and Kim, Chang Wook and Kang, Hong Seok and Lee, Ah Ram and Park, Soree and Sim, Heewoo and Won, Juhee and Seok, Kieun and You, Jueng Soo and Lee, Jeong-Hoon and Yi, Nam-Joon and Lee, Kwang-Woong and Suh, Kyung-Suk and Seong, Baik L and Kim, Kyun-Hwan},
+  title   = {Suppression of interferon-mediated anti-HBV response by single CpG methylation in the 5'-UTR of trim22},
+  journal = {Gut},
+  impactfactor = {14.921},
+  year    = {2017},
+  doi     = {10.1136/gutjnl-2016-312742}
+}
+
+@article{lee2017uplc,
+  author  = {Lee, Jae Won and Mok, Hyuck Jun and Lee, Dae Young and Park, Seung Cheol and Kim, Geum-Soog and Lee, Seung-Eun and Lee, Young-Seob and Kim, Kwang Pyo and Kim, Hyung Don},
+  title   = {UPLC-QqQ/MS-based lipidomics approach to characterize lipid alterations in inflammatory macrophages},
+  journal = {J Proteome Res},
+  keywords = {lipidomics},
+  impactfactor = {4.173},
+  year    = {2017},
+  volume  = {16},
+  pages   = {1460--1469},
+  doi     = {10.1021/acs.jproteome.6b00848}
+}
+
+@article{kim2017diagnosis,
+  author  = {Kim, Eun Young and Lee, Min Young and Kim, Se Hyun and Ha, Kyooseob and Kim, Kwang Pyo and Ahn, Yong Min},
+  title   = {Diagnosis of major depressive disorder by combining multimodal information from heart rate dynamics and serum proteomics using machine-learning algorithm},
+  journal = {Prog Neuropsychopharmacol Biol Psychiatry},
+  keywords = {biomarker-discovery},
+  impactfactor = {4.361},
+  year    = {2017},
+  doi     = {10.1016/j.pnpbp.2017.02.014}
+}
+
+@article{yoo2017discovery,
+  author  = {Yoo, Moon-Won and Park, Jisook and Han, Hye-Seung and Yun, Yeo-Min and Kang, Jeong Won and Choi, Do-Young and Lee, Joon Won and Jung, Jae Hun and Lee, Kyung-Yung and Kim, Kwang Pyo},
+  title   = {Discovery of gastric cancer-specific biomarkers by the application of serum proteomics},
+  journal = {Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {4.079},
+  year    = {2017},
+  volume  = {17},
+  doi     = {10.1002/pmic.201600332}
+}
+
+@article{oh2017proteomic,
+  author  = {Oh, Jae Won and Kim, Seul Ki and Cho, Kyung-Cho and Kim, Min-Sik and Suh, Chang Suk and Lee, Jung Ryeol and Kim, Kwang Pyo},
+  title   = {Proteomic analysis of human follicular fluid in poor ovarian responders during in vitro fertilization},
+  journal = {Proteomics},
+  keywords = {biomarker-discovery},
+  impactfactor = {4.079},
+  year    = {2017},
+  volume  = {17},
+  doi     = {10.1002/pmic.201600333}
+}
+
+@article{shin2017docosahexaenoic,
+  author  = {Shin, Seung Kyun and Kim, Ji Hyeon and Lee, Jung Hoon and Son, Young Hoon and Lee, Min Wook and Kim, Hak Joong and Noh, Sue Ah and Kim, Kwang Pyo and Kim, In-Gyu and Lee, Min Jae},
+  title   = {Docosahexaenoic acid-mediated protein aggregates may reduce proteasome activity and delay myotube degradation during muscle atrophy in vitro},
+  journal = {Exp Mol Med},
+  impactfactor = {5.164},
+  year    = {2017},
+  volume  = {49},
+  pages   = {e287},
+  doi     = {10.1038/emm.2016.133}
+}
+
+@article{liu2016orthogonal,
+  author  = {Liu, Shu-Lin and Sheng, Ren and Jung, Jae Hun and Wang, Li and Stec, Ewa and O'Connor, Matthew J and Song, Seohyoen and Bikkavilli, Rama Kamesh and Winn, Robert A and Lee, Daesung and Baek, Kwanghee and Ueda, Kazumitsu and Levitan, Irena and Kim, Kwang-Pyo and Cho, Wonhwa},
+  title   = {Orthogonal lipid sensors identify transbilayer asymmetry of plasma membrane cholesterol},
+  journal = {Nat Chem Biol},
+  keywords = {lipidomics},
+  impactfactor = {12.709},
+  year    = {2016},
+  doi     = {10.1038/nchembio.2268}
+}
+
+@article{arul2016automated,
+  author  = {Arul, Albert-Baskar and Park, Jong-Moon and Lee, Hookeun and Baek, Jeong-Heum and Jeon, Jongho and Ji, Eunhee and Oh, Jae Won and Kim, Kwang Pyo},
+  title   = {An automated high-throughput sample preparation protocol for LC-MS/MS analysis of glycopeptides},
+  journal = {Curr Proteomics},
+  keywords = {ptm},
+  impactfactor = {0.59},
+  year    = {2016},
+  volume  = {13},
+  pages   = {55--60},
+  doi     = {10.2174/1570164613666160413125317}
+}
+
+@article{jeon2016proteomic,
+  author  = {Jeon, J and Mok, HJ and Choi, Y and Park, SC and Jo, H and Her, J and Han, JK and Kim, YK and Kim, KP and Ban, C},
+  title   = {Proteomic analysis of extracellular vesicles derived from propionibacterium acnes},
+  journal = {Proteomics Clin Appl},
+  impactfactor = {2.959},
+  year    = {2016},
+  volume  = {0},
+  pages   = {1--4},
+  doi     = {10.1002/prca.201600040}
+}
+
+@article{hwang2016single,
+  author  = {Hwang, Joon Young and Baek, Jong Hwa and Shin, Tae Il and Shin, Jung Ha and Oh, Jae Won and Kim, Kwang Pyo and You, Youngmin and Kang, Eun Joo},
+  title   = {Single-Electron-Transfer Strategy for Reductive Radical Cyclization: Fe(CO)5 and Phenanthroline System},
+  journal = {Org Lett},
+  impactfactor = {6.732},
+  year    = {2016},
+  volume  = {18},
+  pages   = {4900--4903},
+  doi     = {10.1021/acs.orglett.6b02375}
+}
+
+@article{lee2016microvesicles,
+  author  = {Lee, JY and Kim, Eiru and Choi, SM and Kim, DW and Kim, KP and Lee, I and Kim, HS},
+  title   = {Microvesicles from brain-extract—treated mesenchymal stem cells improve neurological functions in a rat model of ischemic stroke},
+  journal = {Sci Rep},
+  impactfactor = {5.578},
+  year    = {2016},
+  volume  = {6},
+  doi     = {10.1038/srep33038}
+}
+
+@article{hong2016endoplasmic,
+  author  = {Hong, SH and Chang, SH and Cho, KC and Kim, S and Park, S and Lee, AY and Jiang, HL and Kim, HJ and Lee, S and Yu, KN and Seo, HW and Chae, C and Kim, KP and Park, J and Cho, MH},
+  title   = {Endoplasmic reticulum-Golgi intermediate compartment protein 3 knockdown suppresses lung cancer through endoplasmic reticulum stress-induced autophagy},
+  journal = {Oncotarget},
+  impactfactor = {5.008},
+  year    = {2016},
+  doi     = {10.18632/oncotarget.11678}
+}
+
+@article{jiang2016arginylation,
+  author  = {Jiang, Y and Lee, J and Lee, JH and Lee, JW and Kim, JH and Choi, WH and Yoo, YD and Cha-Molstad, H and Kim, BY and Kwon, YT and Noh, SA and Kim, KP and Lee, MJ},
+  title   = {The Arginylation Branch of the N-end Rule Pathway Positively Regulates Cellular Autophagic Flux and Clearance of Proteotoxic Proteins},
+  journal = {Autophagy},
+  impactfactor = {9.108},
+  year    = {2016},
+  volume  = {12},
+  pages   = {2197--2212},
+  doi     = {10.1080/15548627.2016.1222991}
+}
+
+@article{oh2016microparticle,
+  author  = {Oh, EH and Jung, S and Kim, WJ and Kim, KP and Kim, SK},
+  title   = {Microparticle-based RT-qPCR for highly selective rare mutation detection},
+  journal = {Biosens Bioelectron},
+  impactfactor = {7.476},
+  year    = {2016},
+  volume  = {87},
+  pages   = {229--235},
+  doi     = {10.1016/j.bios.2016.08.057}
+}
+
+@article{chang2016alpha,
+  author  = {Chang, SH and Cho, Kyung Cho and Yu, KN and Hong, SH and Park, S and Lee, AY and Kim, S and Lee, S and Kang, JW and Chae, C and Park, J and Kim, KP and Cho, MH},
+  title   = {Alpha 1-antitrypsin activates lung cancer cell survival by acting on cap-dependent protein translation, vesicle-mediated transport, and metastasis},
+  journal = {Oncotarget},
+  impactfactor = {5.008},
+  year    = {2016},
+  doi     = {10.18632/oncotarget.10695}
+}
+
+@article{lee2016alteration,
+  author  = {Lee, Jae Won and Cho, Kyung Mi and Jung, Jae Hun and Tran, Quangdon and Jung, Woong and Park, Jongsun and Kim, Kwang Pyo},
+  title   = {Alteration of phospholipids during the mitophagic process in lung cancer cells},
+  journal = {J Microbiol Biotechnol},
+  keywords = {lipidomics},
+  impactfactor = {1.685},
+  year    = {2016},
+  volume  = {26},
+  pages   = {1790--1799},
+  doi     = {10.4014/jmb.1604.04031}
+}
+
+@article{bandu2016phospholipids,
+  author  = {Bandu, Raju and Mok, Hyuck Jun and Kim, Kwang Pyo},
+  title   = {Phospholipids as cancer biomarkers: Mass spectrometry-based analysis},
+  journal = {Mass Spectrom Rev},
+  keywords = {biomarker-discovery, lipidomics},
+  impactfactor = {7.709},
+  year    = {2016},
+  doi     = {10.1002/mas.21510}
+}
+
+@article{lee2016uplc,
+  author  = {Lee, Jae Won and Mok, Hyuck Jun and Lee, DY and Park, Seung Cheol and Ban, MS and Choi, J and Park, CG and Ahn, YS and Kim, Kwang Pyo and Kim, HD},
+  title   = {UPLC-MS/MS Based Profiling of Eicosanoids in RAW264.7 Cells Treated with Lipopolysaccharide},
+  journal = {Int J Mol Sci},
+  keywords = {lipidomics},
+  impactfactor = {3.257},
+  year    = {2016},
+  volume  = {17},
+  pages   = {508--521},
+  doi     = {10.3390/ijms17040508}
+}
+
+@article{chang2016dihydroergotamine,
+  author  = {Chang, SH and Lee, AY and Yu, KN and Park, J and Kim, KP and Cho, MH},
+  title   = {Dihydroergotamine Tartrate Induces Lung Cancer Cell Death through Apoptosis and Mitophagy},
+  journal = {Chemotherapy},
+  impactfactor = {0.992},
+  year    = {2016},
+  volume  = {61},
+  pages   = {304--312},
+  doi     = {10.1159/000445044}
+}
+
+@article{cho2016effects,
+  author  = {Cho, Kyung Cho and Kang, Jeong Won and Choi, Yuri and Kim, Tae Woo and Kim, KP},
+  title   = {Effects of peptide acetylation and dimethylation on electrospray ionization efficiency},
+  journal = {J Mass Spectrom},
+  keywords = {ptm},
+  impactfactor = {2.541},
+  year    = {2016},
+  volume  = {51},
+  pages   = {105--110},
+  doi     = {10.1002/jms.3723}
+}
+
+@article{lee2016detailed,
+  author  = {Lee, Jae Won and Shinohara, Haruka and Jung, Jae Hun and Mok, Hyuck Jun and Akao, Yukihiro and Kim, Kwang Pyo},
+  title   = {Detailed characterization of alterations in the lipid profiles during autophagic cell death of leukemia cells},
+  journal = {RSC Adv},
+  keywords = {lipidomics},
+  impactfactor = {3.84},
+  year    = {2016},
+  doi     = {10.1039/c6ra01965j}
+}
+
+@article{mok2016rapid,
+  author  = {Mok, Hyuck Jun and Lee, Jae Won and Bandu, Raju and Kang, Hong Seok and Kim, Kyun-Hwan and Kim, Kwang Pyo},
+  title   = {A rapid and sensitive profiling of free fatty acids using liquid chromatography electrospray ionization tandem mass spectrometry after chemical derivatization},
+  journal = {RSC Adv},
+  keywords = {lipidomics},
+  impactfactor = {3.84},
+  year    = {2016},
+  volume  = {6},
+  pages   = {32130--32139},
+  doi     = {10.1039/c6ra01344a}
+}
+
+@article{lee2016discovery,
+  author  = {Lee, MY and Kim, EY and Kim, SH and Cho, KC and Ha, K and Kim, KP and Ahn, YM},
+  title   = {Discovery of serum protein biomarkers in drug-free patients with major depressive disorder},
+  journal = {Prog Neuropsychopharmacol Biol Psychiatry},
+  keywords = {biomarker-discovery},
+  impactfactor = {3.689},
+  year    = {2016},
+  doi     = {10.1016/j.pnpbp.2016.04.009}
+}
+
+@article{jung2016extensible,
+  author  = {Jung, Seungwon and Kim, Junsun and Lee, Dong Jin and Oh, Eun Hae and Lim, Hwasup and Kim, Kwang Pyo and Choi, Nakwon and Kim, Tae Song and Kim, Sang Kyung},
+  title   = {Extensible Multiplex Real-time PCR of MicroRNA Using Microparticles},
+  journal = {Sci Rep},
+  impactfactor = {5.578},
+  year    = {2016},
+  volume  = {6},
+  pages   = {22975},
+  doi     = {10.1038/srep22975}
+}
+
+@article{mok2016age,
+  author  = {Mok, Hyuck Jun and Shin, Hyejin and Lee, Jae Won and Lee, Geun-Kyung and Suh, Chang Suk and Kim, Kwang Pyo and Lim, Hyunjung Jade},
+  title   = {Age-Associated Lipidome Changes in Metaphase II Mouse Oocytes},
+  journal = {PLoS One},
+  keywords = {lipidomics},
+  impactfactor = {3.234},
+  year    = {2016},
+  volume  = {11},
+  number  = {2},
+  pages   = {e0148577},
+  doi     = {10.1371/journal.pone.0148577}
+}
+
+@article{seo2016autotaxin,
+  author  = {Seo, Eun Jin and Kwon, Yang Woo and Jang, Il Ho and Kim, Dae Kyoung and Lee, Soo In and Choi, Eun Jung and Kim, Ki-Hyung and Suh, Dong-Soo and Lee, Jeong Hee and Choi, Kyung Un and Lee, Jae Won and Mok, Hyuck Jun and Kim, Kwang Pyo and Matsumoto, Hirotaka and Aoki, Junken and Kim, Jae Ho},
+  title   = {Autotaxin Regulates Maintenance of Ovarian Cancer Stem Cells through Lysophosphatidic Acid-Mediated Autocrine Mechanism},
+  journal = {Stem Cells},
+  impactfactor = {6.523},
+  year    = {2016},
+  doi     = {10.1002/stem.2279}
+}
+
+@article{park2015integrated,
+  author  = {Park, Jong-Moon and Park, Ji-Hwan and Mun, Dong-Gi and Bae, Jingi and Jung, Jae Hun and Back, Seunghoon and Lee, Hangyeore and Kim, Hokeun and Jung, Hee-Jung and Kim, Hark Kyun and Lee, Hookeun and Kim, Kwang Pyo and Hwang, Daehee and Lee, Sang-Won},
+  title   = {Integrated analysis of global proteome, phosphoproteome, and glycoproteome enables complementary interpretation of disease-related protein networks},
+  journal = {Sci Rep},
+  keywords = {ptm, systems-biology},
+  impactfactor = {5.578},
+  year    = {2015},
+  volume  = {5},
+  pages   = {18189},
+  doi     = {10.1038/srep18189}
+}
+
+@article{hong2015global,
+  author  = {Hong, JH and Kang, JW and Kim, DK and Baik, SH and Kim, KH and Shanta, SR and Jung, JH and Mook-Jung, I and Kim, KP},
+  title   = {Global changes of phospholipids identified by MALDI imaging mass spectrometry in a mouse model of Alzheimer's disease},
+  journal = {J Lipid Res},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {4.421},
+  year    = {2015},
+  volume  = {57},
+  number  = {1},
+  pages   = {36-45},
+  doi     = {10.1194/jlr.m057869}
+}
+
+@article{kim2015triolein,
+  author  = {Kim, Hak Jin and Kim, Yong-Woo and Choi, Seon Hee and Cho, Byung Mann and Bandu, Raju and Ahn, Hyun Soo and Kim, Kwang Pyo},
+  title   = {Triolein Emulsion Infusion Into the Carotid Artery Increases Brain Permeability to Anticancer Agents},
+  journal = {Neurosurgery},
+  impactfactor = {3.62},
+  year    = {2015},
+  doi     = {10.1227/neu.0000000000001104}
+}
+
+@article{bandu2015liquid,
+  author  = {Bandu, Raju and Ahn, Hyun Soo and Lee, Joon Won and Kim, Yong Woo and Choi, Seon Hee and Kim, Hak Jin and Kim, Kwang Pyo},
+  title   = {Liquid Chromatography Electrospray Ionization Tandem Mass Spectrometric (LC/ESI-MS/MS) Study for the Identification and Characterization of In Vivo Metabolites of Cisplatin in Rat Kidney Cancer Tissues: Online Hydrogen/Deuterium (H/D) Exchange Study},
+  journal = {PLoS One},
+  impactfactor = {3.234},
+  year    = {2015},
+  volume  = {10},
+  number  = {8},
+  pages   = {e0134027},
+  doi     = {10.1371/journal.pone.0134027}
+}
+
+@article{na2015identification,
+  author  = {Na, Chan Hyun and Hong, Ji Hye and Kim, Wan Sup and Shanta, Selina Rahman and Bang, Joo Yong and Park, Dongmin and Kim, Hark Kyun and Kim, Kwang Pyo},
+  title   = {Identification of Protein Markers Specific for Papillary Renal Cell Carcinoma Using Imaging Mass Spectrometry},
+  journal = {Mol Cells},
+  keywords = {biomarker-discovery, imaging-ms},
+  impactfactor = {2.09},
+  year    = {2015},
+  volume  = {38},
+  number  = {7},
+  pages   = {624--629},
+  doi     = {10.14348/molcells.2015.0013}
+}
+
+@article{na2015proteomic,
+  author  = {Na, Yi Rang and Hong, Ji Hye and Lee, Min Yong and Jung, Jae Hun and Jung, Daun and Kim, Young Won and Son, Dain and Choi, Murim and Kim, Kwang Pyo and Seok, Seung Hyeok},
+  title   = {Proteomic analysis reveals distinct metabolic differences between GM-CSF and M-CSF grown macrophages derived from murine bone marrow cells},
+  journal = {Mol Cell Proteomics},
+  impactfactor = {6.564},
+  year    = {2015},
+  volume  = {14},
+  number  = {10},
+  pages   = {2722--2732},
+  doi     = {10.1074/mcp.m115.048744}
+}
+
+@article{bandu2015distribution,
+  author  = {Bandu, R and Ahn, HS and Lee, JW and Kim, YW and Choi, SH and Kim, HJ and Kim, KP},
+  title   = {Distribution study of cisplatin in rat kidney and liver cancer tissues by using liquid chromatography electrospray ionization tandem mass spectrometry},
+  journal = {J Mass Spectrom},
+  impactfactor = {2.379},
+  year    = {2015},
+  volume  = {50},
+  number  = {6},
+  pages   = {844--853},
+  doi     = {10.1002/jms.3594}
+}
+
+@article{kang2015key,
+  author  = {Kang, A-ram and Kang, Seongman and Park, Si Hoon and Lee, Soyeon and Choi, Do-Young and Kim, Kwang Pyo and Song, Hyun Kyu and Hong, Sunghoi},
+  title   = {A key lysine residue in the AXH domain of ataxin-1 is essential for its ubiquitylation},
+  journal = {Biochim Biophys Acta},
+  keywords = {ptm},
+  impactfactor = {3.431},
+  year    = {2015},
+  volume  = {1854},
+  pages   = {356--364},
+  doi     = {10.1016/j.bbapap.2015.01.012}
+}
+
+@article{yoon2015p53,
+  author  = {Yoon, Cheol-Hee and Bae, Yong-Soo and Kim, Sang-Yoon and Byeon, Se Eun and Jeong, Yideul and Lee, Jinjoo and Kim, Kwan Pyo and Park, Jinseu},
+  title   = {p53-derived Host Restriction of HIV-1 Replication by PKR-mediated Tat Phosphorylation and Inactivation},
+  journal = {J Virol},
+  keywords = {ptm},
+  impactfactor = {4.648},
+  year    = {2015},
+  volume  = {89},
+  pages   = {4262--4280},
+  doi     = {10.1128/jvi.03087-14}
+}
+
+@article{kim2015evpedia,
+  author  = {Kim, Dae-Kyum and Lee, Jaewook and Kim, Sae Rom and Choi, Dong-Sic and Yoon, Yae Jin and Kim, Ji Hyun and Go, Gyeongyun and Nhung, Dinh and Hong, Kahye and Jang, Su Chul and Kim, Si-Hyun and Park, Kyong-Su and Kim, Oh Youn and Park, Hyun Taek and Seo, Ji Hye and Aikawa, Elena and Baj-Krzyworzeka, Monika and van Balkom, Bas W. M. and Belting, Mattias and Blanc, Lionel and Bond, Vincent and Bongiovanni, Antonella and Borràs, Francesc E. and Buée, Luc and Buzás, Edit I. and Cheng, Lesley and Clayton, Aled and Cocucci, Emanuele and Dela Cruz, Charles S. and Desiderio, Dominic M. and Di Vizio, Dolores and Ekström, Karin and Falcon-Perez, Juan M. and Gardiner, Chris and Giebel, Bernd and Greening, David W. and Gross, Julia Christina and Gupta, Dwijendra and Hendrix, An and Hill, Andrew F. and Hill, Michelle M. and Nolte-'t Hoen, Esther and Hwang, Do Won and Inal, Jameel and Jagannadham, Medicharla V. and Jayachandran, Muthuvel and Jee, Young-Koo and Jørgensen, Malene and Kim, Kwang Pyo and Kim, Yoon-Keun and Kislinger, Thomas and Lässer, Cecilia and Lee, Dong Soo and Lee, Hakmo and van Leeuwen, Johannes and Lener, Thomas and Liu, Ming-Lin and Lötvall, Jan and Marcilla, Antonio and Mathivanan, Suresh and Möller, Andreas and Morhayim, Jess and Mullier, François and Nazarenko, Irina and Nieuwland, Rienk and Nunes, Diana N. and Pang, Ken and Park, Jaesung and Patel, Tushar and Pocsfalvi, Gabriella and del Portillo, Hernando and Putz, Ulrich and Ramirez, Marcel I. and Rodrigues, Marcio L. and Roh, Tae-Young and Royo, Felix and Sahoo, Susmita and Schiffelers, Raymond and Sharma, Shivani and Siljander, Pia and Simpson, Richard J. and Soekmadji, Carolina and Stahl, Philip and Stensballe, Allan and Stępień, Ewa and Tahara, Hidetoshi and Trummer, Arne and Valadi, Hadi and Vella, Laura J. and Wai, Sun Nyunt and Witwer, Kenneth and Yáñez-Mó, María and Youn, Hyewon and Zeidler, Reinhard and Gho, Yong Song},
+  title   = {EVpedia: a community web portal for extracellular vesicles research},
+  journal = {Bioinformatics},
+  keywords = {systems-biology},
+  impactfactor = {4.621},
+  year    = {2015},
+  volume  = {31},
+  pages   = {933--939},
+  doi     = {10.1093/bioinformatics/btu741}
+}
+
+@article{ahn2015quick,
+  author  = {Ahn, Sung Hee and Kim, Myung Soo and Kang, Jeong Won and Moon, Jeong Hee and Kim, Kwang Pyo and Lee, Seong Hoon},
+  title   = {Quick quantification of proteins by MALDI},
+  journal = {J Mass Spectrom},
+  impactfactor = {2.709},
+  year    = {2015},
+  volume  = {50},
+  pages   = {596--602},
+  doi     = {10.1002/jms.3567}
+}
+
+@article{jung2015phospholipids,
+  author  = {Jung, Jae Hun and Lee, Min Young and Choi, Do-Young and Lee, Jae Won and You, Sungyong and Lee, Kye Young and Kim, Jayoung and Kim, Kwang Pyo},
+  title   = {Phospholipids of tumor extracellular vesicles stratify gefitinib-resistant non-small cell lung cancer cells from gefitinib-sensitive cells},
+  journal = {Proteomics},
+  keywords = {biomarker-discovery, lipidomics},
+  impactfactor = {3.973},
+  year    = {2015},
+  volume  = {15},
+  pages   = {824--835},
+  doi     = {10.1002/pmic.201400243}
+}
+
+@article{kang2015analysis,
+  author  = {Kang, Jeong Won and Lee, Na Young and Kim, Kwang Pyo and Cho, Kyung-Cho and Lee, Min Young and Choi, Do-Young and Park, Sang-Hyun},
+  title   = {Analysis of nitrated proteins in Saccharomyces cerevisiae involved in mating signal transduction},
+  journal = {Proteomics},
+  keywords = {ptm, nitroproteomics},
+  impactfactor = {3.973},
+  year    = {2015},
+  volume  = {15},
+  pages   = {580--590},
+  doi     = {10.1002/pmic.201400172}
+}
+
+@article{bandu2015liquidb,
+  author  = {Bandu, Raju and Kim, Hak Jin and Mok, Hyuck Jun and Kim, Kwang Pyo},
+  title   = {A liquid chromatography electrospray ionization tandem mass spectrometric study (LC/ESI-MS/MS) of in vivo metabolites of cisplatin in rat liver and brain tissues: deuterated experiments},
+  journal = {RSC Adv},
+  impactfactor = {3.84},
+  year    = {2015},
+  volume  = {5},
+  pages   = {89951--89958},
+  doi     = {10.1039/c5ra15237b}
+}
+
+@article{han2014direct,
+  author  = {Han, Dong Hoon and Na, Hee-Kyung and Lee, Min Jae and Choi, Won Hoon and Lee, Jung Hoon and Kim, Yun Kyung and Won, Cheolhee and Lee, Seung-Han and Kim, Kwang Pyo and Kuret, Jeff and Min, Dal-Hee},
+  title   = {Direct cellular delivery of human proteasomes to delay ​tau aggregation},
+  journal = {Nat Commun},
+  impactfactor = {10.742},
+  year    = {2014},
+  volume  = {5},
+  pages   = {5633},
+  doi     = {10.1038/ncomms6633}
+}
+
+@article{lee2014mitochondria,
+  author  = {Lee, Min Hee and Park, Nayoung and Yi, Chunsik and Han, Ji Hye and Hong, Ji Hye and Kim, Kwang Pyo and Kang, Dong Hoon and Sessler, Jonathan L. and Kang, Chulhun and Kim, Jong Seung},
+  title   = {Mitochondria-Immobilized pH-Sensitive Off-On Fluorescent Probe},
+  journal = {J Am Chem Soc},
+  impactfactor = {11.444},
+  year    = {2014},
+  volume  = {136},
+  pages   = {14136--14142},
+  doi     = {10.1021/ja506301n}
+}
+
+@article{kim2014interaction,
+  author  = {Kim, Jung-Hee and Rhee, Jin-Kyu and Ahn, Dae-Gyun and Kim, Kwang Pyo and Oh, Jong-Won},
+  title   = {Interaction of Stomatin with Hepatitis C Virus RNA Polymerase Stabilizes the Viral RNA Replicase Complexes on Detergent-Resistant Membranes},
+  journal = {J Microbiol Biotechnol},
+  impactfactor = {1.32},
+  year    = {2014},
+  volume  = {12},
+  pages   = {1744--1754},
+  doi     = {10.4014/jmb.1409.09063}
+}
+
+@article{kwon2014gold,
+  author  = {Kwon, Seung-Ryong and Jeon, Chang Su and Hong, Nam Young and Kim, Kwang Pyo and Hwang, Inseong and Chung, Taek Dong},
+  title   = {Gold-plated magnetic polymers for highly specific enrichment and label-free detection of blood biomarkers under physiological conditions},
+  journal = {Chem Commun (Camb)},
+  keywords = {biomarker-discovery},
+  impactfactor = {6.718},
+  year    = {2014},
+  volume  = {50},
+  pages   = {10066--10069},
+  doi     = {10.1039/c4cc04281f}
+}
+
+@article{choi2014extracellular,
+  author  = {Choi, Do-Young and You, Sungyong and Jung, Jae Hun and Lee, Jae Cheol and Rho, Jin Kyung and Lee, Kye Young and Freeman, Michael R. and Kim, Kwang Pyo and Kim, Jayoung},
+  title   = {Extracellular vesicles shed from gefitinib-resistant nonsmall cell lung cancer regulate the tumor microenvironment},
+  journal = {Proteomics},
+  impactfactor = {3.973},
+  year    = {2014},
+  volume  = {14},
+  pages   = {1845--1856},
+  doi     = {10.1002/pmic.201400008}
+}
+
+@article{park2014phosphatidylcholine,
+  author  = {Park, Eun-Sook and Lee, Jeong Hwa and Hong, Ji Hye and Park, Yong Kwang and Lee, Joon Won and Lee, Won-Jae and Lee, Jae Won and Kim, Kwang Pyo and Kim, Kyun-Hwan},
+  title   = {Phosphatidylcholine alteration identified using MALDI imaging MS in HBV-infected mouse livers and virus-mediated regeneration defects},
+  journal = {PLoS One},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {3.534},
+  year    = {2014},
+  volume  = {9},
+  doi     = {10.1371/journal.pone.0103955}
+}
+
+@article{park2014hepatitis,
+  author  = {Park, Eun-Sook and Park, Yong Kwang and Shin, Chan Young and Park, Seung Hwa and Ahn, Sung Hyun and Kim, Doo Hyun and Lim, Keo-Heun and Kwon, So Young and Kim, Kwang Pyo and Yang, Sung-Il and Seong, Baik L. and Kim, Kyun-Hwan},
+  title   = {Hepatitis B virus inhibits liver regeneration via epigenetic regulation of urokinase-type plasminogen activator},
+  journal = {Hepatology},
+  impactfactor = {11.665},
+  year    = {2014},
+  volume  = {58},
+  pages   = {762--776},
+  doi     = {10.1002/hep.26379}
+}
+
+@article{jung2014analysis,
+  author  = {Jung, Jaehun and Shin, Hyejin and Bang, Soyoung and Mok, Hyuck Jun and Suh, Chang Suk and Kim, Kwang Pyo and Lim, Hyunjung Jade},
+  title   = {Analysis of the Phospholipid Profile of Metaphase II Mouse Oocytes Undergoing Vitrification},
+  journal = {PLoS One},
+  keywords = {lipidomics},
+  impactfactor = {3.534},
+  year    = {2014},
+  volume  = {9},
+  doi     = {10.1371/journal.pone.0102620}
+}
+
+@article{min2014imaging,
+  author  = {Min, Kyueng-Whan and Bang, Joo-Young and Kim, Kwang Pyo and Kim, Wan-Seop and Lee, Sang Hwa and Shanta, Selina Rahman and Lee, Jeong Hwa and Hong, Ji Hye and Lim, So Dug and Yoo, Young-Bum and Na, Chan-Hyun},
+  title   = {Imaging mass spectrometry in papillary thyroid carcinoma for the identification and validation of biomarker proteins},
+  journal = {J Korean Med Sci},
+  keywords = {biomarker-discovery, imaging-ms},
+  impactfactor = {1.253},
+  year    = {2014},
+  volume  = {29},
+  pages   = {934--940},
+  doi     = {10.3346/jkms.2014.29.7.934}
+}
+
+@article{hong2014development,
+  author  = {Hong, NY and Choi, JN and Kang, JW and Choi, DY and Park, GT and Jang, S and Kim, KP},
+  title   = {Development of a mass spectrometric method for pharmacokinetic study of Trastuzumab},
+  journal = {Bull Korean Chem Soc},
+  impactfactor = {0.835},
+  year    = {2014},
+  volume  = {35},
+  pages   = {1845--1847},
+  doi     = {10.5012/bkcs.2014.35.6.1845}
+}
+
+@article{yeo2014mass,
+  author  = {Yeo, Woon-Seok and Kim, Young Jun and Kabir, Mohammad Humayun and Kang, Jeong Won and Kim, Kwang Pyo},
+  title   = {Mass spectrometric analysis of protein tyrosine nitration in aging and neurodegenerative diseases},
+  journal = {Mass Spectrom Rev},
+  keywords = {ptm, nitroproteomics},
+  impactfactor = {8.053},
+  year    = {2014},
+  volume  = {34},
+  pages   = {166--183},
+  doi     = {10.1002/mas.21429}
+}
+
+@article{park2014relative,
+  author  = {Park, Kyung M. and Moon, Jeong H. and Kim, Kwang P. and Lee, Seong H. and Kim, Myung S.},
+  title   = {Relative quantification in imaging of a peptide on a mouse brain tissue by matrix-assisted laser desorption ionization},
+  journal = {Anal Chem},
+  keywords = {imaging-ms},
+  impactfactor = {5.825},
+  year    = {2014},
+  volume  = {86},
+  pages   = {5131--5135},
+  doi     = {10.1021/ac500911x}
+}
+
+@article{kim2014low,
+  author  = {Kim, Il Chan and Bang, Geul and Lee, Jeong Hwa and Kim, Kwang Pyo and Kim, Young Hwan and Kim, Hark Kyun and Chung, Jinsoo},
+  title   = {Low C24-OH and C22-OH sulfatides in human renal cell carcinoma},
+  journal = {J Mass Spectrom},
+  keywords = {lipidomics},
+  impactfactor = {2.709},
+  year    = {2014},
+  volume  = {49},
+  pages   = {409--416},
+  doi     = {10.1002/jms.3358}
+}
+
+@article{cho2014determination,
+  author  = {Cho, Byoung-Kyu and Koo, Young Do and Kim, Kyunggon and Kang, Min Jueng and Lee, Yong Yook and Kim, Youngsoo and Park, Kyung Soo and Kim, Kwang Pyo and Yi, Eugene C.},
+  title   = {Determination of selected reaction monitoring peptide transitions via multiplexed product-ion scan modes},
+  journal = {Rapid Commun Mass Spectrom},
+  impactfactor = {2.642},
+  year    = {2014},
+  volume  = {28},
+  pages   = {773--780},
+  doi     = {10.1002/rcm.6837}
+}
+
+@article{lee2014mass,
+  author  = {Lee, SJ and Kang, JW and Cho, KC and Kabir, MH and Kim, B and Yim, YH and Park, HS and Yi, EC and Kim, KP},
+  title   = {Mass Spectrometry Analysis of In Vitro Nitration of Carbonic Anhydrase II},
+  journal = {Bull Korean Chem Soc},
+  keywords = {ptm, nitroproteomics},
+  impactfactor = {0.835},
+  year    = {2014},
+  volume  = {35},
+  pages   = {709--714},
+  doi     = {10.5012/bkcs.2014.35.3.709}
+}
+
+@article{madar2014reduction,
+  author  = {Madar, Inamul Hasan and Back, Seunghoon and Mun, Dong-Gi and Kim, Hokeun and Jung, Jae Hun and Kim, Kwang Pyo and Lee, Sang-Won},
+  title   = {Reduction of Ambiguity in Phosphorylation-site Localization in Large-scale Phosphopeptide Profiling by Data Filter using Unique Mass Class Information},
+  journal = {Bull Korean Chem Soc},
+  keywords = {ptm},
+  impactfactor = {0.835},
+  year    = {2014},
+  volume  = {35},
+  pages   = {845--850},
+  doi     = {10.5012/bkcs.2014.35.3.845}
+}
+
+@article{tran2013combined,
+  author  = {Tran, Trang Huyen and Park, Jong-Moon and Kim, Ok-Hee and Kim, Bora and Choi, Do-young and Lee, Jeong Hwa and Kim, Kwang Pyo and Oh, Byung-Chul and Lee, Hookeun},
+  title   = {Combined phospho- and glycoproteome enrichment in nephrocalcinosis tissues of phytate-fed rats},
+  journal = {Rapid Commun Mass Spectrom},
+  keywords = {ptm},
+  impactfactor = {2.642},
+  year    = {2013},
+  volume  = {27},
+  pages   = {2767--2776},
+  doi     = {10.1002/rcm.6742}
+}
+
+@article{shin2013hepatocystin,
+  author  = {Shin, Gu-Choul and Ahn, Sung Hyun and Choi, Hyo-Sun and Lim, Keo-Heun and Choi, Do Young and Kim, Kwang Pyo and Kim, Kyun-Hwan},
+  title   = {Hepatocystin/80K-H inhibits replication of hepatitis B virus through interaction with HBx protein in hepatoma cell},
+  journal = {Biochim Biophys Acta},
+  impactfactor = {3.431},
+  year    = {2013},
+  volume  = {1832},
+  pages   = {1569--1581},
+  doi     = {10.1016/j.bbadis.2013.04.026}
+}
+
+@article{kim2013cleavage,
+  author  = {Kim, JE and Yoon, S and Choi, B-R and Kim, KP and Cho, Y-H and Jung, W and Kim, D-W and Oh, S and Kim, D-E},
+  title   = {Cleavage of BCR-ABL transcripts at the T315I point mutation by DNAzyme promotes apoptotic cell death in imatinib-resistant BCR-ABL leukemic cells},
+  journal = {Leukemia},
+  impactfactor = {9.379},
+  year    = {2013},
+  volume  = {27},
+  pages   = {1650--1658},
+  doi     = {10.1038/leu.2013.60}
+}
+
+@article{park2013identification,
+  author  = {Park, Jung Ok and Choi, Do-Young and Choi, Dong-Sic and Kim, Hee Joung and Kang, Jeong Won and Jung, Jae Hun and Lee, Jeong Hwa and Kim, Jayoung and Freeman, Michael R. and Lee, Kye Young and Gho, Yong Song and Kim, Kwang Pyo},
+  title   = {Identification and characterization of proteins isolated from microvesicles derived from human lung cancer pleural effusions},
+  journal = {Proteomics},
+  impactfactor = {3.973},
+  year    = {2013},
+  volume  = {13},
+  pages   = {2125--2134},
+  doi     = {10.1002/pmic.201200323}
+}
+
+@article{kim2013lipid,
+  author  = {Kim, Il Chan and Lee, Jeong Hwa and Bang, Geul and Choi, Seung Ho and Kim, Young Hwan and Kim, Kwang Pyo and Kim, Hark Kyun and Ro, Jungsil},
+  title   = {Lipid Profiles for HER2-positive Breast Cancer},
+  journal = {Anticancer Res},
+  keywords = {lipidomics},
+  impactfactor = {1.872},
+  year    = {2013},
+  volume  = {33},
+  pages   = {2467--2472}
+}
+
+@article{lee2013staphylococcus,
+  author  = {Lee, Jaewook and Lee, Eun-Young and Kim, Si-Hyun and Kim, Dae-Kyum and Park, Kyong-Su and Kim, Kwang Pyo and Kim, Yoon-Keun and Roh, Tae-Young and Gho, Yong Song},
+  title   = {Staphylococcus aureus extracellular vesicles carry biologically active β-lactamase},
+  journal = {Antimicrob Agents Chemother},
+  impactfactor = {4.451},
+  year    = {2013},
+  volume  = {57},
+  pages   = {2589--2595},
+  doi     = {10.1128/aac.00522-12}
+}
+
+@article{lee2013stabilization,
+  author  = {Lee, M-S and Seo, J and Choi, DY and Lee, E-W and Ko, A and Ha, N-C and Yoon, Jong Bok and Lee, H-W and Kim, Kwang Pyo and Song, J},
+  title   = {Stabilization of p21 (Cip1,WAF1) Follwing Tip60 Dependent Acetylation Is Required for p21-Mediated DNA Damage Response},
+  journal = {Cell Death Differ},
+  keywords = {ptm},
+  impactfactor = {8.849},
+  year    = {2013},
+  volume  = {20},
+  pages   = {620--629},
+  doi     = {10.1038/cdd.2012.159}
+}
+
+@article{kim2013evpedia,
+  author  = {Kim, DK and Kang, B and Kim, OY and Choi, DS and Lee, J and Kim, SR and Go, G and Yoon, YJ and Kim, JH and Jang, SC and Park, KS and Choi, EJ and Kim, KP and Desiderio, DM and Kim, YK and Lötvall, J and Hwang, D and Gho, YS},
+  title   = {EVpedia: an integrated database of high-throughput data for systemic analyses of extracellular vesicles},
+  journal = {J Extracell Vesicles},
+  keywords = {systems-biology},
+  year    = {2013},
+  volume  = {2},
+  doi     = {10.3402/jev.v2i0.20384}
+}
+
+@article{bae2013lipid,
+  author  = {Bae, Eun-Jin and Ho, Dong-Hwan and Park, Eunbi and Jung, Jin Woo and Cho, Kyungcho and Hong, Ji Hye and Lee, He-Jin and Kim, Kwang Pyo and Lee, Seung-Jae},
+  title   = {Lipid peroxidation product, 4-hydroxy-2-nonenal, promotes seeding-capable oligomer formation and cell-to-cell transfer of alpha-synuclein},
+  journal = {Antioxid Redox Signal},
+  impactfactor = {8.209},
+  year    = {2013},
+  volume  = {18},
+  pages   = {770--783},
+  doi     = {10.1089/ars.2011.4429}
+}
+
+@article{jung2013analysis,
+  author  = {Jung, Jin Woo and Bae, Sung Jun and Kang, Gum-Yong and Kim, Kyun-Hwan and Yeo, Woon-Seok and Park, Sang-Hyun and Seol, Jae Hong and Yi, Eugene C. and Kim, Kwang Pyo},
+  title   = {Analysis of the biochemical role of Lys-11 in polyubiquitin chain},
+  journal = {Rapid Commun Mass Spectrom},
+  keywords = {ptm},
+  impactfactor = {2.79},
+  year    = {2013},
+  volume  = {27},
+  pages   = {339--346},
+  doi     = {10.1002/rcm.6447}
+}
+
+@article{shanta2012new,
+  author  = {Shanta, Selina Rahman and Kim, Tae Young and Hong, Ji Hye and Lee, Jeong Hwa and Shin, Chan Young and Kim, Kyun-Hwan and Kim, Young Hwan and Kim, Sang Kyung and Kim, Kwang Pyo},
+  title   = {A new combination MALDI matrix for small molecule analysis application to imaging mass spectrometry for drugs and metabolites},
+  journal = {Analyst},
+  keywords = {imaging-ms},
+  impactfactor = {4.23},
+  year    = {2012},
+  volume  = {137},
+  pages   = {5757--5762},
+  doi     = {10.1039/c2an35782h}
+}
+
+@article{sheng2012cholesterol,
+  author  = {Sheng, Ren and Chen, Yong and Gee, Heon Yung and Stec, Ewa and Melowic, Heather R. and Blatner, Nichole R. and Tun, Moe P. and Kim, Yonjung and Källberg, Morten and Fujiwara, Takahiro K. and Hong, Ji Hye and Kim, Kwang Pyo and Lu, Hui and Kusumi, Akihiro and Lee, Min Goo and Cho, Wonhwa},
+  title   = {Cholesterol modulates cell signaling and protein networking by specifically interacting with PDZ domain-containing scaffold proteins},
+  journal = {Nat Commun},
+  impactfactor = {7.396},
+  year    = {2012},
+  volume  = {3},
+  doi     = {10.1038/ncomms2221}
+}
+
+@article{yang2012integration,
+  author  = {Yang, Wei and Kim, Yongsoo and Kim, Taek-Kyun and Keay, Susan K. and Kim, Kwang Pyo and Steen, Hanno and Freeman, Michael R. and Hwang, Daehee and Kim, Jayoung},
+  title   = {Integration analysis of quantitative proteomics and transcriptomics data identifies potential targets of frizzled-8 protein-related antiproliferative factor in vivo},
+  journal = {BJU Int},
+  keywords = {systems-biology},
+  impactfactor = {2.844},
+  year    = {2012},
+  volume  = {110},
+  pages   = {1138--1146},
+  doi     = {10.1111/j.1464-410x.2012.11299.x}
+}
+
+@article{choi2012quantitative,
+  author  = {Choi, DS and Choi, DY and Hong, BS and Jang, SC and Kim, DK and Lee, J and Kim, YK and Kim, KP and Gho, YS},
+  title   = {Quantitative proteomics of extracellular vesicles derived from human primary and metastatic colorectal cancer cells},
+  journal = {J Extracell Vesicles},
+  year    = {2012},
+  volume  = {1},
+  doi     = {10.3402/jev.v1i0.18704}
+}
+
+@article{shanta2012global,
+  author  = {Shanta, Selina Rahman and Choi, Chang Soon and Lee, Jeong Hwa and Shin, Chan Young and Kim, Young Jun and Kim, Kyun-Hwang and Kim, Kwang Pyo},
+  title   = {Global changes in phospholipids identified by MALDI mass spectrometry in rats with focal cerebral ischemia},
+  journal = {J Lipid Res},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {6.115},
+  year    = {2012},
+  volume  = {53},
+  pages   = {1823--1831},
+  doi     = {10.1194/jlr.m022558}
+}
+
+@article{kim2012proteomic,
+  author  = {Kim, Tae Wan and Kang, Jeong Won and Ahn, Jeeyun and Lee, Eun Kyung and Cho, Kyung-Cho and Han, Bit Na Ra and Hong, Nam Young and Park, Jisook and Kim, Kwang Pyo},
+  title   = {Proteomic Analysis of the Aqueous Humor in Age-related Macular Degeneration (AMD) Patients},
+  journal = {J Proteome Res},
+  keywords = {biomarker-discovery},
+  impactfactor = {5.46},
+  year    = {2012},
+  volume  = {7},
+  pages   = {550--560},
+  doi     = {10.1021/pr300080s}
+}
+
+@article{koh2012estradiol,
+  author  = {Koh, Kwi Hye and Jurkovic, Steve and Yang, Kyunghee and Choi, Su-Young and Jung, Jin Woo and Kim, Kwang Pyo and Zhang, Wei and Jeong, Hyunyoung},
+  title   = {Estradiol induces cytochrome P450 2B6 expression at high concentrations: implication in estrogen-mediated gene regulation in pregnancy},
+  journal = {Biochem Pharmacol},
+  impactfactor = {4.889},
+  year    = {2012},
+  volume  = {84},
+  pages   = {93--103},
+  doi     = {10.1016/j.bcp.2012.03.016}
+}
+
+@article{leea2012lipid,
+  author  = {Lee, Geon Kook and Lee, Hee Seok and Park, Young Seung and Lee, Jeong Hwa and Lee, Seok Cheol and Lee, Jong Ho and Lee, Soo Jae and Shanta, Selina Rahman and Park, Hye Min and Kim, Hyo Rim and Kim, In Hoo and Kim, Young Hwan and Zo, Jae Ill and Kim, Kwang Pyo and Kim, Hark Kyun},
+  title   = {Lipid MALDI profile classifies non-small cell lung cancers according to the histologic type},
+  journal = {Lung Cancer},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {3.356},
+  year    = {2012},
+  volume  = {76},
+  pages   = {197--203},
+  doi     = {10.1016/j.lungcan.2011.10.016}
+}
+
+@article{choi2012protein,
+  author  = {Choi, Dong-Sic and Yang, Jae-Seong and Choi, Eun-Jeong and Jang, Su Chul and Park, Solip and Kim, Oh Youn and Hwang, Daehee and Kim, Kwang Pyo and Kim, Yoon-Keun and Kim, Sanguk and Gho, Yong Song},
+  title   = {The Protein Interaction Network of Extracellular Vesicles Derived from Human Colorectal Cancer Cells},
+  journal = {J Proteome Res},
+  keywords = {systems-biology},
+  impactfactor = {5.46},
+  year    = {2012},
+  volume  = {11},
+  pages   = {1144--1151},
+  doi     = {10.1021/pr200842h}
+}
+
+@article{kim2012proteomicb,
+  author  = {Kim, Han-Soo and Choi, Do-Young and Yun, So Jeong and Choi, Seong-Mi and Kang, Jeong Won and Jung, Jin Woo and Hwang, Daehee and Kim, Kwang Pyo and Kim, Dong-Wook},
+  title   = {Proteomic Analysis of Microvesicles Derived from Human Mesenchymal Stem Cells},
+  journal = {J Proteome Res},
+  impactfactor = {5.46},
+  year    = {2012},
+  volume  = {11},
+  pages   = {839--849},
+  doi     = {10.1021/pr200682z}
+}
+
+@article{kim2012enhanced,
+  author  = {Kim, Keun-Sik and Park, Yong Serk and Hong, Hyo-Jeong and Kim, Kwang Pyo and Lee, Kwang Hyun and Kim, Dong-Eun},
+  title   = {Enhanced Tumor-targeted Gene Delivery by Immunolipoplexes Conjugated with the Humanized Anti-TAG-72 Fab' Fragments},
+  journal = {Bull Korean Chem Soc},
+  impactfactor = {0.835},
+  year    = {2012},
+  volume  = {33},
+  pages   = {651--656},
+  doi     = {10.5012/bkcs.2012.33.2.651}
+}
+
+@article{kang2011alteration,
+  author  = {Kang, Sokbom and Lee, Aera and Park, Young Seung and Lee, Seok Cheol and Park, Sang Yoon and Han, Sang Yun and Kim, Kwang Pyo and Kim, Young Hwan and Yoo, Chong Woo and Kim, Hark Kyun},
+  title   = {Alteration in lipid and protein profiles of ovarian cancer: similarity to breast cancer},
+  journal = {Int J Gynecol Cancer},
+  keywords = {lipidomics},
+  impactfactor = {2.179},
+  year    = {2011},
+  volume  = {21},
+  pages   = {1566--1572},
+  doi     = {10.1097/IGC.0b013e318226c5f5}
+}
+
+@article{kang2011protein,
+  author  = {Kang, Han Sung and Lee, Seok Cheol and Park, Young Seung and Jeon, Young Eun and Lee, Jeong Hwa and Jung, So-Youn and Park, Hae and Jang, Seok Hoon and Park, Hye Min and Yoo, Chong Woo and Park, Seok Hee and Han, Sang Yun and Kim, Kwang Pyo and Kim, Young Hwan and Ro, Jungsil and Kim, Hark Kyun},
+  title   = {Protein and lipid MALDI profiles classify breast cancers according to the intrinsic subtype},
+  journal = {BMC Cancer},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {3.153},
+  year    = {2011},
+  volume  = {406},
+  pages   = {747--752},
+  doi     = {10.1186/1471-2407-11-465}
+}
+
+@article{tofaris2011ubiquitin,
+  author  = {Tofaris, George K. and Kim, Hyoung Tae and Hourez, Raphael and Jung, Jin-Woo and Kim, Kwang Pyo and Goldberg, Alfred L.},
+  title   = {Ubiquitin ligase Nedd4 promotes α-synuclein degradation by the endosomal–lysosomal pathway},
+  journal = {Proc Natl Acad Sci U S A},
+  impactfactor = {9.7},
+  year    = {2011},
+  volume  = {108},
+  pages   = {17004--17009},
+  doi     = {10.1073/pnas.1109356108}
+}
+
+@article{park2011lipid,
+  author  = {Park, Young Seung and Yoo, Chong Woo and Lee, Seok Cheol and Park, Sang Jae and Oh, Jae Hwan and Yoo, Byong Chul and Paik, Seung Sam and Lee, Kyeong Geun and Jin, So Young and Kim, Song Cheol and Kim, Kwang Pyo and Kim, Young Hwan and Choi, Dongho and Kim, Hark Kyun},
+  title   = {Lipid profiles for intrahepatic cholangiocarcinoma identified using matrix-assisted laser desorption/ionization mass spectrometry},
+  journal = {Clin Chim Acta},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {2.388},
+  year    = {2011},
+  volume  = {412},
+  pages   = {1978--1982},
+  doi     = {10.1016/j.cca.2011.07.008}
+}
+
+@article{park2011discovery,
+  author  = {Park, Jisook and Cha, Dong Hyun and Lee, Soo Jae and Kim, Young Nam and Kim, Young Hwan and Kim, Kwang Pyo},
+  title   = {Discovery of the serum biomarker proteins in severe preeclampsia by proteomic analysis},
+  journal = {Exp Mol Med},
+  keywords = {biomarker-discovery},
+  impactfactor = {2.453},
+  year    = {2011},
+  volume  = {43},
+  pages   = {427--435},
+  doi     = {10.3858/emm.2011.43.7.047}
+}
+
+@article{kim2011homologous,
+  author  = {Kim, S. H and Lee, S. E. and Hong, M.-K. and Song, N.-H. and Yoon, B. and Viet, P. T. and Ahn, Y.-J. and Lee, B. M. and Jung, J. W. and Kim, K.-P. and Han, Y. S. and Kim, J.-G. and Kang, L.-W.},
+  title   = {Homologous Expression and Quantitative Analysis of T3SS-Dependent Secretion of TAP-Tagged XoAvrBs2 in Xanthomonas oryzae pv. Oryzae Induced by Rice Leaf Extract},
+  journal = {J Microbiol Biotechnol},
+  impactfactor = {1.224},
+  year    = {2011},
+  volume  = {21},
+  pages   = {679--685},
+  doi     = {10.4014/jmb.1102.02011}
+}
+
+@article{choi2011proteomic,
+  author  = {Choi, Dong-Sic and Park, Jung Ok and Jang, Su Chul and Yoon, Yae Jin and Jung, Jin Woo and Choi, Do-Young and Kim, Jung-Wook and Kang, Ji Seon and Park, Jaesung and Hwang, Daehee and Lee, Kyung-Hee and Park, Sang-Hyun and Kim, Yoon-Keun and Desiderio, Dominic M. and Kim, Kwang Pyo and Gho, Yong Song},
+  title   = {Proteomic Analysis of Microvesicles Derived From Human Colorectal Cancer Ascites},
+  journal = {Proteomics},
+  impactfactor = {4.815},
+  year    = {2011},
+  volume  = {11},
+  pages   = {2745--2751},
+  doi     = {10.1002/pmic.201100022}
+}
+
+@article{yang2011quantitative,
+  author  = {Yang, Wei and Chung, Yeun Goo and Kim, Yongsoo and Kim, Taek-Kyun and Keay, Susan K. and Zhang, Chen-Ou and Ji, Mihee and Hwang, Daehee and Kim, Kwang Pyo and Steen, Hanno and Freeman, Michael R. and Kim, Jayoung},
+  title   = {Quantitative Proteomics Identifies b-Catenin Network as an Element of the Signaling Response to Frizzled-8 Protein-Related Antiproliferative Factor},
+  journal = {Mol Cell Proteomics},
+  keywords = {systems-biology},
+  impactfactor = {8.354},
+  year    = {2011},
+  volume  = {10},
+  doi     = {10.1074/mcp.m110.007492}
+}
+
+@article{shanta2011binary,
+  author  = {Shanta, Selina Rahman and Zhou, Li-Hua and Park, Young Seung and Kim, Young Hwan and Kim, Youngjun and Kim, Kwang Pyo},
+  title   = {Binary Matrix for MALDI Imaging Mass Spectrometry of Phospholipids in Both Ion Modes},
+  journal = {Anal Chem},
+  keywords = {imaging-ms, lipidomics},
+  impactfactor = {5.874},
+  year    = {2011},
+  volume  = {83},
+  pages   = {1252--1259},
+  doi     = {10.1021/ac1029659}
+}
+
+@article{kim2011selective,
+  author  = {Kim, Jae Kyung and Lee, Jung Rok and Kang, Jeong Won and Lee, Soo Jae and Shin, Gu Choul and Yeo, Woon-Seok and Kim, Kyun-Hwan and Park, Hyung Soon and Kim, Kwang Pyo},
+  title   = {Selective Enrichment and Mass Spectrometric Identification of Nitrated Peptides Using Fluorinated Carbon Tags},
+  journal = {Anal Chem},
+  keywords = {ptm, nitroproteomics},
+  impactfactor = {5.874},
+  year    = {2011},
+  volume  = {83},
+  pages   = {157--163},
+  doi     = {10.1021/ac102080d}
+}
+
+@article{shanta2011application,
+  author  = {Shanta, Selina Rahman and Kim, Youngjun and Kim, Young Hwan and Kim, Kwang Pyo},
+  title   = {Application of MALDI Tissue Imaging of Drugs and Metabolites: A New Frontier for Molecular Histology},
+  journal = {Biomol Ther (Seoul)},
+  keywords = {imaging-ms},
+  impactfactor = {0.532},
+  year    = {2011},
+  volume  = {19},
+  pages   = {149--154},
+  doi     = {10.4062/biomolther.2011.19.2.149}
+}
+
+@article{choi2010oligodeoxyribozymes,
+  author  = {Choi, Bo-Ra and Gwak, Jungsug and Kwon, Hyun-Mi and Oh, Sangtaek and Kim, Kwang Pyo and Choi, Woo-Hyung and Cho, Yo-Han and Kim, Dong-Eun},
+  title   = {Oligodeoxyribozymes That Cleave β-Catenin Messenger RNA Inhibit Growth of Colon Cancer Cells via Reduction of β-Catenin Response Transcription},
+  journal = {Mol Cancer Ther},
+  impactfactor = {5.225},
+  year    = {2010},
+  volume  = {9},
+  pages   = {1894--1902},
+  doi     = {10.1158/1535-7163.mct-10-0056}
+}
+
+@article{park2010comparative,
+  author  = {Park, Jisook and Cha, Dong-Hyun and Jung, Jin Woo and Kim, Young Hwan and Lee, Sook Hwan and Kim, Young Jun and Kim, Kwang Pyo},
+  title   = {Comparative Proteomic Analysis of Human Amniotic Fluid Supernatants with Down Syndrome Using Mass Spectrometry},
+  journal = {J Microbiol Biotechnol},
+  keywords = {biomarker-discovery},
+  impactfactor = {1.224},
+  year    = {2010},
+  volume  = {20},
+  pages   = {959--967},
+  doi     = {10.4014/jmb.0912.12035}
+}
+
+@article{jang2010non,
+  author  = {Jang, Ara and Lee, He-jin and Jung, Ji-Woo and Kim, Kwang-Pyo and Lee, Seung-Jea},
+  title   = {Non-classical exocytosis of alpha-synuclein is sensitive to folding states and promoted under stress conditions},
+  journal = {J Neurochem},
+  impactfactor = {4.337},
+  year    = {2010},
+  volume  = {113},
+  pages   = {1263--1274},
+  doi     = {10.1111/j.1471-4159.2010.06695.x}
+}
+
+@article{yoon2010new,
+  author  = {Yoon, Cheol-Hee and Miah, Mohammad Alam and Kim, Kwang Pyo and Bae, Yong-Soo},
+  title   = {New Cdc2 Tyr 4 phosphorylation by dsRNA-activated protein kinase triggers Cdc2 polyubiquitination andG2 arrest under genotoxic stresses},
+  journal = {EMBO Rep},
+  keywords = {ptm},
+  impactfactor = {7.822},
+  year    = {2010},
+  volume  = {11},
+  pages   = {393--399},
+  doi     = {10.1038/embor.2010.45}
+}
+
+@article{cho2010global,
+  author  = {Cho, Bon-A and Cho, Nam-Hyuk and Min, Chan-Ki and Kim, Se-Yoon and Yang, Jae-Seong and Lee, Jung Rok and Jung, Jin Woo and Lee, Won-Chul and Kim, Kijeong and Lee, Mi-Kyung and Kim, Sanguk and Kim, Kwang Pyo and Seong, Seung-Yong and Choi, Myung-Sik and Kim, Ik-Sang},
+  title   = {Global gene expression profile of Orientia tsutsugamushi},
+  journal = {Proteomics},
+  impactfactor = {4.815},
+  year    = {2010},
+  volume  = {10},
+  pages   = {1699--1715},
+  doi     = {10.1002/pmic.200900633}
+}

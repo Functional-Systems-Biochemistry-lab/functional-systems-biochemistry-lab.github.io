@@ -113,7 +113,9 @@
     "count_one": "1 publication",
     "doi": "DOI",
     "pubmed": "PubMed",
-    "pdf": "PDF"
+    "pdf": "PDF",
+    "if": "IF",
+    "if_title": "Journal Impact Factor"
   },
   "members": {
     "label": "Members",

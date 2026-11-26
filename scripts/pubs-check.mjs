@@ -90,6 +90,9 @@ for (const e of lib.entries) {
     warn(`${where}: DOI 없음 (링크가 표시되지 않음)`);
   }
 
+  const ifRaw = str(e.fields.impactfactor);
+  if (ifRaw && !/^\d+(\.\d+)?$/.test(ifRaw)) warn(`${where}: impactfactor 는 숫자만 적어야 표시됩니다 (${ifRaw})`);
+
   const kwRaw = e.fields.keywords;
   const keywords = (Array.isArray(kwRaw) ? kwRaw : str(kwRaw).split(/[,;]/)).map((k) => String(k).trim().toLowerCase()).filter(Boolean);
   if (keywords.filter((k) => k !== 'selected').length === 0) warn(`${where}: keywords 에 Research slug 가 없어 어느 분야에도 표시되지 않음`);

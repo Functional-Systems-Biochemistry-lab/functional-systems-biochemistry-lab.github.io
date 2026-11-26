@@ -113,7 +113,9 @@
     "count_one": "1편",
     "doi": "DOI",
     "pubmed": "PubMed",
-    "pdf": "PDF"
+    "pdf": "PDF",
+    "if": "IF",
+    "if_title": "학술지 Impact Factor"
   },
   "members": {
     "label": "구성원",

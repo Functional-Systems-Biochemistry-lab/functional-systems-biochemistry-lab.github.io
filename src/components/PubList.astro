@@ -88,6 +88,11 @@ function pdfHref(pdf: string): string {
                 {p.pages && `:${p.pages}`}.
               </span>
               <span class="pub__links">
+                {p.impactFactor && (
+                  <span class="pub__if" title={t('publications.if_title')}>
+                    {t('publications.if')} {p.impactFactor}
+                  </span>
+                )}
                 {p.doi && (
                   <a href={doiUrl(p.doi)} rel="noopener">
                     {t('publications.doi')}
@@ -250,6 +255,10 @@ function pdfHref(pdf: string): string {
     font-family: var(--font-mono);
     font-size: var(--fs-label);
     letter-spacing: 0.04em;
+  }
+  .pub__if {
+    color: var(--muted-2);
+    white-space: nowrap;
   }
   .pub__tags {
     display: inline-flex;

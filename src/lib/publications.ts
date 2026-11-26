@@ -28,6 +28,8 @@ export interface Publication {
   pmid?: string;
   url?: string;
   pdf?: string;
+  /** 학술지 Impact Factor (bib 의 impactfactor 필드, 숫자 문자열, 선택) */
+  impactFactor?: string;
   /** BibTeX keywords 원본 */
   keywords: string[];
   /** keywords 중 Research slug 와 일치하는 것 */
@@ -93,6 +95,11 @@ function keywordList(v: unknown): string[] {
   return raw.map((k) => k.trim().toLowerCase()).filter(Boolean);
 }
 
+function impactFactor(v: unknown): string | undefined {
+  const s = str(v);
+  return s && /^\d+(\.\d+)?$/.test(s) ? s : undefined;
+}
+
 function toPublication(e: Entry, validSlugs: string[]): Publication {
   const f = e.fields;
   const authors = (Array.isArray(f.author) ? (f.author as Name[]) : []).map(toAuthor);
@@ -112,6 +119,7 @@ function toPublication(e: Entry, validSlugs: string[]): Publication {
     pmid: str(f.pmid),
     url: str(f.url),
     pdf: str(f.pdf),
+    impactFactor: impactFactor(f.impactfactor),
     keywords,
     tags: keywords.filter((k) => validSlugs.includes(k)),
     selected: keywords.includes('selected'),
