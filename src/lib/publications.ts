@@ -157,6 +157,22 @@ export function groupByYear(pubs: Publication[]): { year: number; items: Publica
   return [...map.entries()].sort((a, b) => b[0] - a[0]).map(([year, items]) => ({ year, items }));
 }
 
+/** 목록 페이지에서 한 페이지에 보여 줄 논문 수 (D29) */
+export const PUBS_PER_PAGE = 10;
+
+/** 저널별 그룹: 저널명 알파벳순, 저널 안에서는 연도 내림차순 (D29). 저널명이 없으면 '—' */
+export function groupByJournal(pubs: Publication[]): { journal: string; items: Publication[] }[] {
+  const map = new Map<string, Publication[]>();
+  for (const p of pubs) {
+    const journal = p.journal.trim() || '—';
+    if (!map.has(journal)) map.set(journal, []);
+    map.get(journal)!.push(p);
+  }
+  return [...map.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0], 'en', { sensitivity: 'base' }))
+    .map(([journal, items]) => ({ journal, items: [...items].sort((a, b) => b.year - a.year) }));
+}
+
 /** 멤버 alias 집합 (정규화) */
 export function aliasKeySet(aliasLists: string[][]): Set<string> {
   const set = new Set<string>();

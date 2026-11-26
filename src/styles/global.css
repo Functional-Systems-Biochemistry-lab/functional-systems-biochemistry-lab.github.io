@@ -2,6 +2,8 @@
 @import 'lenis/dist/lenis.css';
 
 *, *::before, *::after { box-sizing: border-box; }
+/* hidden 속성은 어떤 display 값보다 우선 (스크립트가 필터·페이지로 숨기는 항목·그룹) */
+[hidden] { display: none !important; }
 
 html {
   -webkit-text-size-adjust: 100%;

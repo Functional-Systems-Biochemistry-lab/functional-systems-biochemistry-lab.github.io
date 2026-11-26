@@ -115,7 +115,12 @@
     "pubmed": "PubMed",
     "pdf": "PDF",
     "if": "IF",
-    "if_title": "학술지 Impact Factor"
+    "if_title": "학술지 Impact Factor",
+    "view_label": "보기",
+    "view_year": "연도별",
+    "view_journal": "저널별",
+    "pagination_label": "페이지 이동",
+    "page_n": "{n}페이지"
   },
   "members": {
     "label": "구성원",

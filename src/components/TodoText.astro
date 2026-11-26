@@ -1,9 +1,13 @@
 ---
 // frontmatter·데이터 문자열 안의 "[TODO …]" 를 눈에 띄게 표시합니다.
+// bold=true 이면 "**굵게**" 표기를 <strong> 으로 바꿉니다 (D29). HTML 은 먼저 이스케이프되므로 통과하지 않습니다.
+import { boldMarkup } from '../lib/inline';
+
 interface Props {
   text: string | null | undefined;
+  bold?: boolean;
 }
-const { text } = Astro.props;
+const { text, bold = false } = Astro.props;
 
 const parts: { todo: boolean; text: string }[] = [];
 if (text) {
@@ -19,4 +23,8 @@ if (text) {
 }
 ---
 
-{parts.map((p) => (p.todo ? <mark class="todo">{p.text}</mark> : <Fragment>{p.text}</Fragment>))}
+{
+  parts.map((p) =>
+    p.todo ? <mark class="todo">{p.text}</mark> : bold ? <Fragment set:html={boldMarkup(p.text)} /> : <Fragment>{p.text}</Fragment>,
+  )
+}

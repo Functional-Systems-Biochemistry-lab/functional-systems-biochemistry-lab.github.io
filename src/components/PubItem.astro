@@ -1,0 +1,173 @@
+---
+// 논문 한 편 — 블록형 3줄 (CLAUDE.md D29)
+//   ① 제목  ② 저자(연구실 구성원은 굵게)  ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크
+import type { Locale } from '../i18n/config';
+import { useTranslations } from '../lib/i18n';
+import { doiUrl, isMemberAuthor, pubmedUrl, type Publication } from '../lib/publications';
+import { href, withBase } from '../lib/url';
+
+interface Props {
+  p: Publication;
+  locale: Locale;
+  aliasKeys: Set<string>;
+  /** 같은 논문이 연도별·저널별 두 보기에 두 번 그려지므로 id 는 한쪽(연도별)에만 붙입니다 */
+  withId?: boolean;
+}
+const { p, locale, aliasKeys, withId = true } = Astro.props;
+const t = useTranslations(locale);
+
+/** 제목 안의 HTML 은 서식 태그(i, b, em, strong, sup, sub, span)만 남깁니다 */
+function sanitizeTitle(html: string): string {
+  return html.replace(/<(?!\/?(i|b|em|strong|sup|sub|span)\b)[^>]*>/gi, '');
+}
+function pdfHref(pdf: string): string {
+  return /^https?:\/\//i.test(pdf) ? pdf : withBase(pdf);
+}
+const authors = p.authors.map((a) => ({ name: a.display, member: isMemberAuthor(a, aliasKeys) }));
+---
+
+<li class="pub" data-tags={p.tags.join(' ')} id={withId ? `pub-${p.key}` : undefined}>
+  <p class="pub__title" set:html={sanitizeTitle(p.title)} />
+  {
+    authors.length > 0 && (
+      <p class="pub__authors" data-authors>
+        {authors.map((a, i) => (
+          <span class="pub__author" data-member={a.member ? '' : undefined}>
+            {a.member ? <strong>{a.name}</strong> : a.name}
+            {i < authors.length - 1 && ', '}
+          </span>
+        ))}
+      </p>
+    )
+  }
+  <p class="pub__meta">
+    {p.journal && <span class="pub__journal">{p.journal}</span>}
+    {p.journal && ' '}
+    <span class="pub__ref">
+      {p.year || ''}
+      {p.volume && `;${p.volume}`}
+      {p.issue && `(${p.issue})`}
+      {p.pages && `:${p.pages}`}.
+    </span>
+    <span class="pub__links">
+      {p.impactFactor && (
+        <span class="pub__if" title={t('publications.if_title')}>
+          {t('publications.if')} {p.impactFactor}
+        </span>
+      )}
+      {p.doi && (
+        <a href={doiUrl(p.doi)} rel="noopener">
+          <svg class="pub__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          {t('publications.doi')}
+        </a>
+      )}
+      {p.pmid && (
+        <a href={pubmedUrl(p.pmid)} rel="noopener">
+          {t('publications.pubmed')}
+        </a>
+      )}
+      {p.pdf && (
+        <a href={pdfHref(p.pdf)} rel="noopener">
+          {t('publications.pdf')}
+        </a>
+      )}
+      {!p.doi && !p.pmid && p.url && (
+        <a href={p.url} rel="noopener">
+          Link
+        </a>
+      )}
+    </span>
+    {
+      p.tags.length > 0 && (
+        <span class="pub__tags">
+          {p.tags.map((s) => (
+            <a class="tag" href={href(locale, `/research/${s}`)}>
+              {t(`research.short.${s}`)}
+            </a>
+          ))}
+        </span>
+      )
+    }
+  </p>
+</li>
+
+<style>
+  .pub {
+    padding-block: 14px;
+    line-height: 1.5;
+  }
+  .pub + .pub {
+    border-top: 1px solid var(--line);
+  }
+  .pub__title {
+    margin: 0 0 4px;
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .pub__authors {
+    margin: 0 0 4px;
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+  .pub__meta {
+    margin: 0;
+    font-size: var(--fs-small);
+  }
+  .pub__journal {
+    font-style: italic;
+  }
+  .pub__links {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 10px;
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    letter-spacing: 0.04em;
+    vertical-align: baseline;
+  }
+  .pub__links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  /* DOI 앞 작은 링크 아이콘: 글자 높이에 맞춘 장식용 인라인 SVG (§8 금지의 예외, D29) */
+  .pub__icon {
+    width: 1em;
+    height: 1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+  }
+  .pub__if {
+    color: var(--muted-2);
+    white-space: nowrap;
+  }
+  .pub__tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+    margin-left: 8px;
+  }
+  /* 분야 링크: 알약 대신 밑줄 평문, 굵게 (D28·D29) */
+  .tag {
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+  }
+  .tag:hover {
+    color: var(--accent);
+    text-decoration-thickness: 2px;
+  }
+</style>

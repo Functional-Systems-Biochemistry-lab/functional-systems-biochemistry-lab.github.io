@@ -91,13 +91,13 @@ const email = d.email;
       <div>
         <SectionHeading title={t('faculty.education')} level={2} />
         <ol class="timeline">
-          {d.education.map((item) => <li><TodoText text={item} /></li>)}
+          {d.education.map((item) => <li><TodoText text={item} bold /></li>)}
         </ol>
       </div>
       <div>
         <SectionHeading title={t('faculty.career')} level={2} />
         <ol class="timeline">
-          {d.career.map((item) => <li><TodoText text={item} /></li>)}
+          {d.career.map((item) => <li><TodoText text={item} bold /></li>)}
         </ol>
       </div>
     </div>

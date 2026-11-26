@@ -92,6 +92,7 @@
 | D26 | 배경 그림 + 부드러운 스크롤: 설정은 `src/data/background.yml` 한 파일, 그림은 `src/assets/backdrops/`. 그림은 `float`(떠 있는 그림: `near` 구역 또는 자동 배치, 패럴랙스, 나타나기)과 `fixed`(전체 배경, 스크롤 %에 따라 스며듦) 두 종류. 마우스 휠은 Lenis(`lenis`, MIT, 번들 자체 호스팅)로 부드럽게, 터치·키보드는 기본 동작. `prefers-reduced-motion` 이면 패럴랙스·나타나기·부드러운 스크롤 모두 끔 | 확정 | 사용자 요청(2026-11-25, 참고: leejoosang.wixsite.com/ngml). §8 '장식 최소'의 예외 — 글자 가독성·R6(credit·license)·`npm run check` 검증 필수. 구현 `src/lib/background.ts`, `src/components/Backdrops.astro` |
 | D27 | Contact 지도: 구글 지도 퍼가기 iframe(`site.yml` `contact.map_embed_url`, `https://www.google.com/maps/embed`로 시작하는 주소만 통과)만 허용, 그 외 외부 iframe 금지. 퍼가기 주소가 없으면 지도 이미지(`map_image` + `map_credit`)로 대체. 외부 지도 링크 버튼은 `map_links`(여러 개) 또는 `map_url` | 확정 | 사용자 요청(2026-11-25, `inbox/fsb-contact-map-image.patch`). §5.8·§8 금지 목록 수정. 지도 iframe은 Google 서버에서 불러오므로 §7.6(외부 스크립트·쿠키 미사용)의 예외 — 캡션 `contact.map_embed_note`로 표기. 구현 `src/views/ContactView.astro` |
 | D28 | 디자인 정리 — 장식을 걷어낸 담백한 학술 사이트, 템플릿으로 찍어낸 느낌 배제. ① 배경은 흰색·차가운 회색만(베이지·크림 등 따뜻한 톤 금지) ② 보이는 그라디언트 전부 금지(보라 계열 포함; Backdrops 그림 가장자리 mask용 radial-gradient만 예외) ③ 모서리 `--radius`·`--radius-sm` 2px, 알약형(999px)·원형(50%) 금지, 인물 사진은 정사각 ④ 카드(테두리+흰 배경 `.card`) 제거 — Research는 번호 행 목록(큰 번호·제목, 한 줄 요약, 이미지 옆, 위아래 1px), Members·Facility·News는 사진·글·구분선만 ⑤ 배지·태그 최소화 — 논문 분야 `.tag`는 밑줄 평문 링크, 분야 필터 `.chip`은 밑줄 탭, Draft 띠는 유지 ⑥ 장식 아이콘·이모지 금지(모바일 메뉴 버튼 등 기능용만) ⑦ box-shadow 전부 제거, 헤더 메뉴는 1px 테두리, hover는 밑줄·색 변화만 ⑧ 홈 섹션 리듬 — 교차 배경 띠(`section--alt`) 제거, 섹션마다 간격(96/40/120px)·열 비율(4:8, 전폭, 5:7)·제목 위치(왼쪽 열/위)를 다르게, Hero는 왼쪽 정렬 큰 제목 + 이미지 비대칭(12열 중 글 1~8열, 그림 4~12열) | 확정 | 사용자 요청(2026-11-26). 유지: 색 토큰(D24), WCAG AA, 포커스 outline 3px, 터치 44px, `prefers-reduced-motion`, 한/영, 400px 이하 1열, 섹션 불투명 배경 금지(배경 그림 D26이 비치게; Join Us 다크 밴드는 §5.1 명세대로, 헤더·푸터는 가독성 때문에 유지). 고정 배경 `wash-blue.svg`·`wash-gold.svg`는 radial 그라디언트였으므로 옅은 차가운 단색으로 교체(`background.yml`은 그대로). 구현: `tokens.css`, `global.css`, `Hero`·`ResearchCard`·`MemberCard`·`FacilityCard`·`PubList`·`Header`·`Figure`, `HomeView` 등 |
+| D29 | Publications 개편: 논문 항목을 블록형 3줄(① 제목 ② 저자, 구성원 굵게 ③ 저널·연도;권(호):쪽·IF·DOI/PubMed/PDF·분야 링크)로. 목록 페이지는 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `PUBS_PER_PAGE`)이 함께 동작하고, 바꾸면 1페이지로. 모두 클라이언트 JS 이며 JS 없으면 연도별 전체 목록. DOI 링크 앞 작은 인라인 SVG 아이콘 허용(§8 금지의 예외). Faculty 학력·경력과 구성원 연구 주제에 `**…**` 굵게 지원(bold만, 이스케이프 후 치환) | 확정 | 사용자 요청(2026-11-26). 연도별·저널별 두 보기를 모두 서버에서 그리고 스크립트가 하나만 보여 줌(저널별 항목에는 id 없음). 구현 `PubList.astro`, `PubItem.astro`, `src/lib/publications.ts`, `src/lib/inline.ts`, `TodoText.astro` |
 
 ---
 
@@ -177,7 +178,8 @@
 ### 5.5 Publications (영문 전용)
 
 - **소스**: `data/publications.bib` (Zotero 내보내기). 연도 역순 그룹.
-- **항목 형식**: `Authors. Title. Journal Year;Vol:Pages. DOI` + 분야 칩. 연구실 멤버 이름은 굵게.
+- **항목 형식(D29)**: 블록형 3줄 — ① 제목(굵게) ② 저자(연구실 멤버 굵게) ③ 저널(이탤릭) 연도;권(호):쪽 · IF · DOI(링크 아이콘)/PubMed/PDF · 분야 링크(굵은 밑줄 평문).
+- **목록 페이지 동작(D29)**: 연도별 \| 저널별 보기 전환(`?view=journal`, 저널명 알파벳순·안에서는 연도 내림차순, 제목 "저널 · 편수"), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `src/lib/publications.ts`의 `PUBS_PER_PAGE`). 필터·보기를 바꾸면 1페이지, 빈 그룹 제목 숨김. JS 없으면 연도별 전체 목록. Research 상세의 관련 논문 5편에는 탭·필터·페이지네이션 없음.
 - **분야 연결**: BibTeX `keywords`에 Research slug(예: `lipidomics, ptm`) 기재 → 해당 Research 상세에 자동 노출. 목록 페이지에서 분야별 필터.
 - **멤버 강조**: 멤버 파일의 `aliases`(예: `Kim KP`, `Kim, Kwang Pyo`)로 저자명 매칭.
 - **링크**: DOI/PubMed 링크가 기본. PDF는 오픈액세스 논문만 `pdf` 필드로 연결(R6).
@@ -309,6 +311,8 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 **news**: `date`, `title`, `status`, 본문. **pages**: `title`, `status`, `source`, 본문.
 
+굵게 표시(D29): Faculty의 `education`·`career` 항목과 구성원의 `topic_en`/`topic_ko`에서 `**…**`로 굵게 표시 가능. bold만 지원하고 다른 Markdown은 처리하지 않음(`src/lib/inline.ts`, HTML은 이스케이프됨).
+
 ---
 
 ## 7. 기술 스택 · 명령어
@@ -389,7 +393,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 **접근성**: WCAG AA(본문 대비 4.5:1 이상), 키보드 포커스 표시(3px outline), 본문 건너뛰기 링크, `prefers-reduced-motion` 존중, 터치 타깃 44px 이상, 이미지 alt 필수, 색만으로 정보를 전달하지 않음.
 
-**금지**: 이모지·장식 아이콘, 보이는 그라디언트 전부(보라 계열 포함; Backdrops mask용 radial-gradient만 예외), box-shadow, 알약형(999px)·원형(50%) 모서리, 테두리+흰 배경 카드, 베이지·크림 등 따뜻한 톤 배경, 섹션 불투명 배경(배경 그림이 가려짐; Join Us 다크 밴드 제외), 자동 재생 미디어, 외부 iframe(구글 지도 퍼가기 iframe `map_embed_url`만 허용, D27). (D28)
+**금지**: 이모지·장식 아이콘, 보이는 그라디언트 전부(보라 계열 포함; Backdrops mask용 radial-gradient만 예외), box-shadow, 알약형(999px)·원형(50%) 모서리, 테두리+흰 배경 카드, 베이지·크림 등 따뜻한 톤 배경, 섹션 불투명 배경(배경 그림이 가려짐; Join Us 다크 밴드 제외), 자동 재생 미디어, 외부 iframe(구글 지도 퍼가기 iframe `map_embed_url`만 허용, D27). 기능적 링크 아이콘(DOI 링크 앞 작은 인라인 SVG 등)은 예외. (D28·D29)
 
 **배경 그림·스크롤(D26)**: 사용자 요청으로 `src/data/background.yml` 의 그림을 글자 뒤(`z-index:-1`)에 깔고 마우스 휠 스크롤을 부드럽게 함. §8 '장식 최소'의 예외이므로 ① 글자 대비 4.5:1 을 해치지 않게 그림은 옅게(float `opacity` ≤ 0.8, 선 그림 0.5~0.7, 사진 0.15~0.3) ② 그림마다 `credit`·`license` 필수(R6) ③ 보라–파랑 그라디언트 금지는 그대로 ④ `prefers-reduced-motion` 에서는 모든 움직임 끔 ⑤ 그림은 장식이므로 `alt=""`·`aria-hidden`. 홈페이지 기본 샘플은 자체 제작 SVG(`license: own`)이며 실제 그림이 오면 교체.
 
@@ -505,3 +509,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-25 rev.10: 히어로 그림을 사용자가 새로 준 두 번째 스펙트럼(m/z 350–1100, 1486×428, `inbox/home/` → `inbox/_done/home/ms_spectrum-2.png`)으로 교체. 자르지 않고 그대로 `src/assets/home/hero-ms-spectrum.png`에 덮어씀.
 - 2026-11-26 rev.11: 논문 데이터 반영(커밋 `428faa1`, 브랜치 `feat/pubs-if-and-design`). `inbox/fsb-impact-factor.patch` 적용 — bib `impactfactor` 필드를 논문 항목에 "IF n"으로 표시(`src/lib/publications.ts`, `PubList.astro`, i18n `publications.if`·`if_title`, `pubs-check` 숫자 검사). `data/publications.bib`를 사용자 제공 191편(2010~2026, keywords 초안 포함)으로 교체. pubs:check 경고 93(keywords 없는 항목·DOI 없음)·오류 0. Q8 닫힘, §13 Publications 초안.
 - 2026-11-26 rev.12: 디자인 정리(D28, 사용자 요청). 카드·알약·그림자 제거, 모서리 2px, 교차 배경 띠 제거, 홈 섹션 리듬(96/40/120px, 4:8·전폭·5:7, 제목 위치 혼합), Hero 비대칭(12열: 글 1~8열, 그림 4~12열). Research는 번호 행 목록(`ResearchCard.astro`), Members·Facility는 구분선만(`MemberCard.astro`, `FacilityCard.astro`), 논문 `.tag` 밑줄 링크·`.chip` 밑줄 탭(`PubList.astro`), 햄버거 아이콘 box-shadow → 가상 요소(`Header.astro`), Faculty 타임라인 원형 점 → 각진 눈금. 고정 배경 `wash-blue.svg`·`wash-gold.svg`의 radial 그라디언트를 옅은 차가운 단색으로 교체(`background.yml`은 그대로). §8 방향·레이아웃·컴포넌트·금지 문구 수정.
+- 2026-11-26 rev.13: Publications 개편(D29, 사용자 요청). 논문 항목을 블록형 3줄로(`PubItem.astro` 신설, DOI 링크 아이콘 인라인 SVG). 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 10편씩 페이지네이션(`PUBS_PER_PAGE`, `?page=`), 분야 필터와 함께 동작(`PubList.astro` 스크립트, JS 없으면 연도별 전체 목록). i18n `publications.view_label/view_year/view_journal/pagination_label/page_n` 추가. Faculty 학력·경력·구성원 연구 주제에 `**…**` 굵게(`src/lib/inline.ts`, `TodoText` `bold`). `global.css`에 `[hidden]` 우선 규칙. §5.5 항목 형식·목록 동작, §6 굵게 규칙, §8 금지 예외 갱신.

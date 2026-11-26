@@ -1,196 +1,249 @@
 ---
-// 논문 목록: 연도별 그룹, "Authors. Title. Journal Year;Vol:Pages. DOI" + 분야 칩. 멤버 굵게.
-// filters=true 이면 분야별 필터 버튼(클라이언트 JS, 없어도 전체 목록이 보임)
+// 논문 목록 (CLAUDE.md §5.5, D29): 블록형 항목(PubItem) + 연도별 | 저널별 보기 전환 + 분야 필터 + 10편씩 페이지네이션.
+// filters=true 이면 도구 모음(보기 탭·분야 필터·개수·페이지네이션)을 붙입니다. 동작은 모두 클라이언트 JS 이며,
+// JS 가 없으면 서버가 그린 연도별 전체 목록이 그대로 보입니다. Research 상세의 관련 논문(filters=false)은 목록만 그립니다.
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
-import {
-  doiUrl,
-  groupByYear,
-  isMemberAuthor,
-  pubmedUrl,
-  type Publication,
-} from '../lib/publications';
-import { href, withBase } from '../lib/url';
+import { PUBS_PER_PAGE, groupByJournal, groupByYear, type Publication } from '../lib/publications';
+import PubItem from './PubItem.astro';
 
 interface Props {
   publications: Publication[];
   locale: Locale;
   aliasKeys: Set<string>;
   slugs: string[];
+  /** 도구 모음(보기 전환·분야 필터·페이지네이션) 표시 */
   filters?: boolean;
   showYears?: boolean;
   id?: string;
 }
 const { publications, locale, aliasKeys, slugs, filters = false, showYears = true, id = 'publist' } = Astro.props;
 const t = useTranslations(locale);
-const groups = groupByYear(publications);
+const byYear = groupByYear(publications);
+const byJournal = filters ? groupByJournal(publications) : [];
 const usedSlugs = slugs.filter((s) => publications.some((p) => p.tags.includes(s)));
-
-function sanitizeTitle(html: string): string {
-  return html.replace(/<(?!\/?(i|b|em|strong|sup|sub|span)\b)[^>]*>/gi, '');
-}
-function pdfHref(pdf: string): string {
-  return /^https?:\/\//i.test(pdf) ? pdf : withBase(pdf);
-}
+const countText = publications.length === 1 ? t('publications.count_one') : t('publications.count', { n: publications.length });
 ---
 
-<div class="publist" data-publist id={id}>
+<div
+  class="publist"
+  data-publist
+  id={id}
+  data-controls={filters ? '' : undefined}
+  data-per-page={PUBS_PER_PAGE}
+  data-prev={t('common.previous')}
+  data-next={t('common.next')}
+  data-page-label={t('publications.page_n')}
+>
   {
-    filters && usedSlugs.length > 0 && (
-      <div class="publist__filters" role="group" aria-label={t('publications.filter_label')}>
-        <span class="label">{t('publications.filter_label')}</span>
-        <div class="publist__chips">
-          <button type="button" class="chip" data-filter="all" aria-pressed="true">
-            {t('publications.filter_all')}
-          </button>
-          {usedSlugs.map((s) => (
-            <button type="button" class="chip" data-filter={s} aria-pressed="false">
-              {t(`research.short.${s}`)}
+    filters && (
+      <div class="publist__toolbar">
+        <div class="publist__row" role="group" aria-label={t('publications.view_label')}>
+          <span class="label">{t('publications.view_label')}</span>
+          <div class="publist__tabs">
+            <button type="button" class="tab" data-view="year" aria-pressed="true">
+              {t('publications.view_year')}
             </button>
-          ))}
+            <button type="button" class="tab" data-view="journal" aria-pressed="false">
+              {t('publications.view_journal')}
+            </button>
+          </div>
         </div>
+        {usedSlugs.length > 0 && (
+          <div class="publist__row" role="group" aria-label={t('publications.filter_label')}>
+            <span class="label">{t('publications.filter_label')}</span>
+            <div class="publist__tabs">
+              <button type="button" class="chip" data-filter="all" aria-pressed="true">
+                {t('publications.filter_all')}
+              </button>
+              {usedSlugs.map((s) => (
+                <button type="button" class="chip" data-filter={s} aria-pressed="false">
+                  {t(`research.short.${s}`)}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         <span
           class="publist__count mono"
           data-count
           data-template={t('publications.count')}
           data-template-one={t('publications.count_one')}
         >
-          {publications.length === 1 ? t('publications.count_one') : t('publications.count', { n: publications.length })}
+          {countText}
         </span>
       </div>
     )
   }
 
+  <div data-view-list="year">
+    {
+      byYear.map((g) => (
+        <section class:list={['publist__group', { 'publist__group--year': showYears }]} data-group>
+          {showYears && <h3 class="publist__group-heading mono">{g.year || '—'}</h3>}
+          <ol class="publist__items">
+            {g.items.map((p) => (
+              <PubItem p={p} locale={locale} aliasKeys={aliasKeys} />
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+  </div>
+
   {
-    groups.map((g) => (
-      <section class="publist__year" data-year-group>
-        {showYears && <h3 class="publist__year-heading mono">{g.year || '—'}</h3>}
-        <ol class="publist__items">
-          {g.items.map((p) => (
-            <li class="pub" data-tags={p.tags.join(' ')} id={`pub-${p.key}`}>
-              <span class="pub__authors">
-                {p.authors.map((a, i) => (
-                  <>
-                    {i > 0 && ', '}
-                    {isMemberAuthor(a, aliasKeys) ? <strong>{a.display}</strong> : a.display}
-                  </>
-                ))}
-                {p.authors.length > 0 && '. '}
-              </span>
-              <span class="pub__title" set:html={sanitizeTitle(p.title)} />
-              {'. '}
-              <span class="pub__journal">{p.journal}</span>
-              {p.journal && ' '}
-              <span class="pub__ref">
-                {p.year || ''}
-                {p.volume && `;${p.volume}`}
-                {p.issue && `(${p.issue})`}
-                {p.pages && `:${p.pages}`}.
-              </span>
-              <span class="pub__links">
-                {p.impactFactor && (
-                  <span class="pub__if" title={t('publications.if_title')}>
-                    {t('publications.if')} {p.impactFactor}
-                  </span>
-                )}
-                {p.doi && (
-                  <a href={doiUrl(p.doi)} rel="noopener">
-                    {t('publications.doi')}
-                  </a>
-                )}
-                {p.pmid && (
-                  <a href={pubmedUrl(p.pmid)} rel="noopener">
-                    {t('publications.pubmed')}
-                  </a>
-                )}
-                {p.pdf && (
-                  <a href={pdfHref(p.pdf)} rel="noopener">
-                    {t('publications.pdf')}
-                  </a>
-                )}
-                {!p.doi && !p.pmid && p.url && (
-                  <a href={p.url} rel="noopener">
-                    Link
-                  </a>
-                )}
-              </span>
-              {p.tags.length > 0 && (
-                <span class="pub__tags">
-                  {p.tags.map((s) => (
-                    <a class="tag" href={href(locale, `/research/${s}`)}>
-                      {t(`research.short.${s}`)}
-                    </a>
-                  ))}
-                </span>
-              )}
-            </li>
-          ))}
-        </ol>
-      </section>
-    ))
+    filters && (
+      <div data-view-list="journal" hidden>
+        {byJournal.map((g) => (
+          <section class="publist__group publist__group--journal" data-group>
+            <h3 class="publist__group-heading">
+              {g.journal} <span class="publist__group-count mono">· {g.items.length}</span>
+            </h3>
+            <ol class="publist__items">
+              {g.items.map((p) => (
+                <PubItem p={p} locale={locale} aliasKeys={aliasKeys} withId={false} />
+              ))}
+            </ol>
+          </section>
+        ))}
+      </div>
+    )
   }
+
+  {filters && <nav class="publist__pager" data-pager aria-label={t('publications.pagination_label')} hidden />}
 </div>
 
-{
-  filters && (
-    <script>
-      document.querySelectorAll<HTMLElement>('[data-publist]').forEach((root) => {
-        const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
-        if (buttons.length === 0) return;
-        const items = Array.from(root.querySelectorAll<HTMLElement>('[data-tags]'));
-        const groups = Array.from(root.querySelectorAll<HTMLElement>('[data-year-group]'));
-        const countEl = root.querySelector<HTMLElement>('[data-count]');
+<script>
+  // 목록 동작 (D29): 보기 전환(연도별|저널별) · 분야 필터 · 페이지네이션. 상태는 URL 쿼리 view / area / page 에 기억합니다.
+  // 필터나 보기를 바꾸면 1페이지로 돌아가고, 페이지를 넘기면 목록 맨 위로 스크롤합니다. 빈 그룹 제목은 숨깁니다.
+  document.querySelectorAll<HTMLElement>('[data-publist][data-controls]').forEach((root) => {
+    const perPage = Number(root.dataset.perPage) || 10;
+    const lists: Record<string, HTMLElement | null> = {
+      year: root.querySelector('[data-view-list="year"]'),
+      journal: root.querySelector('[data-view-list="journal"]'),
+    };
+    const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-view]'));
+    const filterButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    const pager = root.querySelector<HTMLElement>('[data-pager]');
+    const countEl = root.querySelector<HTMLElement>('[data-count]');
+    const state = { view: 'year', area: 'all', page: 1 };
 
-        const apply = (tag: string) => {
-          let n = 0;
-          for (const li of items) {
-            const tags = (li.dataset.tags || '').split(' ').filter(Boolean);
-            const show = tag === 'all' || tags.includes(tag);
-            li.hidden = !show;
-            if (show) n++;
-          }
-          for (const g of groups) g.hidden = !g.querySelector('[data-tags]:not([hidden])');
-          for (const b of buttons) b.setAttribute('aria-pressed', String(b.dataset.filter === tag));
-          if (countEl) {
-            const tpl = n === 1 ? countEl.dataset.templateOne : countEl.dataset.template;
-            countEl.textContent = (tpl || '{n}').replace('{n}', String(n));
-          }
-        };
-
-        for (const b of buttons) {
-          b.addEventListener('click', () => {
-            const tag = b.dataset.filter || 'all';
-            apply(tag);
-            const url = new URL(location.href);
-            if (tag === 'all') url.searchParams.delete('area');
-            else url.searchParams.set('area', tag);
-            history.replaceState(null, '', url);
-          });
+    const renderPager = (pages: number) => {
+      if (!pager) return;
+      pager.replaceChildren();
+      pager.hidden = pages <= 1;
+      if (pages <= 1) return;
+      const button = (text: string, page: number, opts: { current?: boolean; disabled?: boolean; label?: string } = {}) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pager__btn';
+        b.textContent = text;
+        if (opts.label) b.setAttribute('aria-label', opts.label);
+        if (opts.current) b.setAttribute('aria-current', 'page');
+        b.disabled = !!opts.disabled;
+        b.addEventListener('click', () => {
+          state.page = page;
+          apply(true);
+        });
+        return b;
+      };
+      const pageLabel = root.dataset.pageLabel || 'Page {n}';
+      pager.append(button(root.dataset.prev || 'Previous', state.page - 1, { disabled: state.page === 1 }));
+      const wanted = [1, pages, state.page - 2, state.page - 1, state.page, state.page + 1, state.page + 2].filter((n) => n >= 1 && n <= pages);
+      let last = 0;
+      for (const n of [...new Set(wanted)].sort((a, b) => a - b)) {
+        if (n - last > 1) {
+          const gap = document.createElement('span');
+          gap.className = 'pager__gap';
+          gap.textContent = '…';
+          pager.append(gap);
         }
+        pager.append(button(String(n), n, { current: n === state.page, label: pageLabel.replace('{n}', String(n)) }));
+        last = n;
+      }
+      pager.append(button(root.dataset.next || 'Next', state.page + 1, { disabled: state.page === pages }));
+    };
 
-        const initial = new URLSearchParams(location.search).get('area');
-        if (initial && buttons.some((b) => b.dataset.filter === initial)) apply(initial);
+    const apply = (scroll = false) => {
+      const active = lists[state.view] ?? lists.year;
+      if (!active) return;
+      for (const el of Object.values(lists)) if (el) el.hidden = el !== active;
+      const items = Array.from(active.querySelectorAll<HTMLElement>('[data-tags]'));
+      const matching = items.filter((li) => state.area === 'all' || (li.dataset.tags || '').split(' ').includes(state.area));
+      const pages = Math.max(1, Math.ceil(matching.length / perPage));
+      state.page = Math.min(Math.max(1, state.page), pages);
+      const visible = new Set(matching.slice((state.page - 1) * perPage, state.page * perPage));
+      for (const li of items) li.hidden = !visible.has(li);
+      for (const g of active.querySelectorAll<HTMLElement>('[data-group]')) g.hidden = !g.querySelector('[data-tags]:not([hidden])');
+      for (const b of viewButtons) b.setAttribute('aria-pressed', String(b.dataset.view === state.view));
+      for (const b of filterButtons) b.setAttribute('aria-pressed', String(b.dataset.filter === state.area));
+      if (countEl) {
+        const n = matching.length;
+        const tpl = n === 1 ? countEl.dataset.templateOne : countEl.dataset.template;
+        countEl.textContent = (tpl || '{n}').replace('{n}', String(n));
+      }
+      renderPager(pages);
+      const url = new URL(location.href);
+      if (state.view === 'year') url.searchParams.delete('view');
+      else url.searchParams.set('view', state.view);
+      if (state.area === 'all') url.searchParams.delete('area');
+      else url.searchParams.set('area', state.area);
+      if (state.page === 1) url.searchParams.delete('page');
+      else url.searchParams.set('page', String(state.page));
+      history.replaceState(null, '', url);
+      if (scroll) root.scrollIntoView({ block: 'start' });
+    };
+
+    for (const b of viewButtons) {
+      b.addEventListener('click', () => {
+        state.view = b.dataset.view || 'year';
+        state.page = 1;
+        apply();
       });
-    </script>
-  )
-}
+    }
+    for (const b of filterButtons) {
+      b.addEventListener('click', () => {
+        state.area = b.dataset.filter || 'all';
+        state.page = 1;
+        apply();
+      });
+    }
+
+    const q = new URLSearchParams(location.search);
+    const view = q.get('view');
+    if (view && lists[view]) state.view = view;
+    const area = q.get('area');
+    if (area && filterButtons.some((b) => b.dataset.filter === area)) state.area = area;
+    const page = Number.parseInt(q.get('page') || '1', 10);
+    if (Number.isFinite(page) && page > 0) state.page = page;
+    apply();
+  });
+</script>
 
 <style>
-  /* 분야 필터 (D28): 박스 없이 아래 1px 선만. 알약 대신 밑줄 탭 — 눌린 상태는 밑줄·굵기·색으로 함께 표시 */
-  .publist__filters {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px 20px;
+  /* 도구 모음 (D28·D29): 박스 없이 아래 1px 선만. 왼쪽에 보기·필터 행, 오른쪽에 개수 */
+  .publist__toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px 16px;
+    align-items: start;
     margin-bottom: 28px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--line);
   }
-  .publist__chips {
+  .publist__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 20px;
+  }
+  .publist__tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 0 18px;
   }
+  /* 보기 탭·분야 필터: 알약 대신 밑줄 탭. 눌린 상태는 밑줄·굵기·색으로 함께 표시 */
+  .tab,
   .chip {
     min-height: var(--touch);
     padding: 0 2px;
@@ -202,88 +255,105 @@ function pdfHref(pdf: string): string {
     font-size: var(--fs-small);
     cursor: pointer;
   }
+  .tab:hover,
   .chip:hover {
     color: var(--accent);
   }
+  .tab[aria-pressed='true'],
   .chip[aria-pressed='true'] {
     color: var(--accent);
     border-bottom-color: var(--accent);
     font-weight: 700;
   }
   .publist__count {
-    margin-left: auto;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
     color: var(--muted-2);
   }
-  .publist__year {
+  /* 그룹: 연도별은 왼쪽에 연도, 저널별·관련 논문은 제목(있으면) 위에 */
+  .publist__group {
     display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: 16px 24px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px 24px;
     padding-block: 20px;
     border-top: 1px solid var(--line);
   }
-  .publist__year-heading {
+  .publist__group--year {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+  .publist__group-heading {
     font-size: var(--fs-h3);
     font-weight: 500;
     color: var(--muted-2);
     margin: 0;
     line-height: 1.5;
   }
+  .publist__group--journal .publist__group-heading {
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .publist__group-count {
+    font-weight: 500;
+    color: var(--muted-2);
+  }
   .publist__items {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .pub {
-    padding-block: 8px;
-    line-height: 1.6;
-  }
-  .pub + .pub {
+  /* 페이지네이션(스크립트가 그림): 글자 버튼, 터치 타깃 44px, 현재 페이지는 aria-current */
+  .publist__pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    margin-top: 24px;
+    padding-top: 12px;
     border-top: 1px solid var(--line);
   }
-  .pub__title {
-    font-weight: 600;
-  }
-  .pub__journal {
-    font-style: italic;
-  }
-  .pub__links {
-    display: inline-flex;
-    gap: 10px;
-    margin-left: 8px;
-    font-family: var(--font-mono);
-    font-size: var(--fs-label);
-    letter-spacing: 0.04em;
-  }
-  .pub__if {
-    color: var(--muted-2);
-    white-space: nowrap;
-  }
-  .pub__tags {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 4px 12px;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  /* 분야 링크 (D28): 알약 대신 밑줄 있는 평문 링크 */
-  .tag {
-    color: var(--muted);
-    font-size: 12.5px;
+  .publist__pager :global(.pager__btn) {
+    min-width: var(--touch);
+    min-height: var(--touch);
+    padding: 0 10px;
+    border: 0;
+    background: none;
+    color: var(--accent);
+    font: inherit;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.15em;
+    cursor: pointer;
   }
-  .tag:hover {
-    color: var(--accent);
+  .publist__pager :global(.pager__btn:hover) {
     text-decoration-thickness: 2px;
   }
+  .publist__pager :global(.pager__btn[aria-current='page']) {
+    color: var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+  }
+  .publist__pager :global(.pager__btn:disabled) {
+    color: var(--muted-2);
+    text-decoration: none;
+    cursor: default;
+  }
+  .publist__pager :global(.pager__gap) {
+    color: var(--muted-2);
+    padding: 0 4px;
+  }
   @media (max-width: 640px) {
-    .publist__year {
+    .publist__toolbar {
       grid-template-columns: 1fr;
-      gap: 4px;
     }
     .publist__count {
-      margin-left: 0;
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .publist__group--year {
+      grid-template-columns: 1fr;
+      gap: 4px;
     }
   }
 </style>

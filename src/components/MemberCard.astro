@@ -38,7 +38,7 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
       {altName && altName !== name && <span class="member-card__alt muted"> {altName}</span>}
     </h3>
     <p class="label">{t(`members.role.${d.role}`)}</p>
-    {!isAlumni && topic && <p class="member-card__topic"><TodoText text={topic} /></p>}
+    {!isAlumni && topic && <p class="member-card__topic"><TodoText text={topic} bold /></p>}
     {
       isAlumni && (
         <p class="member-card__topic small">

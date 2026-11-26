@@ -115,7 +115,12 @@
     "pubmed": "PubMed",
     "pdf": "PDF",
     "if": "IF",
-    "if_title": "Journal Impact Factor"
+    "if_title": "Journal Impact Factor",
+    "view_label": "View",
+    "view_year": "By year",
+    "view_journal": "By journal",
+    "pagination_label": "Pages",
+    "page_n": "Page {n}"
   },
   "members": {
     "label": "Members",
