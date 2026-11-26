@@ -189,6 +189,7 @@
 - **분야 연결**: BibTeX `keywords`에 Research slug(예: `lipidomics, ptm`) 기재 → 해당 Research 상세에 자동 노출. 목록 페이지에서 분야별 필터.
 - **멤버 강조**: 멤버 파일의 `aliases`(예: `Kim KP`, `Kim, Kwang Pyo`)로 저자명 매칭.
 - **링크**: DOI/PubMed 링크가 기본. PDF는 오픈액세스 논문만 `pdf` 필드로 연결(R6).
+- **IF 기준**: 전 논문 JCR 2025(Clarivate) 값으로 통일, JCR 미수록 학술지는 비움(2026-11-26 사용자 결정). 목록 소개 아래 안내 한 줄(i18n `publications.if_note`, 한/영, `[TODO]` 없음). bib 헤더 주석에 같은 규칙.
 - **현황**: 기존 사이트 목록은 화면상 2023년이 최신이었음. 2024~2026 논문은 새로 수집(§12 Q8).
 - **입력 형식**: `.bib`, `.ris`, `.nbib`(PubMed MEDLINE), DOI 목록(.txt)을 `inbox/publications/`에서 받아 BibTeX로 변환.
 - **점검**: `npm run pubs:check` — DOI 중복, 필수 필드 누락, 연도 정렬, `keywords`의 slug 오타. 저널 표기 불일치와 같은 저널의 IF 불일치는 경고(빌드는 통과).
@@ -535,3 +536,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.17: 배포 전 자동 검사(사용자 요청). `.github/workflows/deploy.yml`에 `check` 잡(checkout → setup-node 24, npm 캐시 → `npm ci` → `pubs:check` → `build` → `check`) 추가, `build`는 `needs: check`, `deploy`는 `needs: build`. `on`에 `pull_request`(main) 추가 — PR 에서는 `check`만. concurrency 를 `deploy` 잡으로 이동. §7.5 한 줄, `docs/MAINTAINING.md` 1·7 갱신.
 - 2026-11-26 rev.18: 개인정보 처리 안내 페이지(D32, 사용자 요청). `/privacy`·`/ko/privacy`(`routes.ts`, `RouteView`, `PrivacyView.astro`, `pages/{en,ko}/privacy.md`, i18n `nav.privacy`·`privacy.label`·`contact.form_privacy_link`), 푸터 링크(`site.yml` `nav.footer`). 문의 폼 동의 문구·안내문에서 링크. Markdown `{{site.…}}` 표식 플러그인(`remark-site-vars.mjs`, `astro.config.mjs`). 코드 점검: cookie·storage·분석·외부 스크립트 없음(구글 지도 iframe만). §4·§5.10·§7.6·Q17·§13 갱신, `docs/MAINTAINING.md` 3.7.
 - 2026-11-26 rev.19: Faculty 대표 논문 2열 표시(사용자 요청). `selected` 8편(mun2019proteogenomic, chung2026macrophages, lim2017suppression, jang2020breast, choi2012quantitative, jiang2016arginylation, song2024proteogenomic, chamolstad2017p62) 확인(데이터 변경 없음). `SelectedPubs.astro` 신설 — 저널+연도 큰 글씨, 제1저자+교수님(굵게)+et al., 제목 전체 링크; `FacultyView`에서 `PubList` 대신 사용. `sanitizeTitle`을 `src/lib/publications.ts`로 옮겨 공용화(PubList 동작 그대로). §5.2 대표 논문 줄, `docs/MAINTAINING.md` 3.1.
+- 2026-11-26 rev.20: Publications IF 기준 안내 문구(사용자 결정). 소개 문단 아래 작은 muted 한 줄(`PublicationsView.astro` `.pubs-if-note`, i18n `publications.if_note` en·ko). §5.5 IF 기준 줄, `docs/MAINTAINING.md` 3.1 IF 입력 안내.

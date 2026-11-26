@@ -45,6 +45,7 @@ src/assets/                  그림·사진 (research/, members/, facility/, gal
    ```
 4. PDF는 **오픈액세스 논문만** 올립니다. `public/pdf/` 에 파일을 넣고 `pdf = {/pdf/파일명.pdf}` 를 적습니다. 그 외 논문은 DOI 링크만 둡니다.
 5. 멤버 이름을 굵게 표시하려면 멤버 파일(`src/content/members/<id>.md`)의 `aliases` 에 논문 저자 표기(예: `Hong GD`)가 들어 있어야 합니다.
+6. 학술지 IF 는 `impactfactor = {4.1}` 처럼 숫자만 적습니다. 값은 **JCR 2025 의 학술지 IF**(논문이 나온 연도와 상관없이 같은 값, 소수 첫째 자리)이고, JCR 목록에 없는 학술지는 `impactfactor` 줄을 비워 두거나 적지 않습니다. 같은 학술지는 같은 값이어야 하며, 다르면 `npm run pubs:check` 가 경고로 알려 줍니다.
 
 ### 3.2 멤버 추가·졸업
 

@@ -27,6 +27,7 @@ if (errors.length > 0) {
     <span class="label">{t('publications.label')}</span>
     <h1>{t('publications.title')}</h1>
     <p class="lead">{t('publications.intro')}</p>
+    <p class="pubs-if-note">{t('publications.if_note')}</p>
   </div>
   <section class="section">
     <div class="container">
@@ -42,3 +43,14 @@ if (errors.length > 0) {
     </div>
   </section>
 </Base>
+
+<style>
+  /* IF 기준 안내(§5.5): 소개 문단 아래 작은 muted 한 줄 */
+  .pubs-if-note {
+    margin: 8px 0 0;
+    max-width: 72ch;
+    font-size: var(--fs-small);
+    line-height: 1.6;
+    color: var(--muted);
+  }
+</style>

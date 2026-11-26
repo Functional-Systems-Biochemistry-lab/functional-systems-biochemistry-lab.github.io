@@ -123,7 +123,8 @@
     "pagination_label": "페이지 이동",
     "page_n": "{n}페이지",
     "more_authors": "외 {n}명 더 보기",
-    "show_less": "접기"
+    "show_less": "접기",
+    "if_note": "IF(Impact Factor)는 Clarivate JCR 2025 기준 학술지 IF이며 출판 연도와 무관합니다. JCR에 수록되지 않은 학술지는 IF를 표시하지 않습니다."
   },
   "members": {
     "label": "구성원",

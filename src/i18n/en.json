@@ -123,7 +123,8 @@
     "pagination_label": "Pages",
     "page_n": "Page {n}",
     "more_authors": "+{n} more",
-    "show_less": "Show less"
+    "show_less": "Show less",
+    "if_note": "Impact Factors are the journal values from Clarivate JCR 2025, regardless of publication year. Journals not covered by JCR are shown without an IF."
   },
   "members": {
     "label": "Members",
