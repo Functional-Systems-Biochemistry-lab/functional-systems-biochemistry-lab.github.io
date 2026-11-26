@@ -349,6 +349,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 
 ### 7.5 배포
 - GitHub Pages + GitHub Actions. Astro 공식 배포 가이드를 따름.
+- 배포 전 자동 검사(Actions `check` 잡, 2026-11-26): `npm ci` → `npm run pubs:check` → `npm run build` → `npm run check` 순서. 통과해야 `build` → `deploy`가 이어짐. main 으로 오는 PR 에서는 `check`만 실행(`if: github.event_name != 'pull_request'`). concurrency 는 `deploy` 잡에만(group `pages`, cancel-in-progress false). pubs:check 는 오류만 실패시키고 경고는 통과.
 - 저장소: Organization `Functional-Systems-Biochemistry-lab` / `functional-systems-biochemistry-lab.github.io`(Public, D16). 기본 주소는 `astro.config.mjs`에 고정(`site` `https://functional-systems-biochemistry-lab.github.io`, `base` `/`). 다른 주소로 시험 배포할 때만 환경변수 `SITE_URL`/`BASE_PATH`로 덮어씀.
 - 초안 단계에서는 상단에 얇은 띠 `Draft — content under review`를 표시. 환경변수 `PUBLIC_DRAFT_BANNER`로 켜고 끔. 켜진 동안 robots.txt `Disallow: /`와 `noindex` 메타가 함께 적용됨(D25).
 - 커스텀 도메인은 학과·학교 확인 후(Phase 3).
@@ -518,3 +519,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.14: 저자 접기(D30, 사용자 요청). 저자 10명 초과(`AUTHOR_FOLD_LIMIT`, `src/lib/publications.ts`) 논문은 앞 3명·숨은 구간의 구성원·…·마지막 저자만 보이고 "+N more/Show less" 버튼으로 펼침(`PubList.astro` 스크립트, `PubItem.astro` 버튼 스타일, i18n `publications.more_authors`·`show_less`). §5.5 저자 접기 줄 추가.
 - 2026-11-26 rev.15: Contact 문의 폼 추가(D31, 사용자 요청). Web3Forms JSON POST(`src/views/ContactView.astro` 스크립트), `site.yml` `contact.form_key`(지금은 `[TODO]`라 폼 숨김), `src/lib/site.ts` 타입, i18n `contact.form_*`(en·ko). 라벨 위·밑줄 입력·직사각 버튼(D28 톤). 개인정보 안내문 초안(보유 기간 `[TODO]`, Q16). R9에 폼 활성화 조건, §5.8·§7.6·§13 갱신.
 - 2026-11-26 rev.16: 논문 데이터 갱신(사용자 제공 bib, 2026-11-26 15:56). IF 를 JCR 2025 학술지 값으로 통일(소수 첫째 자리, JCR 미수록은 비움), `keywords`에 `selected` 8편, 저널 표기 통일. 저널별 보기는 `normalizeName` 키로 묶고 그룹 제목에 IF 표시(`groupByJournal` → `JournalGroup`, `PubList.astro`). `pubs-check`에 "journal 표기 불일치"·"같은 저널인데 IF 가 다름" 경고 추가. pubs:check 경고 93·오류 0, build 33페이지, check 통과.
+- 2026-11-26 rev.17: 배포 전 자동 검사(사용자 요청). `.github/workflows/deploy.yml`에 `check` 잡(checkout → setup-node 24, npm 캐시 → `npm ci` → `pubs:check` → `build` → `check`) 추가, `build`는 `needs: check`, `deploy`는 `needs: build`. `on`에 `pull_request`(main) 추가 — PR 에서는 `check`만. concurrency 를 `deploy` 잡으로 이동. §7.5 한 줄, `docs/MAINTAINING.md` 1·7 갱신.
