@@ -44,7 +44,13 @@
     "join_text": "See what we look for, how to apply, and how to reach us.",
     "join_cta": "Join Us",
     "cta_join": "Join Us",
-    "cta_pubs": "Publications"
+    "cta_pubs": "Publications",
+    "pubs_label": "Publications",
+    "people_all": "All members",
+    "join_grad": "Graduate students (M.S. and Ph.D.)",
+    "join_intern": "Undergraduate interns",
+    "join_todo": "[TODO: application timing and requirements (Q5)]",
+    "contact_link": "Contact us"
   },
   "faculty": {
     "label": "Faculty",

@@ -1,18 +1,21 @@
 ---
-// Home (§5.1): Hero → About → Research 하이라이트 6개 → News 최근 3건(없으면 숨김) → Members 요약 + Join Us 띠
-// D28: 섹션마다 간격(96/40/120px)·열 비율(4:8, 전폭, 5:7)·제목 위치(왼쪽 열/위)를 다르게 둡니다. 교차 배경 띠는 없음.
-// 섹션 id(about/research/news/people)는 배경 그림(background.yml)의 near 기준이므로 유지합니다.
+// Home (§5.1, D33): Hero → About → Research → News(0건이면 숨김) → Selected papers(selected 최신 5편, 0편이면 숨김) → People → Join Us 밴드 → Contact 요약
+// D28: 섹션마다 간격·열 비율(News 4:8, 대표 논문 5:7, Contact 5:7, People 은 위 제목 + 전폭)·제목 위치를 다르게 둡니다. 교차 배경 띠·불투명 배경 없음(Join 밴드만 예외).
+// 섹션 id(about/research/news/people)는 배경 그림(background.yml)의 near 기준이므로 유지. 새 id: pubs, join, contact.
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import ResearchCard from '../components/ResearchCard.astro';
 import NewsList from '../components/NewsList.astro';
+import PubList from '../components/PubList.astro';
 import MemberCard from '../components/MemberCard.astro';
 import JoinBand from '../components/JoinBand.astro';
+import ContactInfo from '../components/ContactInfo.astro';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
 import { getMembers, getNews, getPage, getResearch, sortMembers } from '../lib/content';
 import { resolveAsset } from '../lib/assets';
+import { HOME_SELECTED_MAX, aliasKeySet, loadPublications, sortByYearIf } from '../lib/publications';
 import { department, isReal, site, siteName } from '../lib/site';
 import { href } from '../lib/url';
 
@@ -27,7 +30,27 @@ const research = await getResearch(locale);
 const news = (await getNews(locale)).slice(0, 3);
 const members = sortMembers(await getMembers());
 const pi = members.find((m) => m.data.role === 'pi');
-const currentCount = members.filter((m) => m.data.role !== 'alumni' && m.data.role !== 'pi').length;
+// 현재 구성원(PI·졸업생 제외) 최대 4명 — 정렬은 §5.6(직위 → 입학 연월)
+const currentPreview = members.filter((m) => m.data.role !== 'alumni' && m.data.role !== 'pi').slice(0, 4);
+
+// 대표 논문: keywords 의 selected 중 최신 HOME_SELECTED_MAX 편(연도 ↓, 같은 해 IF ↓). 목록은 PubList 읽기 전용(탭·필터·페이지네이션 없음)
+const slugs = research.map((r) => r.data.slug);
+const { publications } = loadPublications(slugs);
+const selected = sortByYearIf(publications.filter((p) => p.selected)).slice(0, HOME_SELECTED_MAX);
+const aliasKeys = aliasKeySet(members.map((m) => m.data.aliases));
+// Faculty 페이지의 PubMed·Google Scholar 링크가 실제 값이면 목록 아래에 함께 표시
+const faculty = await getPage(locale, 'faculty');
+const pubLinks = [
+  { label: 'PubMed', url: faculty.data.links?.pubmed },
+  { label: 'Google Scholar', url: faculty.data.links?.scholar },
+].filter((l): l is { label: string; url: string } => isReal(l.url));
+
+const contactPage = await getPage(locale, 'contact');
+// Join 밴드의 모집 구분: 한 줄 설명은 Join 페이지 확정 전이라 [TODO] (Q5)
+const joinItems = [
+  { name: t('home.join_grad'), note: t('home.join_todo') },
+  { name: t('home.join_intern'), note: t('home.join_todo') },
+];
 
 const title = isReal(home.data.title) ? home.data.title : siteName(locale);
 const tagline = home.data.tagline ?? '';
@@ -61,7 +84,7 @@ const heroImage = resolveAsset(home.data.hero_image);
         link={{ href: href(locale, '/research'), text: t('home.research_all') }}
       />
       <div class="research-list">
-        {research.map((entry) => <ResearchCard entry={entry} locale={locale} />)}
+        {research.map((entry) => <ResearchCard entry={entry} locale={locale} showTags />)}
       </div>
     </div>
   </section>
@@ -73,7 +96,7 @@ const heroImage = resolveAsset(home.data.hero_image);
           <div class="home-news__aside">
             <span class="label">{t('home.news_label')}</span>
             <h2>{t('home.news_title')}</h2>
-            <a href={href(locale, '/news')}>{t('home.news_all')}</a>
+            <a href={href(locale, '/news')}>{t('home.news_all')} →</a>
           </div>
           <NewsList items={news} locale={locale} />
         </div>
@@ -81,26 +104,69 @@ const heroImage = resolveAsset(home.data.hero_image);
     )
   }
 
+  {
+    selected.length > 0 && (
+      <section class="home-pubs" id="pubs">
+        <div class="container home-pubs__grid">
+          <div class="home-pubs__aside">
+            <span class="label">{t('home.pubs_label')}</span>
+            <h2>{t('faculty.selected_pubs')}</h2>
+            <a href={href(locale, '/publications')}>{t('faculty.all_pubs')} →</a>
+          </div>
+          <div class="home-pubs__list">
+            <PubList publications={selected} locale={locale} aliasKeys={aliasKeys} slugs={slugs} id="home-pubs" />
+            <p class="home-pubs__links">
+              <a href={href(locale, '/publications')}>{t('faculty.all_pubs')} →</a>
+              {pubLinks.map((l) => (
+                <a href={l.url} rel="noopener">
+                  {l.label}
+                </a>
+              ))}
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   <section class="home-people" id="people">
-    <div class="container home-people__grid">
-      <div class="home-people__text">
-        <span class="label">{t('home.people_label')}</span>
-        <h2>{t('home.people_title')}</h2>
-        <p class="muted">{t('home.people_text')}</p>
-        <a class="btn btn--secondary" href={href(locale, '/members')}>{t('home.people_link')}</a>
-      </div>
-      <div class="home-people__list">
-        {pi && <MemberCard member={pi} locale={locale} link={href(locale, '/faculty')} compact />}
-        {currentCount === 0 && <p class="empty small">{t('members.empty_current')}</p>}
-      </div>
+    <div class="container">
+      <SectionHeading label={t('home.people_label')} title={t('home.people_title')} />
+      {pi && <MemberCard member={pi} locale={locale} link={href(locale, '/faculty')} compact />}
+      {
+        currentPreview.length > 0 && (
+          <div class="home-people__grid">
+            {currentPreview.map((m) => (
+              <MemberCard member={m} locale={locale} />
+            ))}
+          </div>
+        )
+      }
+      <p class="home-people__more">
+        <a href={href(locale, '/members')}>{t('home.people_all')} →</a>
+      </p>
     </div>
   </section>
 
   <JoinBand
+    id="join"
     title={t('home.join_title')}
     text={t('home.join_text')}
     cta={{ href: href(locale, site.nav.join.path), text: t('home.join_cta') }}
+    items={joinItems}
   />
+
+  <section class="home-contact" id="contact">
+    <div class="container">
+      <SectionHeading label={t('contact.label')} title={contactPage.data.title} />
+      <div class="home-contact__grid">
+        <ContactInfo locale={locale} />
+      </div>
+      <p class="home-contact__more">
+        <a href={href(locale, '/contact')}>{t('home.contact_link')} →</a>
+      </p>
+    </div>
+  </section>
 </Base>
 
 <style>
@@ -125,48 +191,107 @@ const heroImage = resolveAsset(home.data.hero_image);
   .home-research {
     padding-block: var(--section-sm) var(--section-lg);
   }
-  /* News: 제목 왼쪽 5열, 목록 7열 */
+  /* News: 제목 왼쪽 4열, 목록 8열. 위아래 64px */
   .home-news {
     padding-block: 64px;
   }
   .home-news__grid {
     display: grid;
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: 4fr 8fr;
     column-gap: var(--gap);
     align-items: start;
   }
   .home-news__aside h2 {
     margin-top: 0.3em;
   }
-  /* People: 글 5열, PI 행 7열. 위 120px / 아래 96px */
-  .home-people {
+  /* Selected papers: 글 5열, 목록 7열. 위 120px / 아래 96px */
+  .home-pubs {
     padding-block: var(--section-lg) var(--section-md);
   }
-  .home-people__grid {
+  .home-pubs__grid {
     display: grid;
     grid-template-columns: 5fr 7fr;
     column-gap: var(--gap);
-    row-gap: 32px;
     align-items: start;
   }
-  .home-people__text h2 {
+  .home-pubs__aside h2 {
     margin-top: 0.3em;
   }
-  .home-people__text .btn {
-    margin-top: 8px;
+  .home-pubs__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin: 20px 0 0;
+    font-weight: 600;
+  }
+  /* People: 제목 위 전폭 → PI 가로 카드 → 현재 구성원 4열 → 전체 보기. 위 40px / 아래 120px */
+  .home-people {
+    padding-block: var(--section-sm) var(--section-lg);
+  }
+  .home-people__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gap);
+    row-gap: 6px; /* 카드(subgrid 6행)의 줄 사이 간격 */
+    margin-top: 24px;
+  }
+  .home-people__more,
+  .home-contact__more {
+    margin: 28px 0 0;
+    font-weight: 600;
+  }
+  /* Contact 요약: 연락처 5열, 지도 7열(지도 링크 버튼은 지도 아래). 위 96px / 아래 120px */
+  .home-contact {
+    padding-block: var(--section-md) var(--section-lg);
+  }
+  .home-contact__grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: var(--gap);
+    row-gap: 16px;
+    align-items: start;
+  }
+  .home-contact__grid :global(.contact__dl) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .home-contact__grid :global(.contact__figure) {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+  }
+  .home-contact__grid :global(.contact__map) {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
   }
   @media (max-width: 860px) {
     .home-about__grid,
     .home-news__grid,
-    .home-people__grid {
+    .home-pubs__grid,
+    .home-contact__grid {
       grid-template-columns: 1fr;
       row-gap: 16px;
+    }
+    .home-contact__grid :global(.contact__dl),
+    .home-contact__grid :global(.contact__figure),
+    .home-contact__grid :global(.contact__map) {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .home-people__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .home-about {
       padding-block: 56px 40px;
     }
     .home-news {
       padding-block: 40px;
+    }
+  }
+  @media (max-width: 400px) {
+    .home-people__grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>

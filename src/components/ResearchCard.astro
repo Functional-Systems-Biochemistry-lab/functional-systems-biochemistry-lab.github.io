@@ -1,17 +1,28 @@
 ---
-// 연구 분야 행 (D28, 카드 아님): 큰 번호 · 큰 제목 · 한 줄 요약, 대표 이미지(16:9)는 오른쪽. 위아래 1px 구분선만.
+// 연구 분야 행 (D28, 카드 아님): 큰 번호 · (showTags: 연구 키워드 한 줄, mono) · 큰 제목 · 한 줄 요약, 대표 이미지(16:9)는 오른쪽. 위아래 1px 구분선만.
 import { Image } from 'astro:assets';
 import type { Locale } from '../i18n/config';
 import type { ResearchEntry } from '../lib/content';
 import { resolveAsset, responsive } from '../lib/assets';
+import { useTranslations } from '../lib/i18n';
 import { href } from '../lib/url';
 
 interface Props {
   entry: ResearchEntry;
   locale: Locale;
   headingLevel?: 2 | 3;
+  /** frontmatter tags 를 키워드 한 줄로 표시 (홈, D33). 이름은 i18n research.short.<slug>, 없으면 slug 그대로 */
+  showTags?: boolean;
 }
-const { entry, locale, headingLevel = 3 } = Astro.props;
+const { entry, locale, headingLevel = 3, showTags = false } = Astro.props;
+const t = useTranslations(locale);
+const tagNames = showTags
+  ? entry.data.tags.map((s) => {
+      const key = `research.short.${s}`;
+      const v = t(key);
+      return v === key ? s : v;
+    })
+  : [];
 const cover = resolveAsset(entry.data.cover);
 const url = href(locale, `/research/${entry.data.slug}`);
 const Heading = `h${headingLevel}` as 'h2' | 'h3';
@@ -21,6 +32,7 @@ const number = String(entry.data.order).padStart(2, '0');
 <article class="research-row">
   <span class="research-row__num">{number}</span>
   <div class="research-row__text">
+    {tagNames.length > 0 && <p class="research-row__tags mono">{tagNames.join(' · ')}</p>}
     <Heading class="research-row__title"><a href={url}>{entry.data.title}</a></Heading>
     <p class="research-row__summary">{entry.data.summary}</p>
   </div>
@@ -59,6 +71,13 @@ const number = String(entry.data.order).padStart(2, '0');
     font-size: var(--fs-h2-prose);
     line-height: 1.2;
     margin: 0 0 10px;
+  }
+  /* 연구 키워드 한 줄(mono, 작게) — 제목 위 */
+  .research-row__tags {
+    margin: 0 0 8px;
+    font-size: var(--fs-label);
+    letter-spacing: 0.04em;
+    color: var(--muted-2);
   }
   .research-row__title a {
     color: var(--ink);

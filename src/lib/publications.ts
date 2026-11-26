@@ -163,6 +163,15 @@ export const PUBS_PER_PAGE = 10;
 /** 저자가 이 수를 넘으면 접어서 표시 — 앞 3명 · 숨은 구간의 구성원 · … · 마지막 저자 + "+N more" 버튼 (D30, §5.5) */
 export const AUTHOR_FOLD_LIMIT = 10;
 
+/** 홈 대표 논문 수 (D33): keywords 에 selected 가 든 논문 중 최신 순으로 이만큼 */
+export const HOME_SELECTED_MAX = 5;
+
+/** 연도 내림차순, 같은 연도는 IF 내림차순(IF 없는 논문은 뒤) — Faculty 대표 논문·홈 대표 논문 공통 */
+export function sortByYearIf(pubs: Publication[]): Publication[] {
+  const ifNum = (p: Publication) => Number.parseFloat(p.impactFactor ?? '') || 0;
+  return [...pubs].sort((a, b) => b.year - a.year || ifNum(b) - ifNum(a));
+}
+
 export interface JournalGroup {
   /** 표시용 저널명 — 같은 저널의 표기가 여러 가지면 가장 많이 쓰인 표기(동률은 먼저 나온 것) */
   journal: string;

@@ -1,20 +1,43 @@
 ---
-// 다크 밴드 CTA (Join Us). 버튼 1개.
+// 다크 밴드 CTA (Join Us). 배경 --brand 는 유지(§5.1·D28 예외).
+// 기본: 왼쪽 제목·문장, 오른쪽 버튼 1개. items 를 주면(홈, D33) 오른쪽에 모집 구분 줄(굵은 흰 글씨 + 한 줄 설명, 흰 반투명 1px 구분선)과 금색 버튼.
+import TodoText from './TodoText.astro';
+
 interface Props {
   title: string;
   text?: string;
   cta: { href: string; text: string };
+  /** 모집 구분: name(굵게) + note(한 줄 설명, [TODO] 는 표식으로). 박스·테두리 없이 구분선만 */
+  items?: { name: string; note: string }[];
+  id?: string;
 }
-const { title, text, cta } = Astro.props;
+const { title, text, cta, items = [], id } = Astro.props;
+const hasItems = items.length > 0;
 ---
 
-<section class="join-band">
-  <div class="container join-band__inner">
+<section class="join-band" id={id}>
+  <div class:list={['container', 'join-band__inner', { 'join-band__inner--items': hasItems }]}>
     <div>
       <h2 class="join-band__title">{title}</h2>
       {text && <p class="join-band__text">{text}</p>}
     </div>
-    <a class="btn btn--highlight" href={cta.href}>{cta.text}</a>
+    <div class="join-band__side">
+      {
+        hasItems && (
+          <ul class="join-band__items">
+            {items.map((it) => (
+              <li class="join-band__item">
+                <p class="join-band__item-name">{it.name}</p>
+                <p class="join-band__item-note">
+                  <TodoText text={it.note} />
+                </p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <a class="btn btn--highlight" href={cta.href}>{cta.text}</a>
+    </div>
   </div>
 </section>
 
@@ -30,6 +53,14 @@ const { title, text, cta } = Astro.props;
     justify-content: space-between;
     gap: 32px;
   }
+  /* 모집 구분이 있으면 왼쪽 글 5 : 오른쪽 목록 7 */
+  .join-band__inner--items {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    align-items: start;
+    column-gap: 48px;
+    padding-block: 8px;
+  }
   .join-band__title {
     margin: 0 0 0.3em;
     color: #fff;
@@ -39,10 +70,36 @@ const { title, text, cta } = Astro.props;
     color: rgba(255, 255, 255, 0.8);
     max-width: 56ch;
   }
+  .join-band__items {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .join-band__item {
+    padding-block: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .join-band__item:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .join-band__item-name {
+    margin: 0 0 2px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .join-band__item-note {
+    margin: 0;
+    font-size: var(--fs-small);
+    color: rgba(255, 255, 255, 0.8);
+  }
   @media (max-width: 720px) {
     .join-band__inner {
       flex-direction: column;
       align-items: flex-start;
+    }
+    .join-band__inner--items {
+      grid-template-columns: 1fr;
+      row-gap: 24px;
     }
   }
 </style>

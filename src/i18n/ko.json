@@ -44,7 +44,13 @@
     "join_text": "찾는 사람, 지원 방법, 연락처를 안내합니다.",
     "join_cta": "지원 안내",
     "cta_join": "지원 안내",
-    "cta_pubs": "논문"
+    "cta_pubs": "논문",
+    "pubs_label": "논문",
+    "people_all": "구성원 전체 보기",
+    "join_grad": "대학원생 (석사·박사)",
+    "join_intern": "학부 인턴",
+    "join_todo": "[TODO: 지원 시기·요건 (Q5)]",
+    "contact_link": "문의하기"
   },
   "faculty": {
     "label": "교수",

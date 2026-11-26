@@ -96,6 +96,7 @@
 | D30 | 저자 접기: 저자가 `AUTHOR_FOLD_LIMIT`(= 10)명을 넘는 논문은 앞 3명 · 숨은 구간의 연구실 구성원(굵게) · … · 마지막 저자만 보이고 "+N more"(`aria-expanded`) 버튼으로 전체를 펼침("Show less"로 다시 접음). 순서는 그대로, 구성원이 앞 3명·마지막에 있으면 중복 표시 없음. 서버는 전체 저자를 그리고 접기는 클라이언트 JS 가 적용 | 확정 | 사용자 요청(2026-11-26). 기준 수는 `src/lib/publications.ts` 한 곳. 분야 필터·보기 전환·페이지네이션·Research 상세 목록 모두 적용. i18n `publications.more_authors`·`show_less`. 구현 `PubList.astro` 스크립트, `PubItem.astro`(`.pub__author[data-member]`) |
 | D31 | Contact 문의 폼: Web3Forms(무료, 월 250건)로 전송. `site.yml` `contact.form_key`(access key)가 실제 값일 때만 폼을 그리고, `[TODO…]`·빈 값이면 연락처만 표시. 받는 이메일 주소는 Web3Forms 쪽에만 보관(코드·site.yml·CLAUDE.md에 쓰지 않음). 필드 `first_name`·`last_name`·`email`(필수)·`subject`·`message`(필수) + 개인정보 동의 체크(필수) + 숨김 `botcheck`. 클라이언트 JS가 JSON POST(제목 앞 "[FSB Lab] ", 비면 "(제목 없음)"), 보내는 동안 버튼 잠금, 성공 시 폼 초기화, 결과는 `role="status"` 한 줄. JS 없으면 기본 form POST | 확정 | 사용자 요청(2026-11-26). 폼 활성화(키 입력)는 교수님 확인 후(R9). 외부 전송이므로 §7.6의 예외 — 폼 아래 안내문(수집 항목·목적·외부 서비스; 보유 기간은 Q16)에 명시. 디자인은 D28 톤(라벨 위, 밑줄 입력, 직사각 버튼). 구현 `src/views/ContactView.astro`, i18n `contact.form_*` |
 | D32 | 개인정보 처리 안내 페이지 `/privacy`(한/영): 문의 폼이 이름·이메일을 받으므로 신설. 구성 ① 수집 항목 ② 이용 목적 ③ 보유·이용 기간 ④ 외부 폼 서비스(Web3Forms) 경유 ⑤ 열람·정정·삭제 요청(대표 이메일) ⑥ 쿠키·방문 통계 ⑦ 시행일. 헤더 메뉴에는 넣지 않고 푸터 링크(`site.yml` `nav.footer`, i18n `nav.privacy`)만. 본문은 `pages/{en,ko}/privacy.md`(prose, 박스 없음). 문의 폼의 동의 문구·안내문에서 링크 | 확정 | 사용자 요청(2026-11-26). 미확정(보유 기간·책임자·시행일·국외 이전 고지 여부)은 `[TODO]`(Q17). ⑥은 코드 점검 결과(`src`·`public`에 cookie·localStorage·sessionStorage·분석 스크립트·외부 스크립트 없음) 기준 — 단 Contact 의 구글 지도 iframe(D27)은 Google 서버에서 불러오므로 Google 이 쿠키를 설정할 수 있다고 함께 적음. Markdown 에서 `site.yml` 값을 쓰는 표식 `{{site.contact.email}}`(remark 플러그인 `src/lib/remark-site-vars.mjs`, TODO 값이면 `[TODO: site.yml …]` 표식) 도입. 구현 `src/views/PrivacyView.astro`, `routes.ts` `privacy` |
+| D33 | Home 구성: 참고 이미지(다른 연구실 데모 홈)의 섹션 구성 채택, 스타일은 B 규칙(D28) 유지. 순서 Hero → About → Research(번호 행 + 키워드 한 줄) → News(4:8) → Selected papers(`selected` 최신 `HOME_SELECTED_MAX`=5편, PubList 읽기 전용, 5:7) → People(제목 위 전폭, PI 가로 카드 + 현재 구성원 최대 4명 + 전체 보기) → Join Us 밴드(왼쪽 글, 오른쪽 모집 구분 2줄 + 금색 버튼) → Contact 요약(연락처 5 : 지도 7, `ContactInfo.astro` 공용, 문의하기 링크). 섹션 불투명 배경 없음(밴드만 예외), 860px 이하 1열 | 확정 | 사용자 요청(2026-11-26). 모집 구분의 한 줄 설명은 Q5 확정 전이라 `[TODO]`. Contact 블록은 `ContactInfo.astro`로 빼서 Contact 페이지와 공용(페이지 보이는 내용 동일 확인). 구현 `HomeView.astro`, `JoinBand.astro`(`items`), `ResearchCard.astro`(`showTags`), `src/lib/publications.ts`(`HOME_SELECTED_MAX`, `sortByYearIf`), i18n `home.pubs_label/people_all/join_grad/join_intern/join_todo/contact_link` |
 
 ---
 
@@ -124,13 +125,18 @@
 
 ## 5. 페이지별 명세
 
-### 5.1 Home (위에서 아래 순서)
+### 5.1 Home (위에서 아래 순서, D33)
+
+Hero → About → Research → News → Selected papers(최신 5편) → People → Join Us 밴드(구분별 설명은 Q5 확정 후) → Contact 요약
 
 1. **Hero**: 연구실명, 한 줄 소개(2문장 이하), 버튼 [Join Us] [Publications], 대표 이미지(연구실 사진 또는 자체 그림. 없으면 질량 스펙트럼 SVG + "Illustration only" 캡션).
 2. **About** (3~4문장): 무엇을 하는지, 어떤 방식인지, 누구와 일하는지. 연구 철학·문화처럼 길어지는 내용은 Join Us로.
-3. **Research 하이라이트**: 6개 타일(제목 + 한 줄 + 대표 이미지) → 각 상세로 링크.
-4. **News**: 최근 3건(없으면 숨김).
-5. **Members 요약 + Join Us 띠**: 다크 밴드, 버튼 1개.
+3. **Research 하이라이트**: 번호 행 6개(연구 키워드 한 줄 + 제목 + 한 줄 요약 + 대표 이미지) → 각 상세로 링크. 제목 위·전폭.
+4. **News**: 최근 3건(없으면 숨김). 왼쪽 라벨·제목·전체 보기, 오른쪽 목록(4:8).
+5. **Selected papers**(`id="pubs"`): `keywords`의 `selected` 중 최신 5편(`HOME_SELECTED_MAX`, 연도↓·IF↓). PubList 읽기 전용(연도 소제목·멤버 굵게·저자 접기). 아래에 논문 전체 보기 + PubMed·Google Scholar(Faculty `links`가 실제 값일 때). 0편이면 숨김. 5:7.
+6. **People**: 제목 위 전폭 → PI 가로 카드 → 현재 구성원 최대 4명 한 행(사진 자리·분야 bold) → 구성원 전체 보기. 현재 구성원 0명이면 PI와 링크만(빈 안내 문구 없음).
+7. **Join Us 밴드**(`--brand`): 왼쪽 제목·문장, 오른쪽 모집 구분 2줄(대학원생(석사·박사), 학부 인턴 — 굵은 흰 글씨 + 한 줄 설명 `[TODO: 지원 시기·요건 (Q5)]`, 흰 반투명 1px 구분선) + 금색 버튼.
+8. **Contact 요약**(`id="contact"`): 소속·주소·이메일·전화(5) + 지도(7), 아래 문의하기 링크. `ContactInfo.astro`를 Contact 페이지와 공용. 문의 폼은 Home에 두지 않음.
 
 초안 문구(기존 사이트 About Us의 요지를 다시 쓴 것. 교수님 확인 전까지 `draft`):
 
@@ -545,3 +551,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.22: Publications 저널명을 제목과 구분(사용자 요청). `PubItem.astro` `.pub__journal` 이탤릭 → `--accent`·600(밑줄·hover 없음), `.pub__ref` muted·400. 연도별·저널별·Research 상세 목록에 공통 적용(저널별 그룹 제목은 그대로). 대비 accent/bg 6.6:1·accent/surface 7.2:1. §5.5 항목 형식, §8 한 줄.
 - 2026-11-26 rev.23: Members 카드 줄 정리(사용자 요청). `MemberCard.astro` — 연구 분야 줄 bold(700, ink; PI·일반·Alumni 공통, `**…**` 처리 유지), 모든 줄 line-height 1.5·줄 사이 6px, 세로 카드는 부모 격자 subgrid 6행에 줄을 고정(미지원 시 분야 줄 min-height 2줄), 글 묶음은 `display: contents`. `MembersView` `.member-grid` row-gap 6px. §5.6 한 줄.
 - 2026-11-26 rev.24: Members 사진 자리 확인(사용자 요청). `MemberCard.astro` — 사진 자리를 항상 그리고 사진이 없으면 `--tint` 타일에 이니셜(mono, `aria-hidden`); rev.8의 compact 카드 "사진 없으면 칸 생략" 규칙 제거. 가짜 구성원 3명(phd·ms·undergrad, 사진 없음)으로 ko·en Members 페이지의 사진 자리·분야 bold·줄 정렬을 확인한 뒤 삭제(커밋 안 함). `docs/MAINTAINING.md` 3.2에 사진 안내가 이미 있어 그대로 둠. §5.6 한 줄.
+- 2026-11-26 rev.25: Home 구성 변경(D33, 사용자 요청). `HomeView.astro` 재구성 — Selected papers(`PubList` 읽기 전용, `HOME_SELECTED_MAX`·`sortByYearIf`), People(PI 가로 카드 + 현재 구성원 4명 + 전체 보기), Join 밴드 모집 구분(`JoinBand` `items`, `[TODO]` Q5), Contact 요약(`ContactInfo.astro` 신설 — `ContactView`에서 주소·지도 블록을 옮김, 정규화한 dist 비교로 Contact 페이지 보이는 내용 동일 확인). Research 행에 키워드 한 줄(`ResearchCard` `showTags`, 홈만). News 4:8. i18n `home.*` 6개 추가. §3 D33, §5.1 갱신. 가짜 구성원 3명으로 확인 후 삭제.

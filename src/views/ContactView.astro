@@ -1,13 +1,12 @@
 ---
-// Contact (§5.8): 주소, 이메일, 전화, 지도(구글 퍼가기 iframe 또는 이미지) + 외부 지도 링크 버튼, 교통편(선택)
-import { Image } from 'astro:assets';
+// Contact (§5.8): 주소, 이메일, 전화, 지도(구글 퍼가기 iframe 또는 이미지) + 외부 지도 링크 버튼(ContactInfo.astro, 홈 Contact 요약과 공용), 교통편(선택), 문의 폼(D31)
 import Base from '../layouts/Base.astro';
+import ContactInfo from '../components/ContactInfo.astro';
 import TodoText from '../components/TodoText.astro';
 import type { Locale } from '../i18n/config';
 import { useTranslations } from '../lib/i18n';
 import { getPage } from '../lib/content';
-import { resolveAsset, responsive } from '../lib/assets';
-import { address, department, isReal, linkLabel, mapLinkLabel, site } from '../lib/site';
+import { isReal, site } from '../lib/site';
 import { href } from '../lib/url';
 
 interface Props {
@@ -16,26 +15,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 const page = await getPage(locale, 'contact');
-const addr = address(locale);
-const postal = site.address.postal_code;
-
-// 지도 이미지: site.yml 의 contact.map_image (src/assets 기준 경로). 지정했는데 파일이 없으면 빌드를 멈춰 오타를 바로 알립니다.
-const mapImagePath = site.contact.map_image?.trim();
-const mapImage = resolveAsset(mapImagePath);
-if (mapImagePath && !mapImage) {
-  throw new Error(`site.yml contact.map_image 파일을 찾을 수 없습니다: src/assets/${mapImagePath.replace(/^\/?(src\/)?assets\//, '')}`);
-}
-// 지도 링크 버튼: contact.map_links(여러 개) 가 있으면 그것을, 없으면 contact.map_url 하나를 버튼으로 씁니다.
-// 지도 퍼가기: contact.map_embed_url (구글 지도 '지도 퍼가기'의 iframe src). 구글 퍼가기 주소가 아니면 빌드를 멈춥니다.
-const mapEmbed = site.contact.map_embed_url?.trim();
-if (mapEmbed && !mapEmbed.startsWith('https://www.google.com/maps/embed')) {
-  throw new Error('site.yml contact.map_embed_url 은 https://www.google.com/maps/embed 로 시작하는 구글 지도 퍼가기 주소여야 합니다.');
-}
-const mapLinks = (site.contact.map_links ?? []).filter((l) => isReal(l.url));
-const mapFallback = isReal(site.contact.map_url) ? site.contact.map_url : undefined;
-// 이미지를 눌렀을 때 이동할 주소: map_url 이 있으면 그것, 없으면 첫 번째 map_links
-const mapTarget = mapFallback ?? mapLinks[0]?.url;
-const mapLinked = !!mapTarget;
+// 주소·이메일·전화·지도 블록(값 처리·검증 포함)은 src/components/ContactInfo.astro 에 있습니다.
 // 문의 폼 (D31): Web3Forms access key(site.yml contact.form_key)가 실제 값일 때만 그립니다. 받는 주소는 Web3Forms 쪽에만 있습니다.
 const formKey = site.contact.form_key?.trim();
 const formEnabled = isReal(formKey);
@@ -56,110 +36,7 @@ if (locale === 'ko') nameFields.reverse(); // 국문은 성 → 이름 순서
   <section class="section">
     <div class="container contact">
       <div class="contact__info">
-          <dl class="dl contact__dl">
-            <dt>{t('contact.affiliation')}</dt>
-            <dd>
-              {department(locale)}
-              {
-                isReal(site.links.university?.url) && (
-                  <>
-                    {' · '}
-                    <a href={site.links.university.url} rel="noopener">
-                      {linkLabel('university', locale)}
-                    </a>
-                  </>
-                )
-              }
-            </dd>
-            <dt>{t('contact.address')}</dt>
-            <dd>
-              <TodoText text={addr} />
-              {postal && (
-                <>
-                  <br />
-                  <TodoText text={postal} />
-                </>
-              )}
-            </dd>
-            <dt>{t('contact.email')}</dt>
-            <dd>
-              {
-                isReal(site.contact.email) ? (
-                  <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-                ) : (
-                  <TodoText text={site.contact.email} />
-                )
-              }
-            </dd>
-            <dt>{t('contact.phone')}</dt>
-            <dd>
-              {
-                isReal(site.contact.phone) ? (
-                  <a href={`tel:${site.contact.phone.replace(/[^\d+]/g, '')}`}>{site.contact.phone}</a>
-                ) : (
-                  <TodoText text={site.contact.phone} />
-                )
-              }
-            </dd>
-          </dl>
-          {
-            mapEmbed && (
-              <figure class="contact__figure">
-                <iframe
-                  class="contact__embed"
-                  src={mapEmbed}
-                  title={t('contact.map_alt')}
-                  loading="lazy"
-                  allowfullscreen
-                  referrerpolicy="strict-origin-when-cross-origin"
-                />
-                <figcaption class="contact__credit muted">{t('contact.map_embed_note')}</figcaption>
-              </figure>
-            )
-          }
-          {
-            !mapEmbed && mapImage && (
-              <figure class="contact__figure">
-                {mapLinked ? (
-                  <a class="contact__imglink" href={mapTarget} rel="noopener" aria-label={t('contact.map')}>
-                    <Image src={mapImage} alt={t('contact.map_alt')} width={900} {...responsive(mapImage, [480, 720, 900], '(max-width: 860px) 92vw, 560px')} />
-                  </a>
-                ) : (
-                  <Image src={mapImage} alt={t('contact.map_alt')} width={900} {...responsive(mapImage, [480, 720, 900], '(max-width: 860px) 92vw, 560px')} />
-                )}
-                {
-                  isReal(site.contact.map_credit) && (
-                    <figcaption class="contact__credit muted">
-                      {isReal(site.contact.map_credit_url) ? (
-                        <a href={site.contact.map_credit_url} rel="noopener">
-                          {site.contact.map_credit}
-                        </a>
-                      ) : (
-                        site.contact.map_credit
-                      )}
-                    </figcaption>
-                  )
-                }
-              </figure>
-            )
-          }
-          {
-            (mapLinks.length > 0 || mapFallback) && (
-              <p class="contact__map">
-                {mapLinks.length > 0 ? (
-                  mapLinks.map((l) => (
-                    <a class="btn btn--secondary" href={l.url} rel="noopener">
-                      {mapLinkLabel(l, locale)}
-                    </a>
-                  ))
-                ) : (
-                  <a class="btn btn--secondary" href={mapFallback} rel="noopener">
-                    {t('contact.map')}
-                  </a>
-                )}
-              </p>
-            )
-          }
+        <ContactInfo locale={locale} />
       </div>
       <div class="prose contact__body" set:html={page.rendered?.html ?? ''} />
     </div>
@@ -291,43 +168,7 @@ if (locale === 'ko') nameFields.reverse(); // 국문은 성 → 이름 순서
     gap: 40px;
     align-items: start;
   }
-  .contact__dl {
-    gap: 0.8em 1.4em;
-  }
-  .contact__map {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0 0;
-  }
-  .contact__figure {
-    margin: 20px 0 0;
-  }
-  .contact__figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-  .contact__embed {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-  .contact__imglink {
-    display: block;
-    border-radius: var(--radius);
-  }
-  .contact__imglink:hover img {
-    border-color: var(--muted-2);
-  }
-  .contact__credit {
-    margin-top: 6px;
-    font-size: var(--fs-small);
-  }
+  /* 주소·지도 블록 스타일은 ContactInfo.astro 에 있습니다 */
   /* 문의 폼 (D31, D28 톤): 라벨은 입력 위, 입력은 밑줄만. 박스·알약·그림자·둥근 모서리 없음 */
   .cform-wrap {
     max-width: 720px;

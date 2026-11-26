@@ -3,7 +3,7 @@
 //   a. 저널 + 연도(큰 글씨, 연도는 accent)  b. 제1저자 + 교수님(굵게) + et al.  c. 제목(전체가 링크: DOI > PubMed > url)
 // IF·분야 태그·PubMed·PDF 링크는 여기서는 표시하지 않음. Publications·Research 의 PubList 와는 별개 컴포넌트.
 import type { Locale } from '../i18n/config';
-import { doiUrl, isMemberAuthor, pubmedUrl, sanitizeTitle, type Author, type Publication } from '../lib/publications';
+import { doiUrl, isMemberAuthor, pubmedUrl, sanitizeTitle, sortByYearIf, type Author, type Publication } from '../lib/publications';
 
 interface Props {
   publications: Publication[];
@@ -13,9 +13,8 @@ interface Props {
 }
 const { publications, piAliasKeys } = Astro.props;
 
-/** 연도 내림차순, 같은 연도는 IF 내림차순(IF 없는 논문은 뒤) */
-const ifNum = (p: Publication) => Number.parseFloat(p.impactFactor ?? '') || 0;
-const items = [...publications].sort((a, b) => b.year - a.year || ifNum(b) - ifNum(a));
+/** 연도 내림차순, 같은 연도는 IF 내림차순(IF 없는 논문은 뒤) — src/lib/publications.ts 의 공용 정렬 */
+const items = sortByYearIf(publications);
 
 /** 저자 줄: 3명 이하면 전부. 교수님이 제1저자면 제1·제2저자 + et al., 아니면 제1저자 + 교수님 + et al. 표시 이름은 "Last Initials" */
 function authorLine(authors: Author[]): { name: string; pi: boolean }[] {
