@@ -1,5 +1,6 @@
 ---
-// 구성원 (D28, 카드 아님): 정사각 사진(없으면 사진 칸 생략) + 이름·과정·연구 분야·입학·이메일(동의 시). 박스 없이 위 1px 구분선만.
+// 구성원 (D28, 카드 아님): 정사각 사진 자리(사진이 없으면 --tint 타일에 이니셜, mono) + 이름·과정·연구 분야·입학·이메일(동의 시). 박스 없이 위 1px 구분선만.
+// 사진 자리는 항상 그려 사진을 나중에 넣어도 레이아웃이 밀리지 않음(aspect-ratio 1/1, object-fit: cover). 둥근 모서리·장식 아이콘 없음.
 // 줄 간격: 모든 줄 line-height 1.5, 줄 사이 6px 한 값 (§5.6). 연구 분야 줄은 기본 bold(700, ink).
 // 세로형은 부모 격자(.member-grid 등, row-gap 6px)의 subgrid 6행(사진·이름·과정·분야·입학·이메일)에 줄을 고정해
 // 같은 행의 카드끼리 줄 위치가 맞음. subgrid 미지원 브라우저는 분야 줄 min-height 2줄로 대신함.
@@ -26,16 +27,27 @@ const altName = locale === 'ko' ? d.name_en : d.name_ko;
 const topic = memberTopic(member, locale);
 const isAlumni = d.role === 'alumni';
 const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
+/** 사진이 없을 때 타일에 쓰는 이니셜: 영문 이름의 단어 첫 글자(최대 3자) */
+const initials = d.name_en
+  .split(/[\s-]+/)
+  .filter(Boolean)
+  .map((w) => w[0]!.toUpperCase())
+  .join('')
+  .slice(0, 3);
 ---
 
-<article class:list={['member-card', { 'member-card--compact': compact, 'member-card--nophoto': !photo }]}>
-  {
-    photo && (
-      <div class="member-card__photo">
+<article class:list={['member-card', { 'member-card--compact': compact }]}>
+  <div class="member-card__photo">
+    {
+      photo ? (
         <Image src={photo} alt={name} width={320} height={320} {...responsive(photo, [160, 320, 480], sizes)} />
-      </div>
-    )
-  }
+      ) : (
+        <span class="member-card__initials mono" aria-hidden="true">
+          {initials}
+        </span>
+      )
+    }
+  </div>
   <div class="member-card__body">
     <h3 class="member-card__name">
       {link ? <a href={link}>{name}</a> : name}
@@ -92,10 +104,20 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
   }
   .member-card__photo {
     grid-row: 1;
+    display: grid;
+    place-items: center;
     aspect-ratio: 1 / 1;
     background: var(--tint);
     overflow: hidden;
     margin-bottom: 8px; /* 사진 아래는 글 줄 사이보다 조금 더 띄움(6px + 8px) */
+  }
+  /* 사진 없을 때: 타일 가운데 이니셜(mono). 장식 아이콘·둥근 모서리 없음 (D28) */
+  .member-card__initials {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--muted-2);
+    line-height: 1;
   }
   .member-card__photo img {
     width: 100%;
@@ -163,12 +185,8 @@ const sizes = compact ? '160px' : '(max-width: 400px) 100vw, 260px';
   .member-card--compact .member-card__body > * {
     grid-row: auto;
   }
-  /* 사진이 없으면 사진 칸 없이 글이 전체를 씀 */
-  .member-card--compact.member-card--nophoto {
-    grid-template-columns: 1fr;
-  }
-  .member-card--compact.member-card--nophoto .member-card__body {
-    grid-column: 1;
+  .member-card--compact .member-card__initials {
+    font-size: 22px;
   }
   @media (max-width: 400px) {
     .member-card--compact {

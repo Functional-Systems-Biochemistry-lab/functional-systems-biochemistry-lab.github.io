@@ -203,6 +203,7 @@
 - 정렬: 직위 → 입학 연도.
 - `consent: true`가 아닌 항목은 렌더링 제외(R5).
 - 연구 분야 줄은 기본 bold(weight 700, `--ink`), 카드 줄 간격 line-height 1.5 로 통일(줄 사이 6px). 같은 행의 카드는 CSS subgrid(사진·이름·과정·분야·입학·이메일 6행)로 줄 위치를 맞춤(2026-11-26).
+- 사진 자리는 항상 정사각(aspect-ratio 1/1, object-fit cover)으로 그림. 사진이 없으면 `--tint` 타일에 영문 이름 이니셜(mono, 최대 3자). 둥근 모서리·장식 아이콘 없음. 사진은 본인 동의 후 `src/assets/members/`에 정사각 WebP(800px 이하)로 넣고 `photo: members/<파일>.webp`(2026-11-26, rev.8의 "사진 없으면 칸 생략"을 대체).
 
 ### 5.7 Join Us
 
@@ -543,3 +544,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.21: Facility 장비 11종 추가(사용자 패치 `inbox/fsb-facility-equipment.patch`, `--ignore-whitespace` 적용 → `inbox/_done/`). `src/content/facility/{en,ko}/` 22개 파일(order 4~14, `photo: null`, `status: draft`, 현재 보유·운용 여부 `[TODO]`, Q3). build 35페이지·check 통과. §13 Facility, Q3 갱신.
 - 2026-11-26 rev.22: Publications 저널명을 제목과 구분(사용자 요청). `PubItem.astro` `.pub__journal` 이탤릭 → `--accent`·600(밑줄·hover 없음), `.pub__ref` muted·400. 연도별·저널별·Research 상세 목록에 공통 적용(저널별 그룹 제목은 그대로). 대비 accent/bg 6.6:1·accent/surface 7.2:1. §5.5 항목 형식, §8 한 줄.
 - 2026-11-26 rev.23: Members 카드 줄 정리(사용자 요청). `MemberCard.astro` — 연구 분야 줄 bold(700, ink; PI·일반·Alumni 공통, `**…**` 처리 유지), 모든 줄 line-height 1.5·줄 사이 6px, 세로 카드는 부모 격자 subgrid 6행에 줄을 고정(미지원 시 분야 줄 min-height 2줄), 글 묶음은 `display: contents`. `MembersView` `.member-grid` row-gap 6px. §5.6 한 줄.
+- 2026-11-26 rev.24: Members 사진 자리 확인(사용자 요청). `MemberCard.astro` — 사진 자리를 항상 그리고 사진이 없으면 `--tint` 타일에 이니셜(mono, `aria-hidden`); rev.8의 compact 카드 "사진 없으면 칸 생략" 규칙 제거. 가짜 구성원 3명(phd·ms·undergrad, 사진 없음)으로 ko·en Members 페이지의 사진 자리·분야 bold·줄 정렬을 확인한 뒤 삭제(커밋 안 함). `docs/MAINTAINING.md` 3.2에 사진 안내가 이미 있어 그대로 둠. §5.6 한 줄.
