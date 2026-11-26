@@ -24,6 +24,8 @@ export interface SiteData {
     map_image?: string;
     map_credit?: string;
     map_credit_url?: string;
+    /** 문의 폼 Web3Forms access key (D31). isReal() 이 아니면 폼을 그리지 않음 */
+    form_key?: string;
   };
   links: Record<string, { label_en: string; label_ko: string; url: string }>;
   nav: { header: NavItem[]; footer: NavItem[]; join: NavItem };

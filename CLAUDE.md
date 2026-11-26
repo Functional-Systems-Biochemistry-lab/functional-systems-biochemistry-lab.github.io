@@ -36,7 +36,7 @@
 - **R6 저작권**: 제조사 설명문, 타 사이트 이미지, 논문 그림을 복사하지 않음. 장비 설명은 자체 문장으로 작성. 그림은 `license`(own/cc-by/permission/oa)와 `credit`이 없으면 사용 금지. 논문 PDF는 오픈액세스만 호스팅하고 그 외는 DOI 링크.
 - **R7 자동 수집 금지**: 기존 사이트(fsb.khu.ac.kr)는 프레임 구조이며 자동 열람이 막혀 있음. 크롤링하지 말고 사용자가 `inbox/`에 넣은 자료만 사용.
 - **R8 한/영**: 영어가 원본, 국문은 같은 구조로 유지. 국문 누락 시 영어로 대체하고 `[TODO ko]` 표시. Publications는 영문 전용.
-- **R9 공개 승인**: Pages 활성화, 모집 문구, 교수님 약력은 교수님 확인 후에만 `final`. 작업은 브랜치에서 하고 main 병합은 사용자 확인 후.
+- **R9 공개 승인**: Pages 활성화, 모집 문구, 교수님 약력은 교수님 확인 후에만 `final`. 작업은 브랜치에서 하고 main 병합은 사용자 확인 후. 문의 폼 활성화(Web3Forms 키를 `site.yml` `contact.form_key`에 입력)는 교수님 확인 후(D31).
 - **R10 검증**: 변경 후 `npm run build`와 `npm run check` 통과를 확인한 뒤 완료 보고. 실패하면 원인을 고치고 재실행. 통과하지 못한 채 완료를 선언하지 않음.
 - **R11 콘텐츠/코드 분리**: 문구는 `src/content`, `src/i18n`, `src/data`에만 두고 컴포넌트에 하드코딩 금지.
 - **R12 안전**: force push, 대량 삭제, 히스토리 재작성 금지. 저장소는 Public이라 한 번 커밋한 내용은 지워도 기록에 남음. 비밀키·토큰, 미발표 데이터, 임상 정보, 대용량 원본 파일 커밋 금지. 커밋 전 `git status`로 올라갈 파일을 확인.
@@ -94,6 +94,7 @@
 | D28 | 디자인 정리 — 장식을 걷어낸 담백한 학술 사이트, 템플릿으로 찍어낸 느낌 배제. ① 배경은 흰색·차가운 회색만(베이지·크림 등 따뜻한 톤 금지) ② 보이는 그라디언트 전부 금지(보라 계열 포함; Backdrops 그림 가장자리 mask용 radial-gradient만 예외) ③ 모서리 `--radius`·`--radius-sm` 2px, 알약형(999px)·원형(50%) 금지, 인물 사진은 정사각 ④ 카드(테두리+흰 배경 `.card`) 제거 — Research는 번호 행 목록(큰 번호·제목, 한 줄 요약, 이미지 옆, 위아래 1px), Members·Facility·News는 사진·글·구분선만 ⑤ 배지·태그 최소화 — 논문 분야 `.tag`는 밑줄 평문 링크, 분야 필터 `.chip`은 밑줄 탭, Draft 띠는 유지 ⑥ 장식 아이콘·이모지 금지(모바일 메뉴 버튼 등 기능용만) ⑦ box-shadow 전부 제거, 헤더 메뉴는 1px 테두리, hover는 밑줄·색 변화만 ⑧ 홈 섹션 리듬 — 교차 배경 띠(`section--alt`) 제거, 섹션마다 간격(96/40/120px)·열 비율(4:8, 전폭, 5:7)·제목 위치(왼쪽 열/위)를 다르게, Hero는 왼쪽 정렬 큰 제목 + 이미지 비대칭(12열 중 글 1~8열, 그림 4~12열) | 확정 | 사용자 요청(2026-11-26). 유지: 색 토큰(D24), WCAG AA, 포커스 outline 3px, 터치 44px, `prefers-reduced-motion`, 한/영, 400px 이하 1열, 섹션 불투명 배경 금지(배경 그림 D26이 비치게; Join Us 다크 밴드는 §5.1 명세대로, 헤더·푸터는 가독성 때문에 유지). 고정 배경 `wash-blue.svg`·`wash-gold.svg`는 radial 그라디언트였으므로 옅은 차가운 단색으로 교체(`background.yml`은 그대로). 구현: `tokens.css`, `global.css`, `Hero`·`ResearchCard`·`MemberCard`·`FacilityCard`·`PubList`·`Header`·`Figure`, `HomeView` 등 |
 | D29 | Publications 개편: 논문 항목을 블록형 3줄(① 제목 ② 저자, 구성원 굵게 ③ 저널·연도;권(호):쪽·IF·DOI/PubMed/PDF·분야 링크)로. 목록 페이지는 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 분야 필터(`?area=`), 10편씩 페이지네이션(`?page=`, `PUBS_PER_PAGE`)이 함께 동작하고, 바꾸면 1페이지로. 모두 클라이언트 JS 이며 JS 없으면 연도별 전체 목록. DOI 링크 앞 작은 인라인 SVG 아이콘 허용(§8 금지의 예외). Faculty 학력·경력과 구성원 연구 주제에 `**…**` 굵게 지원(bold만, 이스케이프 후 치환) | 확정 | 사용자 요청(2026-11-26). 연도별·저널별 두 보기를 모두 서버에서 그리고 스크립트가 하나만 보여 줌(저널별 항목에는 id 없음). 구현 `PubList.astro`, `PubItem.astro`, `src/lib/publications.ts`, `src/lib/inline.ts`, `TodoText.astro` |
 | D30 | 저자 접기: 저자가 `AUTHOR_FOLD_LIMIT`(= 10)명을 넘는 논문은 앞 3명 · 숨은 구간의 연구실 구성원(굵게) · … · 마지막 저자만 보이고 "+N more"(`aria-expanded`) 버튼으로 전체를 펼침("Show less"로 다시 접음). 순서는 그대로, 구성원이 앞 3명·마지막에 있으면 중복 표시 없음. 서버는 전체 저자를 그리고 접기는 클라이언트 JS 가 적용 | 확정 | 사용자 요청(2026-11-26). 기준 수는 `src/lib/publications.ts` 한 곳. 분야 필터·보기 전환·페이지네이션·Research 상세 목록 모두 적용. i18n `publications.more_authors`·`show_less`. 구현 `PubList.astro` 스크립트, `PubItem.astro`(`.pub__author[data-member]`) |
+| D31 | Contact 문의 폼: Web3Forms(무료, 월 250건)로 전송. `site.yml` `contact.form_key`(access key)가 실제 값일 때만 폼을 그리고, `[TODO…]`·빈 값이면 연락처만 표시. 받는 이메일 주소는 Web3Forms 쪽에만 보관(코드·site.yml·CLAUDE.md에 쓰지 않음). 필드 `first_name`·`last_name`·`email`(필수)·`subject`·`message`(필수) + 개인정보 동의 체크(필수) + 숨김 `botcheck`. 클라이언트 JS가 JSON POST(제목 앞 "[FSB Lab] ", 비면 "(제목 없음)"), 보내는 동안 버튼 잠금, 성공 시 폼 초기화, 결과는 `role="status"` 한 줄. JS 없으면 기본 form POST | 확정 | 사용자 요청(2026-11-26). 폼 활성화(키 입력)는 교수님 확인 후(R9). 외부 전송이므로 §7.6의 예외 — 폼 아래 안내문(수집 항목·목적·외부 서비스; 보유 기간은 Q16)에 명시. 디자인은 D28 톤(라벨 위, 밑줄 입력, 직사각 버튼). 구현 `src/views/ContactView.astro`, i18n `contact.form_*` |
 
 ---
 
@@ -220,6 +221,7 @@
 - 주소(기관 공개 주소, 기존 사이트 기준): 경기도 용인시 기흥구 덕영대로 1732, 경희대학교 국제캠퍼스 응용화학과 가설연구동 101호. 우편번호·현행 여부 `[TODO]`.
 - 대표 이메일 `[TODO]`, 전화 `[TODO]`.
 - 지도: 구글 지도 퍼가기 iframe(`site.yml`의 `contact.map_embed_url`)만 허용, 그 외 외부 iframe 금지(D27). 퍼가기 주소가 없으면 지도 이미지(`map_image`, R6에 따라 `map_credit` 표기)로 대체. 외부 지도 링크 버튼(`map_links`)과 교통편은 선택.
+- 문의 폼(D31): 연락처·지도 아래, 제목 "Contact Us / 문의하기". 필드 `first_name`·`last_name`(국문은 성 → 이름 순서), `email`(필수), `subject`, `message`(필수, 5줄 textarea), 개인정보 동의 체크(필수), 숨김 `botcheck`. `POST https://api.web3forms.com/submit` + hidden `access_key`(`site.yml` `contact.form_key`)·`from_name="FSB Lab Website"`. JS가 JSON으로 보내며 제목 앞에 "[FSB Lab] "을 붙임(비면 "(제목 없음)"). 성공 "문의가 전달되었습니다.", 실패 시 이메일 안내. 키가 `[TODO]`면 폼 숨김. 폼 아래 안내문: 수집 항목(성명·이메일·제목·문의 내용)·목적(문의 응답)·외부 서비스(Web3Forms) 명시, 보유 기간은 `[TODO]`(Q16).
 
 ### 5.9 후속 페이지
 
@@ -352,7 +354,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 커스텀 도메인은 학과·학교 확인 후(Phase 3).
 
 ### 7.6 프라이버시·보안
-- 외부 추적 스크립트, 쿠키, 분석 도구 미사용. 폰트는 자체 호스팅(Fontsource 등).
+- 외부 추적 스크립트, 쿠키, 분석 도구 미사용. 폰트는 자체 호스팅(Fontsource 등). 문의 폼 전송만 사용자가 보낼 때 외부 서비스(Web3Forms)로 감(D31, 폼 아래 안내문에 표기).
 - 이메일 스팸 방지를 위한 표기 난독화는 선택(§12에서 사용자 결정).
 
 ### 7.7 대안 스택 (사용자가 요청할 때만)
@@ -471,6 +473,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Q13 | 이메일 표기 난독화 여부 | Contact, Members | 사용 안 함 | 열림 |
 | Q14 | Home Hero 대표 이미지(연구실 사진 또는 자체 그림) | Home | 사용자 제공 질량 스펙트럼 그림 사용(`src/assets/home/hero-ms-spectrum.png`) | 닫힘(2026-11-25): 연구실 자체 데이터이며 공개 가능(사용자 확인). 실제 사진으로 바꾸려면 `home.md`의 `hero_image` 교체 |
 | Q15 | 현재 구성원 명단(이름 국/영, 과정, 입학 연월, 연구 주제, 공개 동의) | Members | PI 카드만 표시 | 열림 |
+| Q16 | 문의 폼 개인정보 안내문·보유 기간 확인(교수님·학과) | Contact | 초안 안내문 + `[TODO: 보유 기간]` 표시. 폼은 `form_key` 입력 전까지 숨김 | 열림 |
 
 ---
 
@@ -490,7 +493,7 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 | Publications | 1 | 초안 | – | 초안 | 191편 반영(Q8 닫힘). keywords·IF 초안은 사용자 확인 대기 |
 | Members | 1 | 골격 | 골격 | 골격 | Q6, Q15 |
 | Join Us | 1 | 초안 | 초안 | 초안 | Q5 |
-| Contact | 1 | 초안 | 초안 | 초안 | Q11 |
+| Contact | 1 | 초안 | 초안 | 초안 | Q11, Q16(문의 폼 키·안내문) |
 | News | 2 | 골격 | 골격 | 골격 | 0건(메뉴 숨김) |
 | Gallery | 2 | 골격 | 골격 | 골격 | Q12, 0건(메뉴 숨김) |
 | Resources | 3 | 미착수 | – | 미착수 | |
@@ -513,3 +516,4 @@ source: 기존 사이트 2026-11 (목록만 참고, 문장은 자체 작성)
 - 2026-11-26 rev.12: 디자인 정리(D28, 사용자 요청). 카드·알약·그림자 제거, 모서리 2px, 교차 배경 띠 제거, 홈 섹션 리듬(96/40/120px, 4:8·전폭·5:7, 제목 위치 혼합), Hero 비대칭(12열: 글 1~8열, 그림 4~12열). Research는 번호 행 목록(`ResearchCard.astro`), Members·Facility는 구분선만(`MemberCard.astro`, `FacilityCard.astro`), 논문 `.tag` 밑줄 링크·`.chip` 밑줄 탭(`PubList.astro`), 햄버거 아이콘 box-shadow → 가상 요소(`Header.astro`), Faculty 타임라인 원형 점 → 각진 눈금. 고정 배경 `wash-blue.svg`·`wash-gold.svg`의 radial 그라디언트를 옅은 차가운 단색으로 교체(`background.yml`은 그대로). §8 방향·레이아웃·컴포넌트·금지 문구 수정.
 - 2026-11-26 rev.13: Publications 개편(D29, 사용자 요청). 논문 항목을 블록형 3줄로(`PubItem.astro` 신설, DOI 링크 아이콘 인라인 SVG). 연도별 \| 저널별 보기 전환(`groupByJournal`, `?view=journal`), 10편씩 페이지네이션(`PUBS_PER_PAGE`, `?page=`), 분야 필터와 함께 동작(`PubList.astro` 스크립트, JS 없으면 연도별 전체 목록). i18n `publications.view_label/view_year/view_journal/pagination_label/page_n` 추가. Faculty 학력·경력·구성원 연구 주제에 `**…**` 굵게(`src/lib/inline.ts`, `TodoText` `bold`). `global.css`에 `[hidden]` 우선 규칙. §5.5 항목 형식·목록 동작, §6 굵게 규칙, §8 금지 예외 갱신.
 - 2026-11-26 rev.14: 저자 접기(D30, 사용자 요청). 저자 10명 초과(`AUTHOR_FOLD_LIMIT`, `src/lib/publications.ts`) 논문은 앞 3명·숨은 구간의 구성원·…·마지막 저자만 보이고 "+N more/Show less" 버튼으로 펼침(`PubList.astro` 스크립트, `PubItem.astro` 버튼 스타일, i18n `publications.more_authors`·`show_less`). §5.5 저자 접기 줄 추가.
+- 2026-11-26 rev.15: Contact 문의 폼 추가(D31, 사용자 요청). Web3Forms JSON POST(`src/views/ContactView.astro` 스크립트), `site.yml` `contact.form_key`(지금은 `[TODO]`라 폼 숨김), `src/lib/site.ts` 타입, i18n `contact.form_*`(en·ko). 라벨 위·밑줄 입력·직사각 버튼(D28 톤). 개인정보 안내문 초안(보유 기간 `[TODO]`, Q16). R9에 폼 활성화 조건, §5.8·§7.6·§13 갱신.

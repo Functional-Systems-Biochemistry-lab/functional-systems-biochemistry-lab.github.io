@@ -27,6 +27,9 @@ contact:
   map_links:
     - { label_ko: "카카오맵", label_en: "Kakao Map", url: "https://map.kakao.com/link/map/경희대학교국제캠퍼스,37.24006,127.08608" }
     - { label_ko: "구글 지도", label_en: "Google Maps", url: "https://maps.app.goo.gl/NtQNRMvD9DWGimVN9" }
+  # 문의 폼 (D31): Web3Forms access key. 받는 이메일 주소는 Web3Forms 쪽에만 있고 여기·코드·CLAUDE.md 에는 쓰지 않습니다.
+  # 값이 비어 있거나 [TODO…] 이면 폼을 그리지 않습니다. 키 입력(폼 활성화)은 교수님 확인 후(R9).
+  form_key: "[TODO: Web3Forms access key]"
 
 links:
   university:

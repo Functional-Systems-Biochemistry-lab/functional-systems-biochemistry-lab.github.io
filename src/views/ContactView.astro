@@ -35,6 +35,14 @@ const mapFallback = isReal(site.contact.map_url) ? site.contact.map_url : undefi
 // 이미지를 눌렀을 때 이동할 주소: map_url 이 있으면 그것, 없으면 첫 번째 map_links
 const mapTarget = mapFallback ?? mapLinks[0]?.url;
 const mapLinked = !!mapTarget;
+// 문의 폼 (D31): Web3Forms access key(site.yml contact.form_key)가 실제 값일 때만 그립니다. 받는 주소는 Web3Forms 쪽에만 있습니다.
+const formKey = site.contact.form_key?.trim();
+const formEnabled = isReal(formKey);
+const nameFields = [
+  { id: 'cf-first', name: 'first_name', label: t('contact.form_first_name'), autocomplete: 'given-name' },
+  { id: 'cf-last', name: 'last_name', label: t('contact.form_last_name'), autocomplete: 'family-name' },
+];
+if (locale === 'ko') nameFields.reverse(); // 국문은 성 → 이름 순서
 ---
 
 <Base locale={locale} title={page.data.title} description={page.data.lead}>
@@ -155,7 +163,123 @@ const mapLinked = !!mapTarget;
       <div class="prose contact__body" set:html={page.rendered?.html ?? ''} />
     </div>
   </section>
+
+  {
+    formEnabled && (
+      <section class="section" id="contact-form">
+        <div class="container cform-wrap">
+          <h2 class="cform__title">{t('contact.form_title')}</h2>
+          <form
+            class="cform"
+            method="POST"
+            action="https://api.web3forms.com/submit"
+            data-contact-form
+            data-sending={t('contact.form_sending')}
+            data-success={t('contact.form_success')}
+            data-error={t('contact.form_error')}
+            data-no-subject={t('contact.form_no_subject')}
+            data-email={isReal(site.contact.email) ? site.contact.email : undefined}
+          >
+            <input type="hidden" name="access_key" value={formKey} />
+            <input type="hidden" name="from_name" value="FSB Lab Website" />
+            <input type="checkbox" name="botcheck" hidden tabindex="-1" aria-hidden="true" autocomplete="off" />
+            <p class="cform__legend small muted">* {t('contact.form_required')}</p>
+            <div class="cform__grid">
+              {nameFields.map((f) => (
+                <div class="cform__field">
+                  <label class="label" for={f.id}>
+                    {f.label}
+                  </label>
+                  <input id={f.id} name={f.name} type="text" autocomplete={f.autocomplete} />
+                </div>
+              ))}
+              <div class="cform__field">
+                <label class="label" for="cf-email">
+                  {t('contact.form_email')} <span aria-hidden="true">*</span>
+                </label>
+                <input id="cf-email" name="email" type="email" required autocomplete="email" />
+              </div>
+              <div class="cform__field">
+                <label class="label" for="cf-subject">
+                  {t('contact.form_subject')}
+                </label>
+                <input id="cf-subject" name="subject" type="text" />
+              </div>
+              <div class="cform__field cform__field--full">
+                <label class="label" for="cf-message">
+                  {t('contact.form_message')} <span aria-hidden="true">*</span>
+                </label>
+                <textarea id="cf-message" name="message" rows="5" required></textarea>
+              </div>
+            </div>
+            <label class="cform__consent">
+              <input type="checkbox" name="consent" value="yes" required />
+              <span>
+                {t('contact.form_consent')} <span aria-hidden="true">*</span>
+              </span>
+            </label>
+            <button type="submit" class="btn btn--primary cform__submit">
+              {t('contact.form_submit')}
+            </button>
+            <p class="cform__status small" role="status" aria-live="polite" data-status></p>
+          </form>
+          <p class="cform__privacy small muted">
+            {t('contact.form_privacy')} <TodoText text={t('contact.form_privacy_retention')} />
+          </p>
+        </div>
+      </section>
+    )
+  }
 </Base>
+
+<script>
+  // 문의 폼 (D31): Web3Forms 로 JSON POST. 제목 앞에 "[FSB Lab] " 을 붙이고, 보내는 동안 버튼을 잠그며, 성공하면 폼을 비웁니다.
+  // 결과는 role="status" 한 줄에 표시. JS 가 없으면 form 의 action 으로 기본 POST 가 되어 Web3Forms 결과 페이지가 열립니다.
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const text = form.dataset;
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!button) return;
+      const data: Record<string, string> = {};
+      new FormData(form).forEach((value, key) => {
+        data[key] = String(value);
+      });
+      const subject = (data.subject || '').trim();
+      data.subject = `[FSB Lab] ${subject || text.noSubject || '(no subject)'}`;
+      const label = button.textContent;
+      button.disabled = true;
+      button.textContent = text.sending || label;
+      if (status) status.textContent = '';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = (await res.json().catch(() => ({}))) as { success?: boolean };
+        if (!res.ok || !result.success) throw new Error('send failed');
+        form.reset();
+        if (status) status.textContent = text.success || '';
+      } catch {
+        if (status) {
+          status.textContent = text.error || '';
+          if (text.email) {
+            const link = document.createElement('a');
+            link.href = `mailto:${text.email}`;
+            link.textContent = text.email;
+            status.append(' ', link);
+          }
+        }
+      } finally {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  }
+</script>
 
 <style>
   .contact {
@@ -201,9 +325,84 @@ const mapLinked = !!mapTarget;
     margin-top: 6px;
     font-size: var(--fs-small);
   }
+  /* 문의 폼 (D31, D28 톤): 라벨은 입력 위, 입력은 밑줄만. 박스·알약·그림자·둥근 모서리 없음 */
+  .cform-wrap {
+    max-width: 720px;
+  }
+  .cform__title {
+    margin-bottom: 16px;
+  }
+  .cform__legend {
+    margin: 0 0 12px;
+  }
+  .cform__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+  }
+  .cform__field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cform__field--full {
+    grid-column: 1 / -1;
+  }
+  .cform input[type='text'],
+  .cform input[type='email'],
+  .cform textarea {
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    font: inherit;
+    font-size: max(16px, var(--fs-body));
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .cform input[type='text']:focus,
+  .cform input[type='email']:focus,
+  .cform textarea:focus {
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 9px;
+  }
+  .cform textarea {
+    resize: vertical;
+  }
+  .cform__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 24px 0 20px;
+    font-size: var(--fs-small);
+    cursor: pointer;
+  }
+  .cform__consent input {
+    accent-color: var(--accent);
+    width: 18px;
+    height: 18px;
+    margin: 3px 0 0;
+    flex: none;
+  }
+  .cform__status {
+    min-height: 1.5em;
+    margin: 12px 0 0;
+  }
+  .cform__privacy {
+    margin-top: 20px;
+    max-width: 72ch;
+  }
   @media (max-width: 860px) {
     .contact {
       grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .cform__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
   }
 </style>
